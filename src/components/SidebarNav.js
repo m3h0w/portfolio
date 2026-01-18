@@ -124,11 +124,11 @@ function LanguageToggle({ language, onChange }) {
     <div
       role="radiogroup"
       aria-label="Language"
-      className="relative inline-grid grid-cols-2 items-center rounded-full bg-white/85 p-0.5 shadow-xl ring-1 ring-slate-200/70 backdrop-blur"
+      className="relative inline-grid grid-cols-2 items-stretch rounded-full bg-white/85 p-0.5 shadow-xl ring-1 ring-slate-200/70 backdrop-blur"
     >
       <motion.div
         aria-hidden="true"
-        className="absolute inset-y-0 left-0 w-1/2 rounded-full bg-white/90 shadow-sm ring-1 ring-black/5"
+        className="pointer-events-none absolute inset-y-0 left-0 w-1/2 rounded-full bg-white/90 shadow-sm ring-1 ring-black/5"
         animate={{ x: language === "pl" ? "100%" : "0%" }}
         transition={{ type: "spring", stiffness: 520, damping: 38, mass: 0.8 }}
       />
@@ -142,7 +142,7 @@ function LanguageToggle({ language, onChange }) {
             aria-checked={isActive}
             aria-label={`Switch language to ${entry.label}`}
             onClick={() => onChange(entry.code)}
-            className={`relative z-10 grid h-8 min-w-12 cursor-pointer select-none place-items-center rounded-full px-3 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/30 \
+            className={`relative z-10 grid h-8 w-full min-w-12 cursor-pointer select-none place-items-center rounded-full px-3 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/30 \
               ${
                 isActive
                   ? "text-[var(--accent)]"

@@ -7,7 +7,7 @@ const talkling = {
       title: "Talkling",
       subtitle: "MVP, learning project",
       thumbnail: "/images/thumbnails/talkling1.webp",
-      heroImage: "/images/talkling1.png",
+      heroImage: "/images/talkling/talkling2.png",
       description:
         "Language learning through real conversations: voice messages, live transcription, and instant translations.",
       stack: "Nextjs, LLMs, SQL, Supabase",
@@ -42,7 +42,7 @@ const talkling = {
       title: "Talkling",
       subtitle: "MVP, projekt edukacyjny",
       thumbnail: "/images/thumbnails/talkling1.webp",
-      heroImage: "/images/talkling1.png",
+      heroImage: "/images/talkling/talkling2.png",
       description:
         "Nauka języka przez prawdziwe rozmowy: wiadomości głosowe, transkrypcja na żywo i natychmiastowe tłumaczenia.",
       stack: "Nextjs, LLMs, SQL, Supabase",

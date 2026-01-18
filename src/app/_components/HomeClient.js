@@ -130,6 +130,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                         </Link>
                       </h3>
                       <p className="card-text text-sm text-slate-600">{data.description}</p>
+                      <div className="card-divider" aria-hidden="true" />
                       <p className="card-footer-text">
                         <span className="font-mono text-slate-400">›</span>{" "}
                         <span className="font-mono">{data.stack}</span>
