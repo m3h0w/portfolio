@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" class="gr__blackrockdigital_github_io">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129359323-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129359323-1');
+  </script>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" type="image/png" href="../images/icon.png" />
+
+  <link href="../bootstrap.min.css" rel="stylesheet">
+
+  <link href="./item_files/portfolio-item.css" rel="stylesheet">
+
+  <link href="../style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+  <!-- Navigation -->
+  <div class="navbar-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../portfolio.html">MICHAŁ GACKA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../portfolio.html">Portfolio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../me.html">Me
+              </a>
+            </li>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Portfolio Item Heading -->
+
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="sticky-top sticky-left-col">
+          <h2 class="my-2">
+            TRAiVEL – sentiment-based travel recommendations
+            <small>
+              <a href='https://github.com/m3h0w/TRAiVEL'>
+                <i class="fab fa-github"></i>
+              </a>
+              <a href='https://vimeo.com/263715035'>
+                <i><i class="fab fa-vimeo-square"></i></i>
+              </a>
+            </small>
+          </h2>
+          <p>Hackathon, group work <br>
+          </p>
+          <img class="img-fluid img-bordered" src="../images/traivel.png" alt="">
+        </div>
+      </div>
+
+      <div class="col-md-6 project-text-column">
+        <h2 class="my-2">Project description</h3>
+          <p>TRAiVEL delivers weekend destination flight prices based on Skyscanner API and visualizes sentiment-based
+            happiness information for these destinations. </p>
+          <h4 class="my-3">Overview</h4>
+          The project was built in around 24 hours in a team of 4 for a hackathon. Won a Skyscanner prize. The goal is
+          to provide users with travel recommendations based on their current location and approximated happiness in the
+          considered European countries.
+          <br><br>
+          The happiness is based on Twitter data scrapped for these countries and filtered to only consider native
+          speakers. That is being sent to Microsoft Cognitive Services that provide sentiment analysis in many European
+          languages (thus the choice of countries). In parallel, we request Skyscanner to provide actionable
+          recommendation that can take he user directly to Skyscanner, where the tickets can be bought.
+          <img class="my-2 img-fluid" src="../images/traivel/traivel.gif" alt="">
+          Everything is visualized in a form of interactive map that could be adapted to many other data sources than
+          just sentiment information.
+          <h4 class="my-3">Technologies</h4>
+          Python, JavaScript, Flask, Skyscanner API, Twitter API, Microsoft Cognitive Services
+          <h4 class="my-3">Technical Details</h4>
+          The project was divided into 4 areas and developed in parallel by 4 people to later be integrated into one
+          application: A) Twitter API integration, B) Microsoft Cognitive Services integration, C) Skyscanner API
+          integration D) Main backend and frontend of the app.
+          <br><br>For the backend we’ve used Flask to provide us with as much flexibility in that short time frame as
+          possible and for the frontend we’ve used a library providing the map functionality.
+          <br><br>The separate services have not been integrated together during the hackathon – the app operated on
+          real data but it was statically saved for the purpose of the demo.
+          <h4 class="my-3">My contribution</h4>
+          I was the author of the idea, designed data flow, guided team’s efforts, so that our separate paths meet, and
+          built the main backend and frontend that integrated all the information.
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <div class="spacer"></div>
+  <a href='../portfolio.html'>
+    <footer class="py-2 fixed footer">
+      <div class="container">
+        <p class="m-0 text-right text-black"><i class="fas fa-angle-double-left fa-2x"></i></p>
+      </div>
+    </footer>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./item_files/jquery.min.js.download"></script>
+  <script src="./item_files/bootstrap.bundle.min.js.download"></script>
+
+  <script>
+    (function ($) {
+
+      jQuery(document).ready(function () {
+        add_target_blank_to_external_links();
+      });
+
+      function add_target_blank_to_external_links() {
+        $('a[href^="http://"], a[href^="https://"]').not('a[href*="' + location.hostname + '"]').attr('target', '_blank');
+      }
+
+    })(jQuery);
+  </script>
+</body>
+
+</html>

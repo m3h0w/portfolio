@@ -1,0 +1,113 @@
+.backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  filter: saturate(1.05);
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .backdrop {
+    opacity: 0.72;
+    filter: saturate(1.02);
+  }
+}
+
+.backdrop[data-variant="detail"] {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.70), rgba(255, 255, 255, 0.40)),
+    conic-gradient(
+      from 220deg at 12% 10%,
+      rgba(79, 70, 229, 0.14),
+      rgba(155, 0, 189, 0.10),
+      rgba(34, 211, 238, 0.08),
+      rgba(79, 70, 229, 0.14)
+    ),
+    conic-gradient(
+      from 20deg at 92% 18%,
+      rgba(155, 0, 189, 0.10),
+      rgba(79, 70, 229, 0.10),
+      rgba(14, 165, 233, 0.08),
+      rgba(155, 0, 189, 0.10)
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.05) 0px,
+      rgba(15, 23, 42, 0.05) 1px,
+      transparent 1px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(155, 0, 189, 0.03) 0px,
+      rgba(155, 0, 189, 0.03) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+}
+
+.backdrop[data-variant="list"] {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.45)),
+    conic-gradient(
+      from 210deg at 18% 12%,
+      rgba(14, 165, 233, 0.10),
+      rgba(79, 70, 229, 0.10),
+      rgba(155, 0, 189, 0.06),
+      rgba(14, 165, 233, 0.10)
+    ),
+    conic-gradient(
+      from 35deg at 88% 22%,
+      rgba(79, 70, 229, 0.10),
+      rgba(34, 211, 238, 0.08),
+      rgba(155, 0, 189, 0.06),
+      rgba(79, 70, 229, 0.10)
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.045) 0px,
+      rgba(15, 23, 42, 0.045) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(79, 70, 229, 0.02) 0px,
+      rgba(79, 70, 229, 0.02) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+}
+
+.backdrop[data-variant="me"] {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.42)),
+    conic-gradient(
+      from 240deg at 14% 8%,
+      rgba(155, 0, 189, 0.08),
+      rgba(79, 70, 229, 0.11),
+      rgba(34, 211, 238, 0.08),
+      rgba(155, 0, 189, 0.08)
+    ),
+    conic-gradient(
+      from 10deg at 86% 24%,
+      rgba(34, 211, 238, 0.08),
+      rgba(79, 70, 229, 0.10),
+      rgba(155, 0, 189, 0.07),
+      rgba(34, 211, 238, 0.08)
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.05) 0px,
+      rgba(15, 23, 42, 0.05) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(34, 211, 238, 0.02) 0px,
+      rgba(34, 211, 238, 0.02) 1px,
+      transparent 1px,
+      transparent 24px
+    );
+}

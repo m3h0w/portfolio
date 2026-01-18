@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" class="gr__blackrockdigital_github_io">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129359323-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129359323-1');
+  </script>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" type="image/png" href="../images/icon.png" />
+
+  <link href="../bootstrap.min.css" rel="stylesheet">
+
+  <link href="./item_files/portfolio-item.css" rel="stylesheet">
+
+  <link href="../style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+  <!-- Navigation -->
+  <div class="navbar-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="../portfolio.html">MICHAŁ GACKA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../portfolio.html">Portfolio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../me.html">Me
+              </a>
+            </li>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Page Content -->
+  <div class="container">
+    <!-- Portfolio Item Row -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="sticky-top sticky-left-col">
+          <h2 class="my-2">
+            Endoscopy Quality Evaluation
+            <small>
+              <!-- <a href='https://github.com/m3h0w/lstm-for-protein-tertiary-structure-prediction'>
+                            <i class="fab fa-github"></i>
+                            </a> -->
+            </small>
+          </h2>
+          <p>Carnegie Mellon University <br>
+          </p>
+          <img class="img-fluid img-bordered" src="../images/colonoscopy.png" alt="">
+        </div>
+      </div>
+
+      <div class="col-md-6 project-text-column">
+        <h2 class="my-2">Project description</h3>
+          <p>The project aimed to improve the ability to evaluate the performance of a gastroenterologist performing a
+            colonoscopy exam. Software was developed to provide a real-time feedback as well as an after-exam report.
+          </p>
+          <h4 class="my-3">Overview</h4>
+          Due to a relatively high technical difficulty of operating the endoscope during a colonoscopy exam
+          (complicated, unintuitive interface) the success of the procedure is largely dependent on the skills of the
+          doctor. Further, almost no quantitative, universal ways of measuring these skills exist, besides examining the
+          post-factum statistic.
+          <br><br>
+          The project aimed to use only the camera feed in order to objectively and quantitatively evaluate doctor’s
+          performance and output it in real-time for the doctor, as well as provide a report that can then be used to
+          asses doctor’s performance and improvement over time and gather data about how the quality of the examination
+          correlates with detected and missed cancers.
+          <h4 class="my-3">Technologies</h4>
+          C++, OpenCV, Optical Flow
+          <h4 class="my-3">Technical Details</h4>
+          The software used classical computer vision techniques to asses multiple ways of measuring the quality of the
+          examination. Clarity of the image, how well the patient has been prepared and so on. The most challenging part
+          was a map that was going to approximate directly doctor’s technique in operating the endoscope.
+          <img class="my-2 img-fluid" style="max-width: 60%;" src="../images/endoscopy/optical_flow.png" alt="">
+          <p class='label text-center'>One frame of Optical Flow in backwards motion</p>
+          For that optical flow was used to calculate the distance traveled by the endoscope in patient’s body and a map
+          was outputted real time that approximated the examined parts of the colon.
+          <img class="my-2 img-fluid" src="../images/endoscopy/surface_map.png" alt="">
+          <p class='label text-center'>The real-time map of visited areas of the colon</p>
+          <h4 class="my-3">My contribution as a Research Assistant</h4>
+          I combined together previous work conducted by other Research Assistants and used optical flow to calculate
+          the distance traveled by the camera inside patient’s body. I worked closely with a gastroenterologist and
+          performed a live demo with him during an actual exam.
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <div class="spacer"></div>
+  <a href='../portfolio.html'>
+    <footer class="py-2 fixed footer">
+      <div class="container">
+        <p class="m-0 text-right text-black"><i class="fas fa-angle-double-left fa-2x"></i></p>
+      </div>
+    </footer>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./item_files/jquery.min.js.download"></script>
+  <script src="./item_files/bootstrap.bundle.min.js.download"></script>
+
+  <script>
+    (function ($) {
+
+      jQuery(document).ready(function () {
+        add_target_blank_to_external_links();
+      });
+
+      function add_target_blank_to_external_links() {
+        $('a[href^="http://"], a[href^="https://"]').not('a[href*="' + location.hostname + '"]').attr('target', '_blank');
+      }
+
+    })(jQuery);
+  </script>
+</body>
+
+</html>

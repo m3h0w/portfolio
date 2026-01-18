@@ -1,0 +1,124 @@
+<body data-gr-c-s-loaded="true">
+
+    <!-- Navigation -->
+    <div class="navbar-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="../portfolio.html">MICHAŁ GACKA</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../portfolio.html">Portfolio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../me.html">Me
+                            </a>
+                        </li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Portfolio Item Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="sticky-top sticky-left-col">
+                    <h1 class="my-2">
+                        CNNs & Transfer Learning for furniture recognition
+                        <br>
+                        <small>
+                            <a href='https://github.com/m3h0w/imaterialist_kaggle_competition'>
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a
+                                href='https://drive.google.com/file/d/1BYiLsxVw_Q7rH3k4cbf1DKgqedVDAB_2/view?usp=sharing'>
+                                <i class="far fa-file-alt"></i>
+                            </a>
+                            <a
+                                href='https://drive.google.com/file/d/1BYiLsxVw_Q7rH3k4cbf1DKgqedVDAB_2/view?usp=sharing'>
+                                <i class="fab fa-kaggle"></i>
+                            </a>
+                        </small>
+                    </h1>
+                    <p>University of Copenhagen, group work and Kaggle competition<br>
+                    </p>
+                    <img class="img-fluid" src="../images/furniture.png" alt="">
+                </div>
+            </div>
+
+            <div class="col-md-6 project-text-column">
+                <h2 class="my-2">Project description</h3>
+                    <p>The model was built on approx. 200.000 images of furniture to distinguish with over 80% accuracy
+                        between 128 classes of furniture and accessories.</p>
+                    <h4 class="my-3">Overview</h4>
+                    iMaterialist Challenge (Furniture) at FGVC5 introduced a large dataset of furniture for the purpose
+                    of performing classification of 128 classes. We’ve used well known pre-trained CNN architectures and
+                    ended up with over 80% accuracy on the 175th place out of 428 teams and a maximum grade in the
+                    course. <br><br>This, together with data being merged from different modalities, makes interpreting
+                    the results a challenge and opens up opportunities for introducing better visualization techniques
+                    that could enable deeper insights, better understanding of the inner workings of machine learning,
+                    and ultimately better models.
+                    <img class="my-2 img-fluid" src="../images/furniture/rank.PNG" alt="">
+                    The project was part of a Large Scale Data Analysis course.
+                    <h4 class="my-3">Technologies</h4>
+                    Keras, CNNs, Transfer Learning, Ubuntu in Microsoft Azure Cloud
+                    <h4 class="my-3">Technical Details</h4>
+                    We’ve tried many approaches from which we’ve converged on using a full transfer learning approach
+                    that combined bottleneck features from 2 different architectures and used test-time augmentation to
+                    improve the results further.
+                    <br><br>The final model included ResNet50 and DenseNet models proposing predictions in 2 different
+                    modes: with and without test-time augmentation, thus the final prediction was a weighted average of
+                    probabilities predicted by 4 different modelling pipelines.
+                    <br><br>Through the project we’ve worked with Keras using GPU-accelerated Tensorflow in the backend
+                    on an Ubuntu machine that we’ve configured ourselves in the Microsoft Azure cloud. An especially
+                    challenging part of the project was managing the data in the cloud and working with it efficiently.
+                    <br><br>A report with more details regarding the process and model details is available <a
+                        href='https://drive.google.com/file/d/1BYiLsxVw_Q7rH3k4cbf1DKgqedVDAB_2/view?usp=sharing'>HERE</a>.
+                    <h4 class="my-3">My contribution</h4>
+                    I’ve built our transfer learning approach from grounds up, built a framework for extracting and
+                    storing bottleneck features, created a data generator because of memory issues, performed test-time
+                    augmentation, and created the ensemble that became our final submission.
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <div class="spacer"></div>
+    <a href='../portfolio.html'>
+        <footer class="py-2 fixed footer">
+            <div class="container">
+                <p class="m-0 text-right text-black"><i class="fas fa-angle-double-left fa-2x"></i></p>
+            </div>
+        </footer>
+    </a>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="./item_files/jquery.min.js.download"></script>
+    <script src="./item_files/bootstrap.bundle.min.js.download"></script>
+
+    <script>
+        (function ($) {
+
+            jQuery(document).ready(function () {
+                add_target_blank_to_external_links();
+            });
+
+            function add_target_blank_to_external_links() {
+                $('a[href^="http://"], a[href^="https://"]').not('a[href*="' + location.hostname + '"]').attr('target', '_blank');
+            }
+
+        })(jQuery);
+    </script>
+</body>

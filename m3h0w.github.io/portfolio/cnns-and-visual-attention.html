@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" class="gr__blackrockdigital_github_io">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129359323-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-129359323-1');
+    </script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/png" href="../images/icon.png" />
+
+    <link href="../bootstrap.min.css" rel="stylesheet">
+
+    <link href="./item_files/portfolio-item.css" rel="stylesheet">
+
+    <link href="../style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+    <!-- Navigation -->
+    <div class="navbar-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="../portfolio.html">MICHAŁ GACKA</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../portfolio.html">Portfolio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../me.html">Me
+                            </a>
+                        </li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Portfolio Item Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="sticky-top sticky-left-col">
+                    <h2 class="my-2">
+                        Visual Attention applied to Object Recognition
+                        <small>
+                            <a href='https://github.com/m3h0w/visual-attention-cnn-and-eye-tracking'>
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a
+                                href='https://drive.google.com/file/d/1YyhQtbGRLxEe5YRLwyaGAAHkHMd_Escl/view?usp=sharing'>
+                                <i class="far fa-file-alt"></i>
+                            </a>
+                        </small>
+                    </h2>
+                    <p>University of Copenhagen, group work <br>
+                    </p>
+                    <img class="img-fluid img-bordered" src="../images/attention.png" alt="">
+                </div>
+            </div>
+
+            <div class="col-md-6 project-text-column">
+                <h2 class="my-2">Project description</h3>
+                    <p>The aim of the project is to compare how Convolutional Neural Networks and Humans see the world
+                        by comparing
+                        where computer and human pay attention to during an object recognition task.</p>
+                    <h4 class="my-3">Overview</h4>
+                    Due to the rise of Visual Attention mechanisms in machine
+                    learning it is now possible to model the cognitive process of paying attention in a computer.
+                    For a Cognitive Science course project we decided to see if the computer will
+                    choose to look at the same thing as a human does to recognize objects of 10 categories
+                    and if human eye-tracking data can be used to speed up the process of training the machine learning
+                    algorithm.
+                    <br><br>
+                    The project is part of a Cognitive Science course at the University of Copenhagen.
+                    <h4 class="my-3">Technologies</h4>
+                    Python, Tensorflow, Keras, Eye-tracking
+                    <h4 class="my-3">Technical Details</h4>
+                    We use the <a href='http://calvin.inf.ed.ac.uk/datasets/poet-dataset/'>POET dataset</a>
+                    that provides eye-tracking data from multiple annotators that classified over 6 thousand images into
+                    10 categories.
+                    <img class="my-2 img-fluid" src="../images/attention/eye-tracking-fixations.png" alt="">
+                    <img class="my-2 img-fluid" src="../images/attention/eye-tracking-heatmaps.png" alt="">
+                    <p class='label text-center'>Source: http://calvin.inf.ed.ac.uk/datasets/poet-dataset/</p>
+                    The project is divided into multiple parts that explore different training environments and
+                    relationships between the machine and the human attention:
+                    <ol class="my-3">
+                        <li> Standard CNN trained with a global pooling layer on top to gain spatially-dependent
+                            class activations (<a
+                                href='http://cnnlocalization.csail.mit.edu/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf'>reference</a>)
+                        </li>
+                        <p>Here we can compare heat maps of human gaze with heat maps of which part of the CNN the model
+                            finds most meaningful for the given class and image.</p>
+                        <li> CNN with attention (<a href='https://arxiv.org/pdf/1502.03044.pdf'>reference</a>)</li>
+                        <p>We build a CNN with an explicit, sequential attention mechanism built on top of
+                            it and compare that with how humans perform the task from sequential eye-tracking data.</p>
+                        <li> Using eye-tracking data to improve machine learning</li>
+                        <p>In the last part we would like to train the model using eye-tracking data
+                            to improve convergence or guide the model in which parts of the image are more important
+                            than others and compare the results to a standard CNN.</p>
+                    </ol>
+                    <h4 class="my-3">Results</h4>
+                    The final report can be found <a
+                        href='https://drive.google.com/file/d/1YyhQtbGRLxEe5YRLwyaGAAHkHMd_Escl/view?usp=sharing'>here</a>.
+                    My work can be found under sections about
+                    developing the attention visualization based on gradient theory and comparing CAM, soft attention
+                    and human attention.
+                    <h4 class="my-3">My contribution</h4>
+                    I came up with the idea for the project and devised the approach.
+                    I proposed a novel approach to visualizing human attention from eye-tracking data
+                    using gradient theory.
+                    <br><br>
+                    I developed a soft attention model in Tensorflow and extended an open-source CAM model.
+                    I visualized both attention mechanisms and compared them to human attention using PCC.
+                    <br>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <div class="spacer"></div>
+    <a href='../portfolio.html'>
+        <footer class="py-2 fixed footer">
+            <div class="container">
+                <p class="m-0 text-right text-black"><i class="fas fa-angle-double-left fa-2x"></i></p>
+            </div>
+        </footer>
+    </a>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="./item_files/jquery.min.js.download"></script>
+    <script src="./item_files/bootstrap.bundle.min.js.download"></script>
+
+    <script>
+        (function ($) {
+
+            jQuery(document).ready(function () {
+                add_target_blank_to_external_links();
+            });
+
+            function add_target_blank_to_external_links() {
+                $('a[href^="http://"], a[href^="https://"]').not('a[href*="' + location.hostname + '"]').attr('target', '_blank');
+            }
+
+        })(jQuery);
+    </script>
+
+</body>
+
+</html>

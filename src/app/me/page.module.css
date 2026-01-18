@@ -1,0 +1,85 @@
+.page {
+  --me-card-bg: rgba(255, 255, 255, 0.78);
+  --me-card-border: rgba(15, 23, 42, 0.08);
+  --me-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+  --me-shadow-soft: 0 6px 18px rgba(2, 6, 23, 0.06);
+}
+
+.card {
+  background: var(--me-card-bg);
+  border: 1px solid var(--me-card-border);
+  border-radius: 16px;
+  box-shadow: var(--me-shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.cardStrong {
+  box-shadow: var(--me-shadow);
+}
+
+.h1 {
+  letter-spacing: -0.02em;
+}
+
+.sectionTitle {
+  letter-spacing: -0.01em;
+}
+
+.prose {
+  text-wrap: pretty;
+}
+
+.portraitFrame {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.portraitFrame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(155, 0, 189, 0.28),
+    rgba(79, 70, 229, 0.18),
+    rgba(34, 211, 238, 0.16)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.portraitInner {
+  border-radius: inherit;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.pillLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(155, 0, 189, 0.14);
+  background: rgba(255, 255, 255, 0.75);
+  color: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 1px 6px rgba(2, 6, 23, 0.06);
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+  text-decoration: none;
+}
+
+.pillLink:hover {
+  background: rgba(155, 0, 189, 0.06);
+  border-color: rgba(155, 0, 189, 0.22);
+  transform: translateY(-1px);
+}
+
+.pillLink:focus-visible {
+  outline: 3px solid rgba(155, 0, 189, 0.25);
+  outline-offset: 2px;
+}
