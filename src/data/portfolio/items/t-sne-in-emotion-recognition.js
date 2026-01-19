@@ -1,6 +1,7 @@
 const tSneInEmotionRecognition = {
   slug: "t-sne-in-emotion-recognition",
   categories: ["Science", "machine learning", "AI"],
+  stack: "Python, Keras, Parametric t-SNE",
   i18n: {
     en: {
       title: "Parametric t-SNE for temporal, multimodal emotion recognition",
@@ -8,8 +9,7 @@ const tSneInEmotionRecognition = {
       thumbnail: "/images/thumbnails/emotion_recognition.webp",
       heroImage: "/images/emotion_recognition.png",
       description:
-        "A novel technique for visualizing emotion recognition results including the temporal dimension. An \"emotion space\" is created using parametric t-SNE, where machine learning models can be visually compared with respect to modalities, models, and hyperparameters used.",
-      stack: "Python, Keras, Machine Learning",
+        'A novel technique for visualizing emotion recognition results including the temporal dimension. An "emotion space" is created using parametric t-SNE, where machine learning models can be visually compared with respect to modalities, models, and hyperparameters used.',
       links: [
         {
           label: "Report",
@@ -35,9 +35,10 @@ const tSneInEmotionRecognition = {
           type: "paragraph",
           html: "Our work introduces a concept called emotion space, and overlays temporal information over that space, allowing for comparison between models and modality-dependent data sources. We present our results for training KNN and LSTM models on the <a href='https://github.com/A2Zadeh/CMU-MultimodalSDK' target='_blank' rel='noreferrer'>CMU MOSEI dataset</a> and a dataset exploring emotion in music.",
         },
-        { type: "paragraph", html: "The project was developed for a Cognitive Science course." },
-        { type: "heading", text: "Technologies" },
-        { type: "paragraph", html: "Python, Parametric t-SNE, Keras, Sklearn, Plotly" },
+        {
+          type: "paragraph",
+          html: "The project was developed for a Cognitive Science course.",
+        },
         { type: "heading", text: "Technical Details" },
         {
           type: "paragraph",
@@ -57,7 +58,8 @@ const tSneInEmotionRecognition = {
           type: "image",
           src: "/images/t-SNE/visualization_example.png",
           alt: "Visualization example",
-          caption: "LSTM minimizing MSE by distinguishing only between happy and not-happy",
+          caption:
+            "LSTM minimizing MSE by distinguishing only between happy and not-happy",
         },
         {
           type: "paragraph",
@@ -77,7 +79,6 @@ const tSneInEmotionRecognition = {
       heroImage: "/images/emotion_recognition.png",
       description:
         "Technika wizualizacji wyników rozpoznawania emocji z uwzględnieniem czasu, oparta o parametryczne t‑SNE.",
-      stack: "Python, Keras, Machine Learning",
       links: [
         {
           label: "Raport",
@@ -103,9 +104,10 @@ const tSneInEmotionRecognition = {
           type: "paragraph",
           html: "Wprowadzamy pojęcie przestrzeni emocji i nakładamy na nią informację temporalną, co pozwala porównywać modele i źródła danych. Wyniki prezentujemy m.in. dla modeli KNN i LSTM trenowanych na <a href='https://github.com/A2Zadeh/CMU-MultimodalSDK' target='_blank' rel='noreferrer'>CMU MOSEI</a>.",
         },
-        { type: "paragraph", html: "Projekt powstał na kursie Cognitive Science." },
-        { type: "heading", text: "Technologie" },
-        { type: "paragraph", html: "Python, parametryczne t‑SNE, Keras, Sklearn, Plotly" },
+        {
+          type: "paragraph",
+          html: "Projekt powstał na kursie Cognitive Science.",
+        },
         { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "paragraph",
@@ -125,7 +127,8 @@ const tSneInEmotionRecognition = {
           type: "image",
           src: "/images/t-SNE/visualization_example.png",
           alt: "Przykład wizualizacji",
-          caption: "LSTM minimalizuje MSE, rozróżniając głównie happy/not‑happy",
+          caption:
+            "LSTM minimalizuje MSE, rozróżniając głównie happy/not‑happy",
         },
         {
           type: "paragraph",

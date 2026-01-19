@@ -40,6 +40,9 @@
 	Skip this step otherwise.
 	 -->
 
+- [ ] Favicon Sync (when icon changes)
+	- If `src/app/icon.svg` is modified, run `pnpm generate:favicon` to regenerate `src/app/favicon.ico` so browsers that prefer `.ico` stay in sync.
+
 - [ ] Launch the Project
 	<!--
 	Verify that all previous steps have been completed.

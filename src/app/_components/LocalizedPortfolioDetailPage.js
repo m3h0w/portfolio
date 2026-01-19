@@ -7,56 +7,12 @@ import { getSiteContent } from "@/data/siteContent";
 import styles from "@/app/portfolio/[slug]/page.module.css";
 import LivePreviewModal from "@/app/_components/LivePreviewModal";
 import AtAGlanceLinks from "@/app/_components/AtAGlanceLinks";
-
-const isLivePreviewLink = (link) => {
-  const label = (link?.label || "").toLowerCase();
-  if (!link?.href) return false;
-
-  return (
-    label.includes("live") ||
-    label.includes("website") ||
-    label.includes("strona") ||
-    label.includes("site")
-  );
-};
-
-const getEmbeddablePreviewUrl = (href) => {
-  if (!href) return null;
-
-  try {
-    const url = new URL(href);
-    const host = url.hostname;
-
-    if (host.endsWith("drive.google.com")) {
-      // Common format: https://drive.google.com/file/d/<id>/view?...
-      if (url.pathname.includes("/file/d/") && url.pathname.includes("/view")) {
-        return href.replace("/view", "/preview");
-      }
-
-      // Sometimes: https://drive.google.com/open?id=<id>
-      const id = url.searchParams.get("id");
-      if (id) {
-        return `https://drive.google.com/file/d/${id}/preview`;
-      }
-
-      return null;
-    }
-
-    if (host.endsWith("docs.google.com")) {
-      // Docs/Slides/Sheets often embed via /preview.
-      if (url.pathname.endsWith("/preview")) return href;
-      if (url.pathname.endsWith("/edit")) return href.replace(/\/edit$/, "/preview");
-      if (url.pathname.endsWith("/view")) return href.replace(/\/view$/, "/preview");
-
-      // If there's no explicit /edit or /view, leave as-is (often still works).
-      return href;
-    }
-
-    return null;
-  } catch {
-    return null;
-  }
-};
+import AtAGlanceBackToPortfolio from "@/app/_components/AtAGlanceBackToPortfolio";
+import {
+  getLivePreviewLink,
+  isIframeLivePreviewAllowed,
+  isLivePreviewLink,
+} from "@/app/_components/livePreviewUtils";
 
 const renderContentBlock = (block) => {
   switch (block.type) {
@@ -141,13 +97,30 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
     notFound();
   }
 
+
   const data = item.i18n[locale] || item.i18n.en;
   const siteContent = getSiteContent(locale);
 
-  const livePreviewUrl = (data.links || []).find(isLivePreviewLink)?.href;
+  const currentIndex = portfolioItems.findIndex((entry) => entry.slug === slug);
+  const prevItem = currentIndex > 0 ? portfolioItems[currentIndex - 1] : null;
+  const nextItem =
+    currentIndex >= 0 && currentIndex < portfolioItems.length - 1
+      ? portfolioItems[currentIndex + 1]
+      : null;
+
+  const prevData = prevItem ? prevItem.i18n[locale] || prevItem.i18n.en : null;
+  const nextData = nextItem ? nextItem.i18n[locale] || nextItem.i18n.en : null;
+
+
+  const liveLink = getLivePreviewLink(data.links);
+  const iframeAllowed = liveLink
+    ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
+    : false;
   const topActionsId = "portfolio-detail-top-actions";
 
-  const stackItems = (data.stack || "")
+  const stack = item.stack || data.stack || "";
+
+  const stackItems = stack
     .split(",")
     .map((part) => part.trim())
     .filter(Boolean);
@@ -169,9 +142,9 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
           </Link>
 
           <div id={topActionsId} className="flex flex-wrap items-center gap-2">
-            {livePreviewUrl && (
+            {liveLink && iframeAllowed && (
               <LivePreviewModal
-                url={livePreviewUrl}
+                url={liveLink.href}
                 title={data.title}
                 openLabel={siteContent.ui.livePreview}
                 openInNewTabLabel={siteContent.ui.openInNewTab}
@@ -179,15 +152,30 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
               />
             )}
 
+            {liveLink && !iframeAllowed && (
+              <a
+                href={liveLink.href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-(--accent-dark)"
+              >
+                {siteContent.ui.openInNewTab}
+                <span aria-hidden>↗</span>
+              </a>
+            )}
+
             {data.links && data.links.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
                 {data.links.map((link) => {
-                  const previewUrl = getEmbeddablePreviewUrl(link.href);
-                  if (previewUrl) {
+                  const allowInlinePreview =
+                    isLivePreviewLink(link) &&
+                    isIframeLivePreviewAllowed({ slug: item.slug, href: link.href });
+
+                  if (allowInlinePreview) {
                     return (
                       <LivePreviewModal
                         key={`preview-${link.label}`}
-                        url={previewUrl}
+                        url={link.href}
                         title={`${data.title} — ${link.label}`}
                         openLabel={link.label}
                         openInNewTabLabel={siteContent.ui.openInNewTab}
@@ -216,7 +204,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-          <article className={`${styles.surface} p-5 sm:p-7`}>
+          <article className={`${styles.surface} ${styles.enterMain} p-5 sm:p-7`}>
             <div className={styles.hero}>
               <Image
                 src={data.heroImage}
@@ -266,42 +254,172 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
           </article>
 
           <aside className="lg:sticky lg:top-8">
-            <div className={`${styles.surface} p-5 sm:p-6`}>
-              <h2 className="text-sm font-semibold tracking-wide text-slate-900">
-                {siteContent.ui.atAGlance}
-              </h2>
+            <div className="space-y-3">
+              <div className={`${styles.surface} ${styles.enterAside} p-5 sm:p-6`}>
+                <h2 className="text-sm font-semibold tracking-wide text-slate-900">
+                  {siteContent.ui.atAGlance}
+                </h2>
 
-              <div className="mt-4 space-y-3 text-sm text-slate-700">
-                {data.subtitle && (
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-slate-500">
-                      {siteContent.ui.type}
+                <div className="mt-4 space-y-3 text-sm text-slate-700">
+                  {data.subtitle && (
+                    <div>
+                      <div className="text-xs uppercase tracking-wide text-slate-500">
+                        {siteContent.ui.type}
+                      </div>
+                      <div className="mt-1">{data.subtitle}</div>
                     </div>
-                    <div className="mt-1">{data.subtitle}</div>
-                  </div>
-                )}
+                  )}
 
-                {data.stack && (
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-slate-500">
-                      {siteContent.ui.stack}
+                  {stack && (
+                    <div>
+                      <div className="text-xs uppercase tracking-wide text-slate-500">
+                        {siteContent.ui.stack}
+                      </div>
+                      <div className={`mt-1 ${styles.kbd}`}>{stack}</div>
                     </div>
-                    <div className={`mt-1 ${styles.kbd}`}>{data.stack}</div>
-                  </div>
-                )}
+                  )}
 
-                <AtAGlanceLinks
-                  observeId={topActionsId}
-                  links={data.links}
-                  projectTitle={data.title}
-                  headingLabel={siteContent.ui.links}
-                  openInNewTabLabel={siteContent.ui.openInNewTab}
-                  closeLabel={siteContent.ui.close}
-                />
+                  <AtAGlanceLinks
+                    observeId={topActionsId}
+                    links={data.links}
+                    projectTitle={data.title}
+                    projectSlug={item.slug}
+                    headingLabel={siteContent.ui.links}
+                    openInNewTabLabel={siteContent.ui.openInNewTab}
+                    closeLabel={siteContent.ui.close}
+                  />
+                </div>
               </div>
+
+              <AtAGlanceBackToPortfolio
+                observeId={topActionsId}
+                href={`${basePath}/#portfolio`}
+                label={siteContent.ui.backToPortfolio}
+                enabled={Boolean(data.links && data.links.length > 0)}
+              />
             </div>
           </aside>
         </div>
+
+        {(prevItem || nextItem) && (
+          <nav aria-label="Project navigation" className="mt-6">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {prevItem && prevData ? (
+                <Link
+                  href={`${basePath}/portfolio/${prevItem.slug}`}
+                  className={`${styles.surface} group flex items-center gap-4 p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                >
+                  <div aria-hidden className="text-slate-400">
+                    ←
+                  </div>
+                  <div className="min-w-0 flex-1 text-right">
+                    <div className="text-xs uppercase tracking-wide text-slate-500">
+                      {siteContent.ui.previousProject}
+                    </div>
+                    <div className="mt-1 truncate text-base font-semibold text-slate-900 group-hover:text-(--accent-dark)">
+                      {prevData.title}
+                    </div>
+                    {prevData.subtitle && (
+                      <div className="mt-1 text-sm text-slate-600">
+                        {prevData.subtitle}
+                      </div>
+                    )}
+                  </div>
+                  <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
+                    <Image
+                      src={prevData.thumbnail || prevData.heroImage}
+                      alt={prevData.title}
+                      width={360}
+                      height={240}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </Link>
+              ) : (
+                <Link
+                  href={`${basePath}/me`}
+                  className={`${styles.surface} group flex items-center gap-4 p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                >
+                  <div aria-hidden className="text-slate-400">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      className="h-5 w-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 21a8 8 0 0 1 16 0"
+                      />
+                    </svg>
+                  </div>
+                  <div className="min-w-0 flex-1 text-right">
+                    <div className="text-xs uppercase tracking-wide text-slate-500">
+                      {siteContent.nav.aboutMe}
+                    </div>
+                    <div className="mt-1 truncate text-base font-semibold text-slate-900 group-hover:text-(--accent-dark)">
+                      {siteContent.name}
+                    </div>
+                    {siteContent.title && (
+                      <div className="mt-1 text-sm text-slate-600">
+                        {siteContent.title}
+                      </div>
+                    )}
+                  </div>
+                  <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
+                    <Image
+                      src={siteContent.about.image.src}
+                      alt={siteContent.about.image.alt}
+                      width={360}
+                      height={240}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </Link>
+              )}
+
+              {nextItem && nextData && (
+                <Link
+                  href={`${basePath}/portfolio/${nextItem.slug}`}
+                  className={`${styles.surface} group flex items-center gap-4 p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                >
+                  <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
+                    <Image
+                      src={nextData.thumbnail || nextData.heroImage}
+                      alt={nextData.title}
+                      width={360}
+                      height={240}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs uppercase tracking-wide text-slate-500">
+                      {siteContent.ui.nextProject}
+                    </div>
+                    <div className="mt-1 truncate text-base font-semibold text-slate-900 group-hover:text-(--accent-dark)">
+                      {nextData.title}
+                    </div>
+                    {nextData.subtitle && (
+                      <div className="mt-1 text-sm text-slate-600">
+                        {nextData.subtitle}
+                      </div>
+                    )}
+                  </div>
+                  <div aria-hidden className="ml-auto text-slate-400">
+                    →
+                  </div>
+                </Link>
+              )}
+            </div>
+          </nav>
+        )}
       </main>
     </div>
   );

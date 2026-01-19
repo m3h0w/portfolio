@@ -2,6 +2,7 @@ const instytutRelacyjny = {
   slug: "instytut-relacyjny",
   cover: false,
   categories: ["landing page", "Design / UX"],
+  stack: "TypeScript, Next.js, Tailwind",
   i18n: {
     en: {
       title: "Warsaw Institute of Relating",
@@ -9,29 +10,33 @@ const instytutRelacyjny = {
       thumbnail: "/images/thumbnails/instytutrelacyjny__thumbnail.webp",
       heroImage: "/images/instytutrelacyjny/thumbnail.png",
       description:
-        "A fast, SEO-friendly Next.js static website: design system, responsive layouts, and a content structure built for clarity.",
-      stack: "Next.js, Static Site, CSS/Tailwind",
+        "A calm, poetic, SEO-friendly Next.js site designed to invite exploration — with care for SEO and AI discoverability.",
       links: [{ label: "Live", href: "https://www.instytutrelacyjny.pl/" }],
       content: [
         { type: "heading", text: "Project description" },
         {
           type: "paragraph",
-          html: "<a href='https://www.instytutrelacyjny.pl/' target='_blank' rel='noreferrer'>instytutrelacyjny.pl</a> is a static website I designed and built with Next.js. I’m the founder of the Warsaw Institute of Relating, but this entry focuses on the technical implementation of the website itself — information architecture, UI system, and a clean, maintainable build.",
+          html: "<a href='https://www.instytutrelacyjny.pl/' target='_blank' rel='noreferrer'>instytutrelacyjny.pl</a> is a static website I designed and built with Next.js. I’m the founder of the Warsaw Institute of Relating, but this entry focuses on the website as a product: a visual and editorial experience meant to feel beautiful, quiet, and curiosity‑driven — while still being structured, readable, and discoverable (SEO + AI).",
         },
+        // {
+        //   type: "image",
+        //   src: "/images/instytutrelacyjny/thumbnail.png",
+        //   alt: "Warsaw Institute of Relating website",
+        // },
+        { type: "heading", text: "Overview" },
         {
-          type: "image",
-          src: "/images/instytutrelacyjny/thumbnail.png",
-          alt: "Warsaw Institute of Relating website",
+          type: "paragraph",
+          html: "The goal wasn’t to build something merely simple — it was to build something that feels good to interact with. The site is designed to inspire exploration and a poetic sense of “what’s here?” while keeping the content architecture clear for offerings, schedules, and contact — and keeping the underlying semantics strong for search engines and AI systems.",
         },
-        { type: "heading", text: "What I implemented" },
+        { type: "heading", text: "Technical Details" },
         {
           type: "orderedList",
           items: [
-            "A modern, responsive layout that reads well on mobile and desktop.",
-            "A simple design system (typography, spacing, components) to keep pages consistent.",
-            "A content structure that makes it easy to present offerings, schedules, and contact information clearly.",
-            "SEO-friendly foundations (semantic markup, sensible metadata, fast-loading pages).",
-            "A deployment setup optimized for a static site workflow.",
+            "A modern, responsive layout with generous whitespace and a calm visual rhythm.",
+            "A small, consistent design system (typography, spacing, components) that supports a poetic aesthetic.",
+            "An information hierarchy that encourages exploration while keeping core actions (offer, schedule, contact) easy to find.",
+            "SEO + AI discoverability foundations: semantic markup, descriptive headings, sensible metadata, fast-loading pages.",
+            "A deployment setup optimized for a static site workflow and long-term maintainability.",
           ],
         },
         {
@@ -39,10 +44,9 @@ const instytutRelacyjny = {
           src: "/images/instytutrelacyjny/section.png",
           alt: "Warsaw Institute of Relating website section",
         },
-        { type: "heading", text: "Notes" },
         {
           type: "paragraph",
-          html: "The goal was a professional, trustworthy web presence with strong performance and a straightforward editing/deployment workflow — a site that feels calm and polished while staying technically simple.",
+          html: "The site aims to feel calm, polished, and slightly poetic — without sacrificing performance, clarity, or maintainability.",
         },
       ],
     },
@@ -52,29 +56,33 @@ const instytutRelacyjny = {
       thumbnail: "/images/thumbnails/instytutrelacyjny__thumbnail.webp",
       heroImage: "/images/instytutrelacyjny/thumbnail.png",
       description:
-        "Szybka, SEO-friendly strona statyczna w Next.js: system UI, responsywne layouty i przejrzysta struktura treści.",
-      stack: "Next.js, Strona statyczna, CSS/Tailwind",
+        "Spokojna, poetycka strona w Next.js, która zachęca do eksploracji — z dbałością o SEO i „AI‑discoverability”.",
       links: [{ label: "Strona", href: "https://www.instytutrelacyjny.pl/" }],
       content: [
         { type: "heading", text: "Opis projektu" },
         {
           type: "paragraph",
-          html: "<a href='https://www.instytutrelacyjny.pl/' target='_blank' rel='noreferrer'>instytutrelacyjny.pl</a> to statyczna strona, którą zaprojektowałem i zbudowałem w Next.js. Jestem założycielem Warszawskiego Instytutu Relacyjnego, ale tutaj skupiam się na technicznej stronie projektu: architekturze informacji, systemie UI i utrzymywalnym kodzie.",
+          html: "<a href='https://www.instytutrelacyjny.pl/' target='_blank' rel='noreferrer'>instytutrelacyjny.pl</a> to statyczna strona, którą zaprojektowałem i zbudowałem w Next.js. Jestem założycielem Warszawskiego Instytutu Relacyjnego, ale tutaj opisuję stronę jako produkt: doświadczenie wizualno‑tekstowe, które ma być piękne, spokojne i rozbudzać ciekawość — przy jednoczesnej dbałości o strukturę treści, SEO i „AI‑discoverability”.",
         },
         {
           type: "image",
           src: "/images/instytutrelacyjny/thumbnail.png",
           alt: "Strona Warszawskiego Instytutu Relacyjnego",
         },
-        { type: "heading", text: "Co zostało zaimplementowane" },
+        { type: "heading", text: "Przegląd" },
+        {
+          type: "paragraph",
+          html: "Celem nie było zrobienie “czegoś prostego”. Chodziło o stronę, która ma się dobrze czytać i oglądać: budować nastrój, zachęcać do eksploracji i zostawiać miejsce na ciekawość. Jednocześnie architektura informacji pozostaje klarowna (oferta, terminy, kontakt), a fundamenty semantyczne i metadane wspierają SEO oraz interpretację treści przez systemy AI.",
+        },
+        { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "orderedList",
           items: [
-            "Nowoczesny, responsywny layout (mobile i desktop).",
-            "Prosty system designu (typografia, odstępy, komponenty) dla spójności.",
-            "Struktura treści ułatwiająca prezentację oferty, terminów i kontaktu.",
-            "Dobre podstawy SEO (semantyka, sensowne metadane, szybkie ładowanie).",
-            "Wdrożenie i workflow dopasowane do strony statycznej.",
+            "Nowoczesny, responsywny layout z dużą dbałością o oddech (white space) i rytm.",
+            "Spójny, mały system UI (typografia, odstępy, komponenty) wspierający spokojną estetykę.",
+            "Hierarchia treści, która zachęca do eksploracji, ale nie utrudnia dotarcia do kluczowych informacji.",
+            "Podstawy SEO i „AI‑discoverability”: semantyka, opisowe nagłówki, sensowne metadane, szybkie ładowanie.",
+            "Wdrożenie i workflow dopasowane do strony statycznej i łatwego utrzymania.",
           ],
         },
         {
@@ -82,10 +90,9 @@ const instytutRelacyjny = {
           src: "/images/instytutrelacyjny/section.png",
           alt: "Sekcja strony Warszawskiego Instytutu Relacyjnego",
         },
-        { type: "heading", text: "Notatka" },
         {
           type: "paragraph",
-          html: "Celem była profesjonalna i godna zaufania obecność w sieci, z dobrą wydajnością i prostym procesem utrzymania — spokojny, dopracowany wygląd przy zachowaniu technicznej prostoty.",
+          html: "Strona ma być profesjonalna, spokojna i lekko poetycka — bez rezygnacji z wydajności, czytelności i łatwego utrzymania.",
         },
       ],
     },

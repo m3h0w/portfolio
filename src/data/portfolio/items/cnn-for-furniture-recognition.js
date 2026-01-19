@@ -1,6 +1,7 @@
 const cnnForFurnitureRecognition = {
   slug: "cnn-for-furniture-recognition",
   categories: ["Science", "image processing", "AI"],
+  stack: "Azure, CNNs, Keras, Kaggle",
   i18n: {
     en: {
       title: "CNNs & Transfer Learning for furniture recognition",
@@ -9,7 +10,6 @@ const cnnForFurnitureRecognition = {
       heroImage: "/images/furniture.png",
       description:
         "Project developed for a course and a Kaggle competition. I used Convolutional Neural Networks to distinguish between 128 classes of furniture.",
-      stack: "Azure, CNNs, Keras, Kaggle",
       links: [
         { label: "GitHub", href: "https://github.com/m3h0w/imaterialist_kaggle_competition" },
         {
@@ -63,7 +63,6 @@ const cnnForFurnitureRecognition = {
       heroImage: "/images/furniture.png",
       description:
         "Projekt kursowy i konkurs Kaggle. Model rozróżnia 128 klas mebli z ponad 80% skutecznością.",
-      stack: "Azure, CNNs, Keras, Kaggle",
       links: [
         { label: "GitHub", href: "https://github.com/m3h0w/imaterialist_kaggle_competition" },
         {

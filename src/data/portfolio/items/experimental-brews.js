@@ -2,6 +2,7 @@ const experimentalBrews = {
   slug: "experimental-brews",
   cover: true,
   categories: ["web app", "e-commerce"],
+  stack: "Next.js, NestJS, BigCommerce, Stripe",
   i18n: {
     en: {
       title: "Experimental Brews",
@@ -10,7 +11,6 @@ const experimentalBrews = {
       heroImage: "/images/experimental-brews/hero.webp",
       description:
         "A headless e-commerce subscription experience with custom integrations (payments, commerce, shipping).",
-      stack: "Next.js, NestJS, BigCommerce, Stripe",
       links: [
         {
           label: "Case study",
@@ -27,16 +27,22 @@ const experimentalBrews = {
           type: "paragraph",
           html: "I worked on Experimental Brews while hired at <a href='https://www.kvalifik.dk/' target='_blank' rel='noreferrer'>Kvalifik</a> (see: <a href='https://www.kvalifik.dk/cases/experimental-brews' target='_blank' rel='noreferrer'>case study</a>). The goal was a subscription-first experience that combines product storytelling with a strong feedback loop.",
         },
+        { type: "heading", text: "Overview" },
         {
           type: "paragraph",
           html: "Technically, it was a headless website: the frontend was built in Next.js and the backend in NestJS, with a custom integration to BigCommerce, Stripe payments, and a shipping provider.",
         },
+        { type: "heading", text: "Technologies" },
+        {
+          type: "paragraph",
+          html: "Next.js, NestJS, BigCommerce, Stripe",
+        },
+        { type: "heading", text: "Technical Details" },
         {
           type: "image",
           src: "/images/experimental-brews/second.webp",
           alt: "Experimental Brews platform screenshot",
         },
-        { type: "heading", text: "What made it interesting" },
         {
           type: "list",
           items: [
@@ -52,6 +58,11 @@ const experimentalBrews = {
           src: "/images/experimental-brews/third.webp",
           alt: "Experimental Brews subscription flow screenshot",
         },
+        { type: "heading", text: "My contribution" },
+        {
+          type: "paragraph",
+          html: "I led Kvalifik's technical team making the architectural decisions and implementing most of the backend integrations and a large part of the frontend.",
+        },
       ],
     },
     pl: {
@@ -61,7 +72,6 @@ const experimentalBrews = {
       heroImage: "/images/experimental-brews/hero.webp",
       description:
         "Headless e-commerce dla subskrypcji z integracjami (płatności, commerce, wysyłka).",
-      stack: "Next.js, NestJS, BigCommerce, Stripe",
       links: [
         {
           label: "Case study",
@@ -78,16 +88,22 @@ const experimentalBrews = {
           type: "paragraph",
           html: "Pracowałem nad Experimental Brews będąc zatrudnionym w <a href='https://www.kvalifik.dk/' target='_blank' rel='noreferrer'>Kvalifik</a> (zobacz: <a href='https://www.kvalifik.dk/cases/experimental-brews' target='_blank' rel='noreferrer'>case study</a>). Celem było doświadczenie subskrypcyjne, które łączy storytelling produktu z mocną pętlą feedbacku od członków.",
         },
+        { type: "heading", text: "Przegląd" },
         {
           type: "paragraph",
           html: "Od strony technicznej był to headless: frontend w Next.js, backend w NestJS oraz customowa integracja z BigCommerce, płatnościami Stripe i dostawcą wysyłek.",
         },
+        { type: "heading", text: "Technologie" },
+        {
+          type: "paragraph",
+          html: "Next.js, NestJS, BigCommerce, Stripe",
+        },
+        { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "image",
           src: "/images/experimental-brews/second.webp",
           alt: "Zrzut ekranu platformy Experimental Brews",
         },
-        { type: "heading", text: "Co było tu ciekawe" },
         {
           type: "list",
           items: [
@@ -102,6 +118,11 @@ const experimentalBrews = {
           type: "image",
           src: "/images/experimental-brews/third.webp",
           alt: "Zrzut ekranu procesu subskrypcji Experimental Brews",
+        },
+        { type: "heading", text: "Mój wkład" },
+        {
+          type: "paragraph",
+          html: "Prowadziłem zespół techniczny Kvalifik, podejmując decyzje architektoniczne oraz implementując większość integracji backendowych i dużą część frontendu.",
         },
       ],
     },

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar({ active = "portfolio" }) {
   const [showLogo, setShowLogo] = useState(false);
@@ -28,10 +29,18 @@ export default function Navbar({ active = "portfolio" }) {
           <Link
             id="logo"
             href="/"
-            className={`text-sm font-semibold tracking-[0.2em] text-white transition-opacity duration-500 ${
-              showLogo ? "opacity-100" : "opacity-0"
+            className={`flex items-center gap-2 text-sm font-semibold tracking-[0.2em] text-white transition-opacity duration-500 ${
+              showLogo ? "opacity-100" : "opacity-70"
             }`}
           >
+            <Image
+              src="/icon.svg"
+              width={18}
+              height={18}
+              alt=""
+              aria-hidden="true"
+              className="block shrink-0 invert"
+            />
             MICHAŁ GACKA
           </Link>
           <div className="flex items-center gap-2">

@@ -1,6 +1,7 @@
 const parkingOccupancyDetection = {
   slug: "parking-occupancy-detection",
   categories: ["image processing", "AI"],
+  stack: "Python, OpenCV, Google Cloud Storage",
   i18n: {
     en: {
       title: "Parking Occupancy Detection",
@@ -9,7 +10,6 @@ const parkingOccupancyDetection = {
       heroImage: "/images/parking.jpg",
       description:
         "Real-time detection of parking space occupancy. The project was a POC that aimed to replace expensive sensors. I used traditional computer vision techniques.",
-      stack: "Python, OpenCV",
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -25,8 +25,6 @@ const parkingOccupancyDetection = {
           type: "paragraph",
           html: "Current technologies involve expensive electromagnetic sensors that are installed under each parking space. Camera-based technology would theoretically provide much cheaper solution to the problem and could make use of existing surveillance systems.",
         },
-        { type: "heading", text: "Technologies" },
-        { type: "paragraph", html: "Python, OpenCV, Google Cloud Storage" },
         { type: "heading", text: "Technical Details" },
         {
           type: "paragraph",
@@ -52,7 +50,6 @@ const parkingOccupancyDetection = {
       heroImage: "/images/parking.jpg",
       description:
         "Wykrywanie zajętości miejsc parkingowych w czasie rzeczywistym. POC mający zastąpić drogie sensory.",
-      stack: "Python, OpenCV",
       content: [
         { type: "heading", text: "Opis projektu" },
         {
@@ -68,8 +65,6 @@ const parkingOccupancyDetection = {
           type: "paragraph",
           html: "Obecne rozwiązania opierają się na drogich sensorach elektromagnetycznych montowanych pod każdym miejscem. Wariant oparty o kamery mógłby być tańszy i wykorzystywać istniejącą infrastrukturę.",
         },
-        { type: "heading", text: "Technologie" },
-        { type: "paragraph", html: "Python, OpenCV, Google Cloud Storage" },
         { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "paragraph",

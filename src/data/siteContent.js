@@ -77,6 +77,8 @@ export const siteContentByLanguage = {
     },
     ui: {
       backToPortfolio: "Back to portfolio",
+      previousProject: "Previous project",
+      nextProject: "Next project",
       atAGlance: "At a glance",
       type: "Type",
       stack: "Stack",
@@ -93,9 +95,10 @@ export const siteContentByLanguage = {
         "Jestem inżynierem ML i full‑stack web developerem. Wierzę, że technologia powinna służyć ludziom, a nie odwrotnie. Chcę używać technologii do poprawy jakości życia i rozwiązywania ważnych problemów współczesności.",
       ],
       highlightedLink: {
-        label: "Warszawski Instytut Relacyjny",
+        label: "Warszawskiego Instytutu Relacyjnego",
         href: "https://www.instytutrelacyjny.pl/",
-        prefix: "Po pracę z facylitacją praktyk relacyjnych zapraszam do",
+        prefix:
+          "Po informacje o mojej facylitacji praktyk relacyjnych zapraszam na stronę",
         suffix: ".",
       },
     },
@@ -111,7 +114,8 @@ export const siteContentByLanguage = {
     },
     contact: {
       heading: "Kontakt",
-      description: "Odezwij się, jeśli czujesz, że możemy zrobić razem coś dobrego!",
+      description:
+        "Odezwij się, jeśli czujesz, że możemy zrobić razem coś dobrego!",
       links: [
         {
           label: "E-mail",
@@ -129,6 +133,8 @@ export const siteContentByLanguage = {
     },
     ui: {
       backToPortfolio: "Wróć do portfolio",
+      previousProject: "Poprzedni projekt",
+      nextProject: "Następny projekt",
       atAGlance: "W skrócie",
       type: "Typ",
       stack: "Stack",

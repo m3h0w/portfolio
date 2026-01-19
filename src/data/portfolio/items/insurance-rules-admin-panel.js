@@ -1,6 +1,7 @@
 const insuranceRulesAdminPanel = {
   slug: "insurance-rules-admin-panel",
   categories: ["web app", "no code"],
+  stack: "Flask, React, SQLite, Docker",
   i18n: {
     en: {
       title: "Insurance Recommendation Admin Panel",
@@ -9,7 +10,6 @@ const insuranceRulesAdminPanel = {
       heroImage: "/images/rules_module/Start.png",
       description:
         "A web app that allows its user to set rules that get evaluated based on input features. Its primary goal was to create a universal way of deciding which insurance products should be displayed depending on the user's information.",
-      stack: "Flask, React, SQLite, Docker",
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -25,8 +25,6 @@ const insuranceRulesAdminPanel = {
           type: "paragraph",
           html: "The app allows an insurance employee to set rules for which insurance products should be visible and recommended to customers depending on their personal data. The app exposes an API based on these settings that a frontend solution can then communicate with.",
         },
-        { type: "heading", text: "Technologies" },
-        { type: "paragraph", html: "Flask, ReactJS, SQLite" },
         { type: "heading", text: "Technical Details" },
         {
           type: "paragraph",
@@ -62,7 +60,6 @@ const insuranceRulesAdminPanel = {
       heroImage: "/images/rules_module/Start.png",
       description:
         "Aplikacja do definiowania reguł, które decydują o widoczności produktów ubezpieczeniowych w zależności od danych klienta.",
-      stack: "Flask, React, SQLite, Docker",
       content: [
         { type: "heading", text: "Opis projektu" },
         {
@@ -78,8 +75,6 @@ const insuranceRulesAdminPanel = {
           type: "paragraph",
           html: "Aplikacja pozwalała pracownikom definiować reguły widoczności produktów i udostępniała API, z którego mógł korzystać frontend.",
         },
-        { type: "heading", text: "Technologie" },
-        { type: "paragraph", html: "Flask, ReactJS, SQLite" },
         { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "paragraph",

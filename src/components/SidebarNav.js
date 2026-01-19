@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { getSiteContent } from "@/data/siteContent";
 import { AnimatePresence, motion } from "framer-motion";
+import GlassesBadge from "@/components/GlassesBadge";
 
 function SocialIcon({ name }) {
   const common = "h-4 w-4";
@@ -39,16 +40,12 @@ function SocialIcon({ name }) {
   }
 }
 
-function FlagIcon({ code }) {
-  const clipId = useId();
+function FlagIcon({ code, idPrefix }) {
+  const clipId = `${idPrefix}-flag-${code}`;
 
   if (code === "pl") {
     return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-5 w-5"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
         <defs>
           <clipPath id={clipId}>
             <circle cx="12" cy="12" r="10" />
@@ -58,7 +55,13 @@ function FlagIcon({ code }) {
         <g clipPath={`url(#${clipId})`}>
           <rect x="2" y="12" width="20" height="10" fill="#dc2626" />
         </g>
-        <circle cx="12" cy="12" r="10" fill="none" stroke="rgba(15,23,42,0.08)" />
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          fill="none"
+          stroke="rgba(15,23,42,0.08)"
+        />
       </svg>
     );
   }
@@ -114,7 +117,7 @@ function NavLink({ href, label, active, onNavigate }) {
   );
 }
 
-function LanguageToggle({ language, onChange }) {
+function LanguageToggle({ language, onChange, idPrefix }) {
   const entries = [
     { code: "en", label: "English" },
     { code: "pl", label: "Polski" },
@@ -124,7 +127,15 @@ function LanguageToggle({ language, onChange }) {
     <div
       role="radiogroup"
       aria-label="Language"
-      className="relative inline-grid grid-cols-2 items-stretch rounded-full bg-white/85 p-0.5 shadow-xl ring-1 ring-slate-200/70 backdrop-blur"
+      className="relative inline-grid cursor-pointer grid-cols-2 items-stretch overflow-hidden rounded-full bg-white/85 p-0.5 shadow-xl ring-1 ring-slate-200/70 backdrop-blur"
+      onClick={(event) => {
+        if (event.target?.closest?.("button")) return;
+
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const next = x < rect.width / 2 ? "en" : "pl";
+        onChange(next);
+      }}
     >
       <motion.div
         aria-hidden="true"
@@ -150,7 +161,7 @@ function LanguageToggle({ language, onChange }) {
               }`}
           >
             <span aria-hidden="true" className="grid place-items-center">
-              <FlagIcon code={entry.code} />
+              <FlagIcon code={entry.code} idPrefix={idPrefix} />
             </span>
           </button>
         );
@@ -165,6 +176,7 @@ function SidebarContent({
   language,
   onLanguageChange,
   navOnTop = false,
+  idPrefix,
 }) {
   const [profileHovered, setProfileHovered] = useState(false);
   const hoverOffTimeoutRef = useRef(null);
@@ -238,8 +250,12 @@ function SidebarContent({
       <div className={`px-5 ${navOnTop ? "pt-4" : "pt-8"}`}>
         <div className="flex flex-col items-center text-center">
           <div className="relative w-full">
-            <div className="flex justify-center pb-6">
-              <LanguageToggle language={language} onChange={onLanguageChange} />
+            <div className="relative z-20 flex justify-center pb-6">
+              <LanguageToggle
+                language={language}
+                onChange={onLanguageChange}
+                idPrefix={idPrefix}
+              />
             </div>
             <div className="flex justify-center">
               <div className="relative">
@@ -333,12 +349,21 @@ function SidebarContent({
                   transition={{ duration: 0.18, ease: "easeOut" }}
                   className="py-1 bg-gradient-to-r from-[var(--accent)]/10 via-white/85 to-white/85 px-4 shadow-xl ring-1 ring-slate-200/70 backdrop-blur cursor-pointer"
                 >
-                  <h1 className="text-xl font-bold tracking-tight text-slate-900">
-                    {siteContent.name}
-                  </h1>
-                  <p className="text-sm font-medium text-[var(--accent)]">
-                    {siteContent.title}
-                  </p>
+                  <div className="flex items-center justify-center gap-3">
+                    <GlassesBadge
+                      size={40}
+                      iconSize={30}
+                      className="shrink-0"
+                    />
+                    <div className="leading-tight">
+                      <h1 className="text-xl font-bold tracking-tight text-slate-900 uppercase -mt-0.5">
+                        {siteContent.name}
+                      </h1>
+                      <p className="-mt-1 text-[0.97rem] font-medium text-[var(--accent)]">
+                        {siteContent.title}
+                      </p>
+                    </div>
+                  </div>
                 </motion.div>
               </Link>
             ) : (
@@ -351,12 +376,21 @@ function SidebarContent({
                   transition={{ duration: 0.18, ease: "easeOut" }}
                   className="py-1 bg-gradient-to-r from-[var(--accent)]/10 via-white/85 to-white/85 px-4 shadow-xl ring-1 ring-slate-200/70 backdrop-blur cursor-default"
                 >
-                  <h1 className="text-xl font-bold tracking-tight text-slate-900">
-                    {siteContent.name}
-                  </h1>
-                  <p className="text-sm font-medium text-[var(--accent)]">
-                    {siteContent.title}
-                  </p>
+                  <div className="flex items-center justify-center gap-3">
+                    <GlassesBadge
+                      size={40}
+                      iconSize={30}
+                      className="shrink-0"
+                    />
+                    <div className="leading-tight">
+                      <h1 className="text-xl font-bold tracking-tight text-slate-900 uppercase">
+                        {siteContent.name}
+                      </h1>
+                      <p className="-mt-1 text-[0.92rem] font-medium text-[var(--accent)]">
+                        {siteContent.title}
+                      </p>
+                    </div>
+                  </div>
                 </motion.div>
               </div>
             )}
@@ -496,7 +530,12 @@ export default function SidebarNav() {
               initial={{ x: "-100%", rotate: -1.5, scale: 0.98 }}
               animate={{ x: 0, rotate: 0, scale: 1 }}
               exit={{ x: "-100%", rotate: -1.5, scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 520, damping: 42, mass: 0.7 }}
+              transition={{
+                type: "spring",
+                stiffness: 520,
+                damping: 42,
+                mass: 0.7,
+              }}
             >
               <div className="flex h-14 items-center justify-end px-4">
                 <button
@@ -524,6 +563,7 @@ export default function SidebarNav() {
                 language={language}
                 onLanguageChange={handleLanguageChange}
                 navOnTop
+                idPrefix="mobile"
               />
             </motion.aside>
           </motion.div>
@@ -536,6 +576,7 @@ export default function SidebarNav() {
           showNav={false}
           language={language}
           onLanguageChange={handleLanguageChange}
+          idPrefix="desktop"
         />
       </aside>
     </>

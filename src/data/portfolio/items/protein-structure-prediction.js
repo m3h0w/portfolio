@@ -1,6 +1,7 @@
 const proteinStructurePrediction = {
   slug: "protein-structure-prediction",
   categories: ["Science", "machine learning", "AI"],
+  stack: "Python, RNNs, Tensorflow, Jupyter Notebook",
   i18n: {
     en: {
       title: "Protein tertiary structure prediction",
@@ -9,7 +10,6 @@ const proteinStructurePrediction = {
       heroImage: "/images/protein.png",
       description:
         "Predicting the tertiary (3-dimensional) structure of a folded protein given its primary structure (sequence of amino acids).",
-      stack: "RNNs, Tensorflow, Bioinformatics",
       links: [
         {
           label: "GitHub",
@@ -35,8 +35,6 @@ const proteinStructurePrediction = {
           type: "paragraph",
           html: "The model was developed for a course but the results go beyond the regular scope of the class.",
         },
-        { type: "heading", text: "Technologies" },
-        { type: "paragraph", html: "Python, Tensorflow and Jupyter Notebook" },
         { type: "heading", text: "Technical Details" },
         {
           type: "paragraph",
@@ -50,7 +48,8 @@ const proteinStructurePrediction = {
           type: "image",
           src: "/images/protein/protein_architecture.png",
           alt: "Protein architecture diagram",
-          caption: "Source: AlQuraishi, End-to-end differentiable learning of protein structure",
+          caption:
+            "Source: AlQuraishi, End-to-end differentiable learning of protein structure",
         },
         {
           type: "paragraph",
@@ -86,7 +85,6 @@ const proteinStructurePrediction = {
       heroImage: "/images/protein.png",
       description:
         "Predykcja struktury trzeciorzędowej (3D) białka na podstawie sekwencji aminokwasów.",
-      stack: "RNNs, Tensorflow, Bioinformatics",
       links: [
         {
           label: "GitHub",
@@ -112,8 +110,6 @@ const proteinStructurePrediction = {
           type: "paragraph",
           html: "Model powstał na potrzeby kursu, ale wyniki wykraczały poza standardowy zakres zajęć.",
         },
-        { type: "heading", text: "Technologie" },
-        { type: "paragraph", html: "Python, Tensorflow, Jupyter Notebook" },
         { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "paragraph",
@@ -127,7 +123,8 @@ const proteinStructurePrediction = {
           type: "image",
           src: "/images/protein/protein_architecture.png",
           alt: "Schemat architektury modelu",
-          caption: "Źródło: AlQuraishi, End-to-end differentiable learning of protein structure",
+          caption:
+            "Źródło: AlQuraishi, End-to-end differentiable learning of protein structure",
         },
         {
           type: "paragraph",

@@ -2,15 +2,15 @@ const lighthouseCphEvents = {
   slug: "lighthousecph-events",
   cover: false,
   categories: ["web app", "community project", "no code"],
+  stack: "Glide, Stripe Webhooks, Automation",
   i18n: {
     en: {
       title: "Lighthouse CPH — Community Calendar",
       subtitle: "Glide app with Stripe membership logic",
       thumbnail: "/images/thumbnails/lighthousecph__home.webp",
-      heroImage: "/images/lighthousecph/events.png",
+      heroImage: "/images/lighthousecph/hero.webp",
       description:
         "A community space calendar that verifies paying members via Stripe webhooks and lets them book spaces and browse upcoming events.",
-      stack: "Glide, Stripe Webhooks, Automation",
       links: [{ label: "Live", href: "https://lighthousecph.dk/dl/events" }],
       content: [
         { type: "heading", text: "Project description" },
@@ -18,7 +18,14 @@ const lighthouseCphEvents = {
           type: "paragraph",
           html: "A community space calendar app that reacts to Stripe webhooks to determine paid membership status. Members can book spaces for events and see what’s happening in the community.",
         },
-        { type: "heading", text: "What I implemented" },
+        { type: "heading", text: "Overview" },
+        {
+          type: "paragraph",
+          html: "The app verifies membership via Stripe webhooks, lets members reserve spaces, and surfaces upcoming events in one calendar experience.",
+        },
+        { type: "heading", text: "Technologies" },
+        { type: "paragraph", html: "Glide, Stripe webhooks, automation" },
+        { type: "heading", text: "Technical Details" },
         {
           type: "orderedList",
           items: [
@@ -28,10 +35,14 @@ const lighthouseCphEvents = {
             "A Glide-based build so non-technical owners can maintain it.",
           ],
         },
-        { type: "heading", text: "Why Glide" },
         {
           type: "paragraph",
-          html: "Glide was chosen intentionally to make long-term handoff easy for non-technical stakeholders while still supporting custom logic via webhooks.",
+          html: "Glide was chosen to keep handoff simple for non-technical stakeholders while still supporting webhook-driven logic.",
+        },
+        { type: "heading", text: "Additional Information" },
+        {
+          type: "paragraph",
+          html: "I made the architectural decisions and set up the membership logic, booking flow, and event inputs in Glide but the current design and content are maintained by the community.",
         },
       ],
     },
@@ -39,10 +50,9 @@ const lighthouseCphEvents = {
       title: "Lighthouse CPH — Kalendarz społeczności",
       subtitle: "Aplikacja Glide z logiką członkostwa Stripe",
       thumbnail: "/images/thumbnails/lighthousecph__home.webp",
-      heroImage: "/images/lighthousecph/events.png",
+      heroImage: "/images/lighthousecph/hero.webp",
       description:
         "Kalendarz przestrzeni społecznościowej, który na podstawie webhooków Stripe rozpoznaje płatnych członków i pozwala rezerwować przestrzeń oraz przeglądać wydarzenia.",
-      stack: "Glide, Webhooki Stripe, Automatyzacje",
       links: [{ label: "Strona", href: "https://lighthousecph.dk/dl/events" }],
       content: [
         { type: "heading", text: "Opis projektu" },
@@ -50,7 +60,14 @@ const lighthouseCphEvents = {
           type: "paragraph",
           html: "Aplikacja kalendarza społecznościowego reagująca na webhooki Stripe, aby określić status płatnego członkostwa. Członkowie mogą rezerwować przestrzeń na wydarzenia i sprawdzać, co się dzieje w społeczności.",
         },
-        { type: "heading", text: "Co zostało zrobione" },
+        { type: "heading", text: "Przegląd" },
+        {
+          type: "paragraph",
+          html: "Aplikacja weryfikuje członkostwo przez webhooki Stripe, pozwala rezerwować przestrzenie i pokazuje nadchodzące wydarzenia w jednym widoku.",
+        },
+        { type: "heading", text: "Technologie" },
+        { type: "paragraph", html: "Glide, webhooki Stripe, automatyzacje" },
+        { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "orderedList",
           items: [
@@ -60,10 +77,14 @@ const lighthouseCphEvents = {
             "Implementacja w Glide, aby ułatwić utrzymanie osobom nietechnicznym.",
           ],
         },
-        { type: "heading", text: "Dlaczego Glide" },
         {
           type: "paragraph",
-          html: "Glide został wybrany świadomie, by przekazanie projektu było proste dla osób nietechnicznych, przy zachowaniu możliwości automatyzacji przez webhooki.",
+          html: "Glide wybrano, aby przekazanie projektu było proste dla osób nietechnicznych, przy zachowaniu logiki opartej o webhooki Stripe.",
+        },
+        { type: "heading", text: "Dodatkowe informacje" },
+        {
+          type: "paragraph",
+          html: "Zdecydowałem o architekturze i skonfigurowałem logikę członkostwa, flow rezerwacji oraz formularze wydarzeń w Glide, ale obecny design i treści są utrzymywane przez społeczność.",
         },
       ],
     },

@@ -1,14 +1,15 @@
 const cnnsAndVisualAttention = {
   slug: "cnns-and-visual-attention",
   categories: ["Science", "image processing", "AI"],
+  stack: "Python, CNN, Tensorflow, Keras, Eye-tracking",
   i18n: {
     en: {
       title: "Visual Attention applied to Object Recognition",
       subtitle: "University of Copenhagen, group work",
       thumbnail: "/images/thumbnails/attention.webp",
       heroImage: "/images/attention.png",
-      description: "CNN's attention compared to human attention based of eye-tracking data.",
-      stack: "CNN, Keras, Attention Mechanism",
+      description:
+        "CNN's attention compared to human attention based of eye-tracking data.",
       links: [
         {
           label: "GitHub",
@@ -34,8 +35,6 @@ const cnnsAndVisualAttention = {
           type: "paragraph",
           html: "The project is part of a Cognitive Science course at the University of Copenhagen.",
         },
-        { type: "heading", text: "Technologies" },
-        { type: "paragraph", html: "Python, Tensorflow, Keras, Eye-tracking" },
         { type: "heading", text: "Technical Details" },
         {
           type: "paragraph",
@@ -86,7 +85,6 @@ const cnnsAndVisualAttention = {
       thumbnail: "/images/thumbnails/attention.webp",
       heroImage: "/images/attention.png",
       description: "Porównanie uwagi CNN i człowieka na danych eye‑tracking.",
-      stack: "CNN, Keras, Attention Mechanism",
       links: [
         {
           label: "GitHub",
@@ -112,8 +110,6 @@ const cnnsAndVisualAttention = {
           type: "paragraph",
           html: "Projekt realizowany w ramach kursu Cognitive Science na University of Copenhagen.",
         },
-        { type: "heading", text: "Technologie" },
-        { type: "paragraph", html: "Python, Tensorflow, Keras, Eye‑tracking" },
         { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "paragraph",

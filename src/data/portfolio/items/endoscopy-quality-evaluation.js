@@ -1,6 +1,7 @@
 const endoscopyQualityEvaluation = {
   slug: "endoscopy-quality-evaluation",
   categories: ["Science", "image processing", "AI"],
+  stack: "C++, OpenCV, OpticalFlow",
   i18n: {
     en: {
       title: "Endoscopy Quality Evaluation",
@@ -9,7 +10,6 @@ const endoscopyQualityEvaluation = {
       heroImage: "/images/colonoscopy.png",
       description:
         "Software that created a real time map for assesing quality of a colonoscopy exam. The project was developed as a desktop app based on gastroentherologist's expertise.",
-      stack: "C++, OpenCV, OpticalFlow",
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -25,8 +25,6 @@ const endoscopyQualityEvaluation = {
           type: "paragraph",
           html: "The project aimed to use only the camera feed in order to objectively and quantitatively evaluate doctor’s performance and output it in real-time for the doctor, as well as provide a report that can then be used to asses doctor’s performance and improvement over time and gather data about how the quality of the examination correlates with detected and missed cancers.",
         },
-        { type: "heading", text: "Technologies" },
-        { type: "paragraph", html: "C++, OpenCV, Optical Flow" },
         { type: "heading", text: "Technical Details" },
         {
           type: "paragraph",
@@ -62,7 +60,6 @@ const endoscopyQualityEvaluation = {
       heroImage: "/images/colonoscopy.png",
       description:
         "Oprogramowanie tworzące mapę jakości badania kolonoskopowego, oparte o wiedzę gastroenterologa.",
-      stack: "C++, OpenCV, OpticalFlow",
       content: [
         { type: "heading", text: "Opis projektu" },
         {
@@ -78,8 +75,6 @@ const endoscopyQualityEvaluation = {
           type: "paragraph",
           html: "Projekt wykorzystywał wyłącznie obraz z kamery do ilościowej oceny jakości badania i generował raporty, które pomagają w poprawie jakości oraz analizie korelacji z wykrywalnością zmian.",
         },
-        { type: "heading", text: "Technologie" },
-        { type: "paragraph", html: "C++, OpenCV, Optical Flow" },
         { type: "heading", text: "Szczegóły techniczne" },
         {
           type: "paragraph",

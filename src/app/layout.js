@@ -41,7 +41,7 @@ export const metadata = {
   description: "Portfolio of Michal Gacka",
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico" },
     ],
   },

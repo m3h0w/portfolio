@@ -2,15 +2,15 @@ const talkling = {
   slug: "talkling",
   cover: true,
   categories: ["web app", "LLMs", "AI", "Design / UX"],
+  stack: "Nextjs, LLMs, SQL, Supabase",
   i18n: {
     en: {
       title: "Talkling",
-      subtitle: "MVP, learning project",
+      subtitle: "MVP, SaaS",
       thumbnail: "/images/thumbnails/talkling1.webp",
-      heroImage: "/images/talkling/talkling2.png",
+      heroImage: "/images/talkling/hero.webp",
       description:
         "Language learning through real conversations: voice messages, live transcription, and instant translations.",
-      stack: "Nextjs, LLMs, SQL, Supabase",
       links: [{ label: "Live", href: "https://talkling.app/" }],
       content: [
         { type: "heading", text: "Project description" },
@@ -26,26 +26,36 @@ const talkling = {
         { type: "heading", text: "Overview" },
         {
           type: "paragraph",
-          html: "Talkling turns each voice message into a learning unit: you can replay audio, read the transcript, and tap messages to see translations.",
+          html: "Talkling turns each voice message into a learning unit: you can replay audio, read the transcript, and tap messages to see translations. It is designed for partner practice (friends, tutors, language partners) and solo practice via AI characters.",
         },
+        { type: "heading", text: "Technologies" },
         {
           type: "paragraph",
-          html: "The experience is designed for partner practice (friends, tutors, language partners) and solo practice via AI characters.",
+          html: "Next.js, LLMs, SQL, Supabase",
         },
+        { type: "heading", text: "Technical Details" },
         {
-          type: "paragraph",
-          html: "Key features include voice notes, live transcription, instant translations, and optional AI feedback and response suggestions.",
+          type: "list",
+          items: [
+            "Voice notes with live transcription for every message",
+            "Tap-to-translate messages to see instant translations",
+            "Optional AI feedback and response suggestions to keep practice flowing",
+          ],
         },
+        // { type: "heading", text: "My contribution" },
+        // {
+        //   type: "paragraph",
+        //   html: "I designed and built the MVP end-to-end as a learning project: product flows, UX, and the full-stack implementation with AI integrations.",
+        // },
       ],
     },
     pl: {
       title: "Talkling",
-      subtitle: "MVP, projekt edukacyjny",
+      subtitle: "MVP, SaaS",
       thumbnail: "/images/thumbnails/talkling1.webp",
-      heroImage: "/images/talkling/talkling2.png",
+      heroImage: "/images/talkling/hero.webp",
       description:
         "Nauka języka przez prawdziwe rozmowy: wiadomości głosowe, transkrypcja na żywo i natychmiastowe tłumaczenia.",
-      stack: "Nextjs, LLMs, SQL, Supabase",
       links: [{ label: "Strona", href: "https://talkling.app/" }],
       content: [
         { type: "heading", text: "Opis projektu" },
@@ -61,15 +71,16 @@ const talkling = {
         { type: "heading", text: "Przegląd" },
         {
           type: "paragraph",
-          html: "Każda wiadomość głosowa staje się jednostką nauki: możesz odsłuchać audio, przeczytać transkrypt i kliknąć wiadomości, aby zobaczyć tłumaczenia.",
+          html: "Każda wiadomość głosowa staje się jednostką nauki: możesz odsłuchać audio, przeczytać transkrypt i kliknąć wiadomości, aby zobaczyć tłumaczenia. Doświadczenie jest zaprojektowane do ćwiczeń w parach oraz do samodzielnej praktyki z postaciami AI.",
         },
+        { type: "heading", text: "Szczegóły techniczne" },
         {
-          type: "paragraph",
-          html: "Doświadczenie jest zaprojektowane do ćwiczeń w parach (znajomi, tutorzy, partnerzy językowi) oraz do samodzielnej praktyki z postaciami AI.",
-        },
-        {
-          type: "paragraph",
-          html: "Kluczowe funkcje to notatki głosowe, transkrypcja na żywo, natychmiastowe tłumaczenia oraz opcjonalny feedback i sugestie odpowiedzi od AI.",
+          type: "list",
+          items: [
+            "Notatki głosowe z transkrypcją na żywo dla każdej wiadomości",
+            "Kliknięcie wiadomości pokazuje natychmiastowe tłumaczenie",
+            "Opcjonalny feedback AI i podpowiedzi odpowiedzi, żeby utrzymać płynność nauki",
+          ],
         },
       ],
     },

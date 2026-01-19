@@ -40,3 +40,37 @@
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
+.enterMain {
+  animation: detailEnterMain 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.enterAside {
+  animation: detailEnterAside 680ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+}
+
+@keyframes detailEnterMain {
+  0% {
+    transform: translate3d(0, 16px, 0) scale(0.98);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes detailEnterAside {
+  0% {
+    transform: translate3d(0, 26px, 0) scale(0.96);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .enterMain,
+  .enterAside {
+    animation: none;
+  }
+}

@@ -1,14 +1,15 @@
 const productRecommendationAndChurn = {
   slug: "product-recommendation-and-churn",
   categories: ["machine learning", "AI"],
+  stack: "Python, Sklearn, Keras, SQL, Docker, Flask",
   i18n: {
     en: {
       title: "Product recommendation and churn in insurance",
       subtitle: "TIA Technology",
       thumbnail: "/images/thumbnails/product_recommendation.webp",
       heroImage: "/images/product_recommendations_and_churn/main.png",
-      description: "A product recommendation system and churn model for insurance companies.",
-      stack: "Sklearn, Keras, SQL, Docker",
+      description:
+        "A product recommendation system and churn model for insurance companies.",
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -28,11 +29,6 @@ const productRecommendationAndChurn = {
           type: "image",
           src: "/images/product_recommendations_and_churn/icp_demo.gif",
           alt: "Product recommendation demo",
-        },
-        { type: "heading", text: "Technologies" },
-        {
-          type: "paragraph",
-          html: "Oracle SQL Developer, Python, Pandas, Keras, Sklearn, Flask, Docker",
         },
         { type: "heading", text: "Technical Details" },
         {
@@ -80,8 +76,8 @@ const productRecommendationAndChurn = {
       subtitle: "TIA Technology",
       thumbnail: "/images/thumbnails/product_recommendation.webp",
       heroImage: "/images/product_recommendations_and_churn/main.png",
-      description: "System rekomendacji produktów i model churnu dla firm ubezpieczeniowych.",
-      stack: "Sklearn, Keras, SQL, Docker",
+      description:
+        "System rekomendacji produktów i model churnu dla firm ubezpieczeniowych.",
       content: [
         { type: "heading", text: "Opis projektu" },
         {
@@ -101,11 +97,6 @@ const productRecommendationAndChurn = {
           type: "image",
           src: "/images/product_recommendations_and_churn/icp_demo.gif",
           alt: "Demo rekomendacji produktów",
-        },
-        { type: "heading", text: "Technologie" },
-        {
-          type: "paragraph",
-          html: "Oracle SQL Developer, Python, Pandas, Keras, Sklearn, Flask, Docker",
         },
         { type: "heading", text: "Szczegóły techniczne" },
         {

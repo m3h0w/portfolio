@@ -1,6 +1,8 @@
 const traivel = {
   slug: "traivel",
   categories: ["web app", "machine learning", "AI"],
+  stack:
+    "Python, JavaScript, Flask, Skyscanner API, Twitter API, Microsoft Cognitive Services",
   i18n: {
     en: {
       title: "TRAiVEL – sentiment-based travel recommendations",
@@ -9,7 +11,6 @@ const traivel = {
       heroImage: "/images/traivel.png",
       description:
         "An app that uses sentiment analysis to estimate current mood in European countries based on twitter data and recommended travel destinations together with flight prices fetched from Skyscanner api.",
-      stack: "Python, JavaScript, Flask, ML",
       links: [
         { label: "GitHub", href: "https://github.com/m3h0w/TRAiVEL" },
         { label: "Video", href: "https://vimeo.com/263715035" },
@@ -29,15 +30,14 @@ const traivel = {
           type: "paragraph",
           html: "The happiness is based on Twitter data scrapped for these countries and filtered to only consider native speakers. That is being sent to Microsoft Cognitive Services that provide sentiment analysis in many European languages (thus the choice of countries). In parallel, we request Skyscanner to provide actionable recommendation that can take he user directly to Skyscanner, where the tickets can be bought.",
         },
-        { type: "image", src: "/images/traivel/traivel.gif", alt: "TRAiVEL demo" },
+        {
+          type: "image",
+          src: "/images/traivel/traivel.gif",
+          alt: "TRAiVEL demo",
+        },
         {
           type: "paragraph",
           html: "Everything is visualized in a form of interactive map that could be adapted to many other data sources than just sentiment information.",
-        },
-        { type: "heading", text: "Technologies" },
-        {
-          type: "paragraph",
-          html: "Python, JavaScript, Flask, Skyscanner API, Twitter API, Microsoft Cognitive Services",
         },
         { type: "heading", text: "Technical Details" },
         {
@@ -66,7 +66,6 @@ const traivel = {
       heroImage: "/images/traivel.png",
       description:
         "Aplikacja analizująca sentyment z Twittera i rekomendująca destynacje wraz z cenami lotów ze Skyscanner.",
-      stack: "Python, JavaScript, Flask, ML",
       links: [
         { label: "GitHub", href: "https://github.com/m3h0w/TRAiVEL" },
         { label: "Wideo", href: "https://vimeo.com/263715035" },
@@ -86,15 +85,14 @@ const traivel = {
           type: "paragraph",
           html: "Sentyment bazuje na danych z Twittera, filtrowanych do rodzimych użytkowników, a następnie analizowanych przez Microsoft Cognitive Services. Równolegle pobieramy rekomendacje lotów ze Skyscanner.",
         },
-        { type: "image", src: "/images/traivel/traivel.gif", alt: "Demo TRAiVEL" },
+        {
+          type: "image",
+          src: "/images/traivel/traivel.gif",
+          alt: "Demo TRAiVEL",
+        },
         {
           type: "paragraph",
           html: "Wszystko jest wizualizowane na interaktywnej mapie, którą można dostosować do innych źródeł danych.",
-        },
-        { type: "heading", text: "Technologie" },
-        {
-          type: "paragraph",
-          html: "Python, JavaScript, Flask, Skyscanner API, Twitter API, Microsoft Cognitive Services",
         },
         { type: "heading", text: "Szczegóły techniczne" },
         {
