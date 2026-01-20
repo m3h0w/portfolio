@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "generate:lqip": "node scripts/generate-lqip.mjs",
     "generate:favicon": "node scripts/generate-favicon.mjs"
   },
   "dependencies": {

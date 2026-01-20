@@ -9,12 +9,21 @@ import LivePreviewModal from "@/app/_components/LivePreviewModal";
 import AtAGlanceLinks, { LinkIcon } from "@/app/_components/AtAGlanceLinks";
 import AtAGlanceBackToPortfolio from "@/app/_components/AtAGlanceBackToPortfolio";
 import GlassesIcon from "@/components/GlassesIcon";
+import IMAGE_LQIP_MAP from "@/data/imageLqipMap";
 import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
   isLivePreviewLink,
   isReportPreviewLink,
 } from "@/app/_components/livePreviewUtils";
+
+const FALLBACK_BLUR_DATA_URL =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E";
+
+function getBlurDataURL(src) {
+  if (typeof src !== "string") return FALLBACK_BLUR_DATA_URL;
+  return IMAGE_LQIP_MAP[src] || FALLBACK_BLUR_DATA_URL;
+}
 
 function CountryFlag({ country, className = "" }) {
   const clipId = `country-flag-${country.replace(/\s/g, "-").toLowerCase()}`;
@@ -262,6 +271,8 @@ const renderContentBlock = (block) => {
         </ol>
       );
     case "image":
+      // Use LQIP for any inline content images to avoid a white flash.
+      const contentBlurDataURL = getBlurDataURL(block.src);
       return (
         <figure className="mt-6">
           <div className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-md shadow-slate-200/60">
@@ -271,7 +282,7 @@ const renderContentBlock = (block) => {
               width={1200}
               height={800}
               placeholder="blur"
-              blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
+              blurDataURL={contentBlurDataURL}
               className="h-auto w-full object-cover"
             />
           </div>
@@ -312,6 +323,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
 
   const data = item.i18n[locale] || item.i18n.en;
   const siteContent = getSiteContent(locale);
+
+  const heroBlurDataURL = getBlurDataURL(data.heroImage);
 
   const currentIndex = portfolioItems.findIndex((entry) => entry.slug === slug);
   const prevItem = currentIndex > 0 ? portfolioItems[currentIndex - 1] : null;
@@ -501,7 +514,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                 width={1600}
                 height={1000}
                 placeholder="blur"
-                blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
+                blurDataURL={heroBlurDataURL}
                 className="h-auto w-full object-cover"
                 priority
               />
@@ -645,7 +658,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       width={360}
                       height={240}
                       placeholder="blur"
-                      blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
+                      blurDataURL={getBlurDataURL(prevData.thumbnail || prevData.heroImage)}
                       className="h-full w-full object-cover"
                     />
                   </div>
@@ -695,7 +708,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       width={360}
                       height={240}
                       placeholder="blur"
-                      blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
+                      blurDataURL={getBlurDataURL(siteContent.about.image.src)}
                       className="h-full w-full object-cover"
                     />
                   </div>
@@ -714,7 +727,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       width={360}
                       height={240}
                       placeholder="blur"
-                      blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
+                      blurDataURL={getBlurDataURL(nextData.thumbnail || nextData.heroImage)}
                       className="h-full w-full object-cover"
                     />
                   </div>

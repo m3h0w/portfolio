@@ -8,6 +8,11 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  process.env.SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
+
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
@@ -38,6 +43,7 @@ const sora = Sora({
 });
 
 export const metadata = {
+  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   title: "Michal Gacka",
   description: "Portfolio of Michal Gacka",
   icons: {
