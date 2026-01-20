@@ -10,6 +10,7 @@ import AtAGlanceLinks, { LinkIcon } from "@/app/_components/AtAGlanceLinks";
 import AtAGlanceBackToPortfolio from "@/app/_components/AtAGlanceBackToPortfolio";
 import GlassesIcon from "@/components/GlassesIcon";
 import IMAGE_LQIP_MAP from "@/data/imageLqipMap";
+import LqipImage from "@/app/_components/LqipImage";
 import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
@@ -276,7 +277,7 @@ const renderContentBlock = (block) => {
       return (
         <figure className="mt-6">
           <div className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-md shadow-slate-200/60">
-            <Image
+            <LqipImage
               src={block.src}
               alt={block.alt}
               width={1200}
@@ -508,7 +509,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
         <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
           <article className={`${styles.surface} ${styles.enterMain} p-5 sm:p-7`}>
             <div className={styles.hero}>
-              <Image
+              <LqipImage
                 src={data.heroImage}
                 alt={data.title}
                 width={1600}
@@ -652,7 +653,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                     )}
                   </div>
                   <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
-                    <Image
+                    <LqipImage
                       src={prevData.thumbnail || prevData.heroImage}
                       alt={prevData.title}
                       width={360}
@@ -702,7 +703,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                     )}
                   </div>
                   <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
-                    <Image
+                    <LqipImage
                       src={siteContent.about.image.src}
                       alt={siteContent.about.image.alt}
                       width={360}
@@ -721,7 +722,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                   className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
                 >
                   <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
-                    <Image
+                    <LqipImage
                       src={nextData.thumbnail || nextData.heroImage}
                       alt={nextData.title}
                       width={360}

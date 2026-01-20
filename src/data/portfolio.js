@@ -2,7 +2,6 @@ import instytutRelacyjny from "@/data/portfolio/items/instytutrelacyjny";
 import talkling from "@/data/portfolio/items/talkling";
 import soilsense from "@/data/portfolio/items/soilsense";
 import covid19pink from "@/data/portfolio/items/covid19pink";
-import experimentalBrews from "@/data/portfolio/items/experimental-brews";
 import proteinStructurePrediction from "@/data/portfolio/items/protein-structure-prediction";
 import productRecommendationAndChurn from "@/data/portfolio/items/product-recommendation-and-churn";
 import cnnsAndVisualAttention from "@/data/portfolio/items/cnns-and-visual-attention";
@@ -20,7 +19,6 @@ const portfolioItems = [
   instytutRelacyjny,
   lighthouseCphEvents,
   covid19pink,
-  experimentalBrews,
   proteinStructurePrediction,
   productRecommendationAndChurn,
   cnnsAndVisualAttention,

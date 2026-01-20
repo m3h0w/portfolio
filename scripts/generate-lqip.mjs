@@ -53,9 +53,9 @@ async function collectImageSrcsFromFiles(filePaths) {
 async function generateBlurDataURL(absFilePath) {
   // Keep this small to avoid bloating HTML/JS.
   const buffer = await sharp(absFilePath)
-    .resize({ width: 24 })
-    .blur(8)
-    .webp({ quality: 40 })
+    .resize({ width: 48 })
+    .blur(6)
+    .webp({ quality: 55 })
     .toBuffer();
 
   return `data:image/webp;base64,${buffer.toString("base64")}`;
