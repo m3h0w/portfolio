@@ -3,6 +3,7 @@ const talkling = {
   cover: true,
   categories: ["web app", "LLMs", "AI", "Design / UX"],
   stack: "Nextjs, LLMs, SQL, Supabase",
+  work: { kind: "selfEmployment", entity: "Talkling" },
   i18n: {
     en: {
       title: "Talkling",
@@ -30,11 +31,6 @@ const talkling = {
         {
           type: "paragraph",
           html: "Talkling turns each voice message into a learning unit: you can replay audio, read the transcript, and tap messages to see translations. It is designed for partner practice (friends, tutors, language partners) and solo practice via AI characters.",
-        },
-        { type: "heading", text: "Technologies" },
-        {
-          type: "paragraph",
-          html: "Next.js, LLMs, SQL, Supabase",
         },
         { type: "heading", text: "Technical Details" },
         {

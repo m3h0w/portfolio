@@ -2,6 +2,7 @@ const covid19pink = {
   slug: "covid19pink",
   categories: ["web app", "community project", "Design / UX"],
   stack: "TypeScript, React, Recharts, Mobx, Vercel",
+  work: { kind: "community" },
   i18n: {
     en: {
       title: "COVID19.PINK",

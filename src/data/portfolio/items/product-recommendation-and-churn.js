@@ -2,6 +2,7 @@ const productRecommendationAndChurn = {
   slug: "product-recommendation-and-churn",
   categories: ["machine learning", "AI"],
   stack: "Python, Sklearn, Keras, SQL, Docker, Flask",
+  work: { kind: "company", entity: "TIA Technology" },
   i18n: {
     en: {
       title: "Product recommendation and churn in insurance",

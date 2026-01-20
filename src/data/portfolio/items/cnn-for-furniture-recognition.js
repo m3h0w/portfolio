@@ -2,6 +2,7 @@ const cnnForFurnitureRecognition = {
   slug: "cnn-for-furniture-recognition",
   categories: ["Science", "image processing", "AI"],
   stack: "Azure, CNNs, Keras, Kaggle",
+  work: { kind: "school", entity: "University of Copenhagen" },
   i18n: {
     en: {
       title: "CNNs & Transfer Learning for furniture recognition",
@@ -18,7 +19,7 @@ const cnnForFurnitureRecognition = {
         },
         {
           label: "Kaggle",
-          href: "https://drive.google.com/file/d/1BYiLsxVw_Q7rH3k4cbf1DKgqedVDAB_2/view?usp=sharing",
+          href: "https://www.kaggle.com/competitions/imaterialist-challenge-furniture-2018/leaderboard?tab=public",
         },
       ],
       content: [
@@ -71,7 +72,7 @@ const cnnForFurnitureRecognition = {
         },
         {
           label: "Kaggle",
-          href: "https://drive.google.com/file/d/1BYiLsxVw_Q7rH3k4cbf1DKgqedVDAB_2/view?usp=sharing",
+          href: "https://www.kaggle.com/competitions/imaterialist-challenge-furniture-2018/leaderboard?tab=public",
         },
       ],
       content: [

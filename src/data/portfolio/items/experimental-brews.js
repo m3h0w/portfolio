@@ -3,6 +3,7 @@ const experimentalBrews = {
   cover: true,
   categories: ["web app", "e-commerce"],
   stack: "Next.js, NestJS, BigCommerce, Stripe",
+  work: { kind: "company", entity: "Kvalifik" },
   i18n: {
     en: {
       title: "Experimental Brews",

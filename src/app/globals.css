@@ -48,6 +48,10 @@ body {
   color: var(--accent-dark);
 }
 
+.cursor-glasses {
+  cursor: url("/cursor-glasses.png") 16 16, url("/icon.svg") 8 8, pointer;
+}
+
 .project-content a {
   color: var(--accent);
   text-decoration: none;
@@ -233,6 +237,7 @@ body {
   margin-bottom: 0.75rem;
   padding-bottom: 0;
   color: #5b6472;
+  font-size: 0.95rem;
   line-height: 1.45;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -249,7 +254,7 @@ body {
   }
 
   .card-text {
-    font-size: 0.84rem;
+    font-size: 0.92rem;
     line-height: 1.42;
   }
 }

@@ -2,6 +2,7 @@ const insuranceRulesAdminPanel = {
   slug: "insurance-rules-admin-panel",
   categories: ["web app", "no code"],
   stack: "Flask, React, SQLite, Docker",
+  work: { kind: "company", entity: "GoBundl / TIA Technology" },
   i18n: {
     en: {
       title: "Insurance Recommendation Admin Panel",

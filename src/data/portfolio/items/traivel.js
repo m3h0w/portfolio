@@ -3,6 +3,7 @@ const traivel = {
   categories: ["web app", "machine learning", "AI"],
   stack:
     "Python, JavaScript, Flask, Skyscanner API, Twitter API, Microsoft Cognitive Services",
+  work: { kind: "community" },
   i18n: {
     en: {
       title: "TRAiVEL – sentiment-based travel recommendations",

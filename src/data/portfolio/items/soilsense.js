@@ -3,6 +3,7 @@ const soilsense = {
   categories: ["web app", "PWA", "AI", "Design / UX"],
   stack:
     "React, TypeScript, MongoDB, Firebase, Python, Tensorflow, Docker, GitHub Actions, Google Cloud Platform",
+  work: { kind: "company", entity: "SoilSense" },
   i18n: {
     en: {
       title: "SoilSense Irrigation Dashboard",

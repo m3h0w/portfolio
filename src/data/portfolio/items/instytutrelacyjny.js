@@ -3,6 +3,7 @@ const instytutRelacyjny = {
   cover: false,
   categories: ["landing page", "Design / UX"],
   stack: "TypeScript, Next.js, Tailwind",
+  work: { kind: "selfEmployment", entity: "Warsaw Institute of Relating" },
   i18n: {
     en: {
       title: "Warsaw Institute of Relating",

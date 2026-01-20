@@ -2,6 +2,7 @@ const parkingOccupancyDetection = {
   slug: "parking-occupancy-detection",
   categories: ["image processing", "AI"],
   stack: "Python, OpenCV, Google Cloud Storage",
+  work: { kind: "company", entity: "Smart in" },
   i18n: {
     en: {
       title: "Parking Occupancy Detection",

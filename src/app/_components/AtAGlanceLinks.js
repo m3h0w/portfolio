@@ -3,13 +3,17 @@
 import { useEffect, useId, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LivePreviewModal from "@/app/_components/LivePreviewModal";
+import GlassesIcon from "@/components/GlassesIcon";
 import {
   isIframeLivePreviewAllowed,
   isLivePreviewLink,
   isReportPreviewLink,
 } from "@/app/_components/livePreviewUtils";
 
-export function LinkIcon({ href, label, isPreview }) {
+const secondaryButtonClassName =
+  "inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white";
+
+export function LinkIcon({ href, label, isPreview, className: classNameProp }) {
   const normalizedHref = (href || "").toLowerCase();
   const normalizedLabel = (label || "").toLowerCase();
 
@@ -27,8 +31,10 @@ export function LinkIcon({ href, label, isPreview }) {
     normalizedLabel.includes("docs") ||
     normalizedLabel.includes("documentation");
 
-  const className =
+  const defaultClassName =
     "h-4 w-4 text-slate-500 transition-colors group-hover:text-(--accent-dark)";
+
+  const iconClassName = classNameProp || defaultClassName;
 
   if (isPreview) {
     return (
@@ -38,7 +44,7 @@ export function LinkIcon({ href, label, isPreview }) {
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className={className}
+        className={iconClassName}
       >
         <path
           strokeLinecap="round"
@@ -53,7 +59,7 @@ export function LinkIcon({ href, label, isPreview }) {
 
   if (isGitHub) {
     return (
-      <svg aria-hidden viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <svg aria-hidden viewBox="0 0 24 24" fill="currentColor" className={iconClassName}>
         <path d="M12 .6a11.4 11.4 0 0 0-3.6 22.2c.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.6 2.8 3.3 2 .1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.1v3.1c0 .3.2.7.8.6A11.4 11.4 0 0 0 12 .6Z" />
       </svg>
     );
@@ -67,7 +73,7 @@ export function LinkIcon({ href, label, isPreview }) {
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className={className}
+        className={iconClassName}
       >
         <path
           strokeLinecap="round"
@@ -91,7 +97,7 @@ export function LinkIcon({ href, label, isPreview }) {
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className={className}
+        className={iconClassName}
       >
         <path
           strokeLinecap="round"
@@ -112,7 +118,7 @@ export function LinkIcon({ href, label, isPreview }) {
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
-      className={className}
+      className={iconClassName}
     >
       <path
         strokeLinecap="round"
@@ -144,7 +150,6 @@ export default function AtAGlanceLinks({
 
   useEffect(() => {
     if (!observeId) return;
-
     const element = document.getElementById(observeId);
     if (!element) return;
 
@@ -192,29 +197,24 @@ export default function AtAGlanceLinks({
                   <LivePreviewModal
                     key={`aside-preview-${link.label}`}
                     url={link.href}
-                    title={`${projectTitle} — ${link.label}`}
+                    title={allowInlinePreview ? projectTitle : `${projectTitle} — ${link.label}`}
                     openLabel={link.label}
                     openInNewTabLabel={openInNewTabLabel}
                     closeLabel={closeLabel}
+                    showPreviewIcon
                     trigger={
-                      <span className="flex w-full items-center justify-between gap-3">
-                        <span className="flex min-w-0 items-center gap-3">
-                          <LinkIcon
-                            href={link.href}
-                            label={link.label}
-                            isPreview={allowInlinePreview || allowReportPreview}
-                          />
+                      <span className="flex w-full items-center justify-between gap-2">
+                        <span className="flex min-w-0 items-center gap-2">
+                          <LinkIcon href={link.href} label={link.label} />
                           <span className="truncate">{link.label}</span>
                         </span>
-                        <span
-                          aria-hidden
-                          className="text-slate-500 transition-colors group-hover:text-(--accent-dark)"
-                        >
-                          ▣
-                        </span>
+                        <GlassesIcon
+                          size={16}
+                          className="shrink-0 opacity-70 transition-[opacity,filter] group-hover:opacity-95 group-hover:brightness-0"
+                        />
                       </span>
                     }
-                    buttonClassName="group inline-flex cursor-pointer items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/60 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition-colors hover:border-black/20 hover:bg-white"
+                    buttonClassName={`group ${secondaryButtonClassName} w-full justify-between cursor-glasses`}
                   />
                 );
               }
@@ -225,16 +225,13 @@ export default function AtAGlanceLinks({
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white/60 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm transition-colors hover:border-black/20 hover:bg-white"
+                  className={`group ${secondaryButtonClassName} w-full justify-between`}
                 >
-                  <span className="flex min-w-0 items-center gap-3">
+                  <span className="flex min-w-0 items-center gap-2">
                     <LinkIcon href={link.href} label={link.label} />
                     <span className="truncate">{link.label}</span>
                   </span>
-                  <span
-                    aria-hidden
-                    className="text-slate-500 transition-colors group-hover:text-(--accent-dark)"
-                  >
+                  <span aria-hidden className="opacity-70">
                     ↗
                   </span>
                 </a>

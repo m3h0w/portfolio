@@ -2,6 +2,7 @@ const tSneInEmotionRecognition = {
   slug: "t-sne-in-emotion-recognition",
   categories: ["Science", "machine learning", "AI"],
   stack: "Python, Keras, Parametric t-SNE",
+  work: { kind: "school", entity: "University of Copenhagen" },
   i18n: {
     en: {
       title: "Parametric t-SNE for temporal, multimodal emotion recognition",

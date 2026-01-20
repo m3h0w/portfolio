@@ -3,6 +3,7 @@ const lighthouseCphEvents = {
   cover: false,
   categories: ["web app", "community project", "no code"],
   stack: "Glide, Stripe Webhooks, Automation",
+  work: { kind: "community", entity: "Lighthouse CPH" },
   i18n: {
     en: {
       title: "Lighthouse CPH — Community Calendar",

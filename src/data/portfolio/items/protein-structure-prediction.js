@@ -2,6 +2,7 @@ const proteinStructurePrediction = {
   slug: "protein-structure-prediction",
   categories: ["Science", "machine learning", "AI"],
   stack: "Python, RNNs, Tensorflow, Jupyter Notebook",
+  work: { kind: "school", entity: "IT University of Copenhagen" },
   i18n: {
     en: {
       title: "Protein tertiary structure prediction",

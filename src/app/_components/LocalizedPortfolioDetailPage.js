@@ -8,6 +8,7 @@ import styles from "@/app/projects/[slug]/page.module.css";
 import LivePreviewModal from "@/app/_components/LivePreviewModal";
 import AtAGlanceLinks, { LinkIcon } from "@/app/_components/AtAGlanceLinks";
 import AtAGlanceBackToPortfolio from "@/app/_components/AtAGlanceBackToPortfolio";
+import GlassesIcon from "@/components/GlassesIcon";
 import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
@@ -119,11 +120,30 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
   const iframeAllowed = liveLink
     ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
     : false;
-  const actionLinks = (data.links || []).filter(
-    (link) =>
-      !link?.preview &&
-      (!liveLink || link?.href !== liveLink.href || link?.label !== liveLink.label)
-  );
+
+  const primaryButtonClassName =
+    "inline-flex cursor-pointer items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-(--accent-dark)";
+
+  const secondaryButtonClassName =
+    "inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white";
+
+  const primaryPreviewButtonClassName = `group ${primaryButtonClassName} cursor-glasses`;
+  const secondaryPreviewButtonClassName = `group ${secondaryButtonClassName} cursor-glasses`;
+
+  const actionLinks = (data.links || []).filter((link) => {
+    if (link?.preview) return false;
+
+    // If we can show the live preview modal, it already contains an "Open in new tab"
+    // action — so we hide any duplicate external link for the same URL.
+    if (liveLink && iframeAllowed && link?.href === liveLink.href) return false;
+
+    // Avoid duplicating the exact liveLink entry.
+    if (liveLink && link?.href === liveLink.href && link?.label === liveLink.label) {
+      return false;
+    }
+
+    return true;
+  });
   const topActionsId = "portfolio-detail-top-actions";
 
   const stack = item.stack || data.stack || "";
@@ -154,24 +174,59 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
             className="flex flex-wrap items-center justify-center gap-2 sm:justify-end"
           >
             {liveLink && iframeAllowed && (
-              <LivePreviewModal
-                url={liveLink.href}
-                title={data.title}
-                openLabel={siteContent.ui.livePreview}
-                openInNewTabLabel={siteContent.ui.openInNewTab}
-                closeLabel={siteContent.ui.close}
-                trigger={
-                  <span className="flex items-center gap-2">
-                    <LinkIcon
-                      href={liveLink.href}
-                      label={siteContent.ui.livePreview}
-                      isPreview
-                    />
-                    <span>{siteContent.ui.livePreview}</span>
-                    <span aria-hidden>▣</span>
-                  </span>
-                }
-              />
+              <>
+                <LivePreviewModal
+                  url={liveLink.href}
+                  title={data.title}
+                  openLabel={siteContent.ui.livePreview}
+                  openInNewTabLabel={siteContent.ui.openInNewTab}
+                  closeLabel={siteContent.ui.close}
+                  showPreviewIcon
+                  trigger={
+                    <span className="flex items-center gap-2">
+                      <LinkIcon
+                        href={liveLink.href}
+                        label={siteContent.ui.livePreview}
+                        className="h-4 w-4 text-white"
+                      />
+                      <span>{siteContent.ui.livePreview}</span>
+                      <GlassesIcon
+                        size={16}
+                        className="shrink-0 opacity-80 transition-[opacity,filter] group-hover:opacity-100 group-hover:brightness-0 group-hover:invert"
+                      />
+                    </span>
+                  }
+                  buttonClassName={primaryPreviewButtonClassName}
+                />
+
+                <a
+                  href={liveLink.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={secondaryButtonClassName}
+                >
+                  <LinkIcon href={liveLink.href} label={siteContent.ui.openLiveSite} />
+                  {siteContent.ui.openLiveSite}
+                  <span aria-hidden>↗</span>
+                </a>
+              </>
+            )}
+
+            {liveLink && !iframeAllowed && (
+              <a
+                href={liveLink.href}
+                target="_blank"
+                rel="noreferrer"
+                className={primaryButtonClassName}
+              >
+                <LinkIcon
+                  href={liveLink.href}
+                  label={siteContent.ui.livePreview}
+                  className="h-4 w-4 text-white"
+                />
+                {siteContent.ui.livePreview}
+                <span aria-hidden>↗</span>
+              </a>
             )}
 
             {actionLinks && actionLinks.length > 0 && (
@@ -188,22 +243,22 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       <LivePreviewModal
                         key={`preview-${link.label}`}
                         url={link.href}
-                        title={`${data.title} — ${link.label}`}
+                        title={allowInlinePreview ? data.title : `${data.title} — ${link.label}`}
                         openLabel={link.label}
                         openInNewTabLabel={siteContent.ui.openInNewTab}
                         closeLabel={siteContent.ui.close}
+                        showPreviewIcon
                         trigger={
                           <span className="flex items-center gap-2">
-                            <LinkIcon
-                              href={link.href}
-                              label={link.label}
-                              isPreview
-                            />
+                            <LinkIcon href={link.href} label={link.label} />
                             <span>{link.label}</span>
-                            <span aria-hidden>▣</span>
+                            <GlassesIcon
+                              size={16}
+                              className="shrink-0 opacity-70 transition-[opacity,filter] group-hover:opacity-95 group-hover:brightness-0"
+                            />
                           </span>
                         }
-                        buttonClassName="inline-flex cursor-pointer items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-(--accent-dark)"
+                        buttonClassName={secondaryPreviewButtonClassName}
                       />
                     );
                   }
@@ -214,7 +269,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       href={link.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-(--accent-dark)"
+                      className={secondaryButtonClassName}
                     >
                       <LinkIcon href={link.href} label={link.label} />
                       {link.label}
@@ -287,12 +342,25 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                 </h2>
 
                 <div className="mt-4 space-y-3 text-sm text-slate-700">
-                  {data.subtitle && (
+                  {(item?.work?.kind || data.subtitle) && (
                     <div>
                       <div className="text-xs uppercase tracking-wide text-slate-500">
-                        {siteContent.ui.type}
+                        {siteContent.ui.workKind || siteContent.ui.type}
                       </div>
-                      <div className="mt-1">{data.subtitle}</div>
+                      <div className="mt-1">
+                        {item?.work?.kind && siteContent.ui.workKinds?.[item.work.kind]
+                          ? siteContent.ui.workKinds[item.work.kind]
+                          : data.subtitle}
+                      </div>
+                    </div>
+                  )}
+
+                  {item?.work?.entity && (
+                    <div>
+                      <div className="text-xs uppercase tracking-wide text-slate-500">
+                        {siteContent.ui.entity}
+                      </div>
+                      <div className="mt-1">{item.work.entity}</div>
                     </div>
                   )}
 

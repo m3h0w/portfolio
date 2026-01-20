@@ -241,7 +241,9 @@ function SidebarContent({
   return (
     <div
       className={`relative flex min-h-full flex-col ${
-        navOnTop ? "justify-start py-2 md:py-3" : "justify-center py-4 md:py-6"
+        navOnTop
+          ? "justify-start py-2 md:py-3"
+          : "justify-center py-4 md:py-6 md:-translate-y-3"
       }`}
     >
       {showNav && navOnTop && nav}

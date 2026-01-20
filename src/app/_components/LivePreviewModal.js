@@ -3,6 +3,8 @@
 import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import GlassesIcon from "@/components/GlassesIcon";
+import { getEmbedPreviewUrl } from "@/app/_components/livePreviewUtils";
 
 const overlayVariants = {
   hidden: { opacity: 1 },
@@ -61,6 +63,7 @@ export default function LivePreviewModal({
   openInNewTabLabel,
   closeLabel,
   buttonClassName,
+  showPreviewIcon = false,
 }) {
   const [open, setOpen] = useState(false);
   const dialogTitleId = useId();
@@ -83,6 +86,8 @@ export default function LivePreviewModal({
   }, [open]);
 
   if (!url) return null;
+
+  const iframeUrl = getEmbedPreviewUrl(url);
 
   const portalRoot = typeof document !== "undefined" ? document.body : null;
 
@@ -115,7 +120,7 @@ export default function LivePreviewModal({
           <AnimatePresence>
             {open && (
               <motion.div
-                className="fixed inset-0 z-[999]"
+                className="fixed inset-0 z-999"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={dialogTitleId}
@@ -148,14 +153,22 @@ export default function LivePreviewModal({
                   exit="exit"
                 >
                   <div className="flex items-center justify-between gap-3 border-b border-slate-200/70 bg-white/80 px-4 py-3 backdrop-blur">
-                    <div className="min-w-0">
-                      <div
-                        id={dialogTitleId}
-                        className="truncate text-sm font-semibold text-slate-900"
-                      >
-                        {title}
+                    <div className="flex min-w-0 items-center gap-3">
+                      {showPreviewIcon && (
+                        <span className="flex shrink-0 self-stretch items-center">
+                          <GlassesIcon size={28} className="opacity-80" />
+                        </span>
+                      )}
+
+                      <div className="min-w-0">
+                        <div
+                          id={dialogTitleId}
+                          className="truncate text-sm font-semibold text-slate-900"
+                        >
+                          {title}
+                        </div>
+                        <div className="truncate text-xs text-slate-500">{url}</div>
                       </div>
-                      <div className="truncate text-xs text-slate-500">{url}</div>
                     </div>
 
                     <div className="flex shrink-0 items-center gap-2">
@@ -186,9 +199,10 @@ export default function LivePreviewModal({
 
                   <div className="flex-1 min-h-0 bg-slate-50">
                     <iframe
-                      src={url}
+                      src={iframeUrl}
                       title={title}
                       className="h-full w-full"
+                      referrerPolicy="no-referrer"
                       sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
                       allow="clipboard-read; clipboard-write; fullscreen"
                     />

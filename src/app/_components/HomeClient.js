@@ -130,9 +130,15 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     const FOOTER_HEIGHT = 2.4; // rem
     const CARD_BODY_PADDING = 1; // rem (top and sides, bottom has extra for footer)
 
-    const remToPx = (rem) => {
-      const rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-      return rem * (rootSize || 16);
+    const rootSize =
+      parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+
+    const remToPx = (rem) => rem * rootSize;
+    const pxToRem = (px) => px / rootSize;
+
+    const getComputedFontSizeRem = (el) => {
+      const px = parseFloat(window.getComputedStyle(el).fontSize) || rootSize;
+      return pxToRem(px);
     };
 
     const fitCard = (body) => {
@@ -140,10 +146,28 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
       const description = body.querySelector(".card-text");
       if (!title || !description) return;
 
+      // Reset inline styles so we measure the intended base typography.
+      title.style.fontSize = "";
+      description.style.fontSize = "";
+
       // Calculate available vertical space
       const bodyHeight = body.clientHeight;
       const footerPx = remToPx(FOOTER_HEIGHT);
       const availableHeight = bodyHeight - footerPx - 10; // 10px safety margin
+
+      const getTotalContentHeight = () => {
+        const titleHeight = title.getBoundingClientRect().height;
+        const titleMargin = parseFloat(window.getComputedStyle(title).marginBottom || 0);
+        const descHeight = description.getBoundingClientRect().height;
+        const descMargin = parseFloat(
+          window.getComputedStyle(description).marginBottom || 0
+        );
+        return titleHeight + titleMargin + descHeight + descMargin;
+      };
+
+      // If the content fits with base CSS sizes, don’t shrink anything.
+      const baseTotal = getTotalContentHeight();
+      if (baseTotal <= availableHeight) return;
 
       // Binary search for title font size
       const fitTitle = (maxSize, minSize) => {
@@ -194,7 +218,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
       };
 
       // Fit description first
-      fitDescription(0.875, 0.7);
+      const baseDescSize = getComputedFontSizeRem(description);
+      fitDescription(baseDescSize, 0.86);
 
       // Then fit title
       const descStyles = window.getComputedStyle(description);
@@ -205,13 +230,11 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
         : 2;
 
       const titleMaxSize = descLines >= 3 ? 1.0 : 1.1;
-      fitTitle(titleMaxSize, 0.8);
+      const baseTitleSize = getComputedFontSizeRem(title);
+      fitTitle(Math.min(titleMaxSize, baseTitleSize), 0.9);
 
       // Final check: if content still overflows, shrink both more aggressively
-      const titleHeight = title.getBoundingClientRect().height;
-      const titleMargin = parseFloat(window.getComputedStyle(title).marginBottom || 0);
-      const descMargin = parseFloat(window.getComputedStyle(description).marginBottom || 0);
-      const totalContent = titleHeight + titleMargin + descHeight + descMargin;
+      const totalContent = getTotalContentHeight();
 
       if (totalContent > availableHeight) {
         const scale = Math.min(0.95, availableHeight / totalContent);
@@ -344,12 +367,13 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                           {iframeAllowed ? (
                             <LivePreviewModal
                               url={liveLink.href}
-                              title={`${data.title} — ${siteContent.ui.livePreview}`}
+                              title={data.title}
                               openLabel={siteContent.ui.livePreview}
                               openAriaLabel={siteContent.ui.livePreview}
                               openInNewTabLabel={siteContent.ui.openInNewTab}
                               closeLabel={siteContent.ui.close}
-                              buttonClassName="group pointer-events-auto cursor-pointer opacity-100 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30 rounded-md md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100"
+                              showPreviewIcon
+                              buttonClassName="group pointer-events-auto cursor-pointer cursor-glasses opacity-100 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30 rounded-md md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100"
                               trigger={
                                 <>
                                   <span className="sr-only">{siteContent.ui.livePreview}</span>
@@ -417,7 +441,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                           {data.title}
                         </Link>
                       </h3>
-                      <p className="card-text text-sm text-slate-600">{data.description}</p>
+                      <p className="card-text text-slate-600">{data.description}</p>
                       <div className="card-footer">
                         <div className="card-divider" aria-hidden="true" />
                         <div className="card-stack-area">
