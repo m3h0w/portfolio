@@ -1,5 +1,5 @@
-import LocalizedHomePage from "@/app/_components/LocalizedHomePage";
+import { permanentRedirect } from "next/navigation";
 
 export default function ProjectsPage() {
-  return <LocalizedHomePage locale="en" />;
+  permanentRedirect("/");
 }

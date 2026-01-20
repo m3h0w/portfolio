@@ -28,7 +28,7 @@ export default function Navbar({ active = "portfolio" }) {
         <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link
             id="logo"
-            href="/projects"
+            href="/"
             className={`flex items-center gap-2 text-sm font-semibold tracking-[0.2em] text-white transition-opacity duration-500 ${
               showLogo ? "opacity-100" : "opacity-70"
             }`}
@@ -44,7 +44,7 @@ export default function Navbar({ active = "portfolio" }) {
             MICHAŁ GACKA
           </Link>
           <div className="flex items-center gap-2">
-            <Link href="/projects" className={navLinkClass("portfolio")}>
+            <Link href="/" className={navLinkClass("portfolio")}>
               Projects
             </Link>
             <Link href="/me" className={navLinkClass("me")}>

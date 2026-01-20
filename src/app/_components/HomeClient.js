@@ -312,14 +312,16 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
         )}
         <motion.section layout className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => {
+            {filteredItems.map((item, index) => {
               const data = item.i18n[locale] || item.i18n.en;
-              const href = `${basePath}/projects/${item.slug}`;
+              const href = `${basePath}/${item.slug}`;
               const liveLink = getLivePreviewLink(data.links);
               const iframeAllowed = liveLink
                 ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
                 : false;
               const custom = cardCustomBySlug.get(item.slug);
+              // Prioritize first 6 images (typical above-the-fold on most screens)
+              const isPriority = index < 6;
 
               return (
                 <motion.article
@@ -384,6 +386,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                         src={data.thumbnail}
                         alt={data.title}
                         fill
+                        priority={isPriority}
+                        fetchPriority={isPriority ? "high" : "low"}
                         className={`object-cover transition duration-300 group-hover:scale-105 ${item.cover ? "object-top" : ""}`}
                       />
                       {item.categories && item.categories.length > 0 && (

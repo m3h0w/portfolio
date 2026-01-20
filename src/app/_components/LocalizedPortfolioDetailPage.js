@@ -61,6 +61,8 @@ const renderContentBlock = (block) => {
               alt={block.alt}
               width={1200}
               height={800}
+              placeholder="blur"
+              blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
               className="h-auto w-full object-cover"
             />
           </div>
@@ -140,7 +142,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
       >
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <Link
-            href={`${basePath}/projects`}
+            href={`${basePath}/`}
             className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm text-slate-700 shadow-sm backdrop-blur hover:bg-white"
           >
             <span aria-hidden>←</span>
@@ -233,6 +235,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                 alt={data.title}
                 width={1600}
                 height={1000}
+                placeholder="blur"
+                blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
                 className="h-auto w-full object-cover"
                 priority
               />
@@ -315,7 +319,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
 
               <AtAGlanceBackToPortfolio
                 observeId={topActionsId}
-                href={`${basePath}/projects`}
+                href={`${basePath}/`}
                 label={siteContent.ui.backToPortfolio}
                 enabled={Boolean(data.links && data.links.length > 0)}
               />
@@ -328,7 +332,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
             <div className="grid gap-4 sm:grid-cols-2">
               {prevItem && prevData ? (
                 <Link
-                  href={`${basePath}/projects/${prevItem.slug}`}
+                  href={`${basePath}/${prevItem.slug}`}
                   className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
                 >
                   <div aria-hidden className="text-slate-400">
@@ -353,6 +357,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       alt={prevData.title}
                       width={360}
                       height={240}
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
                       className="h-full w-full object-cover"
                     />
                   </div>
@@ -401,6 +407,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       alt={siteContent.about.image.alt}
                       width={360}
                       height={240}
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
                       className="h-full w-full object-cover"
                     />
                   </div>
@@ -409,7 +417,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
 
               {nextItem && nextData && (
                 <Link
-                  href={`${basePath}/projects/${nextItem.slug}`}
+                  href={`${basePath}/${nextItem.slug}`}
                   className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
                 >
                   <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
@@ -418,6 +426,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       alt={nextData.title}
                       width={360}
                       height={240}
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='240'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E"
                       className="h-full w-full object-cover"
                     />
                   </div>

@@ -210,10 +210,7 @@ function SidebarContent({
   const isPlRoute = pathname === "/pl" || pathname?.startsWith("/pl/");
   const basePath = isPlRoute ? "/pl" : "";
   const homePath = basePath || "/";
-  const isPortfolio =
-    pathname === homePath ||
-    pathname === `${basePath}/projects` ||
-    pathname?.startsWith(`${basePath}/projects`);
+  const isPortfolio = pathname !== `${basePath}/me`;
   const isMe = pathname === `${basePath}/me`;
   const isProfileInteractive = !isMe;
   const siteContent = getSiteContent(language);
@@ -226,7 +223,7 @@ function SidebarContent({
         }`}
       >
         <NavLink
-          href={`${basePath}/projects`}
+          href={homePath}
           label={siteContent.nav.portfolio}
           active={isPortfolio}
           onNavigate={onNavigate}
@@ -456,8 +453,8 @@ export default function SidebarNav() {
     const currentPathname = window.location.pathname;
     const isHome =
       currentPathname === "/" ||
-      currentPathname === "/projects" ||
       currentPathname === "/pl" ||
+      currentPathname === "/projects" ||
       currentPathname === "/pl/projects";
     if (!isMobile || !isHome) return;
 
