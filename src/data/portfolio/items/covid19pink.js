@@ -16,7 +16,11 @@ const covid19pink = {
           href: "https://github.com/m3h0w/covid19-coronavirus-react-visualization",
         },
         { label: "Video", href: "https://vimeo.com/401136287" },
-        { label: "Live", href: "http://covid19pink.vercel.app/" },
+        {
+          label: "Live",
+          href: "http://covid19pink.vercel.app/",
+          preview: false,
+        },
       ],
       content: [
         { type: "heading", text: "Project description" },
@@ -64,7 +68,11 @@ const covid19pink = {
           href: "https://github.com/m3h0w/covid19-coronavirus-react-visualization",
         },
         { label: "Wideo", href: "https://vimeo.com/401136287" },
-        { label: "Live", href: "http://covid19pink.vercel.app/" },
+        {
+          label: "Live",
+          href: "http://covid19pink.vercel.app/",
+          preview: false,
+        },
       ],
       content: [
         { type: "heading", text: "Opis projektu" },

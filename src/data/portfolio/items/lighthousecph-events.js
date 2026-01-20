@@ -11,7 +11,13 @@ const lighthouseCphEvents = {
       heroImage: "/images/lighthousecph/hero.webp",
       description:
         "A community space calendar that verifies paying members via Stripe webhooks and lets them book spaces and browse upcoming events.",
-      links: [{ label: "Live", href: "https://lighthousecph.dk/dl/events" }],
+      links: [
+        {
+          label: "Live",
+          href: "https://lighthousecph.dk/dl/events",
+          preview: false,
+        },
+      ],
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -53,7 +59,13 @@ const lighthouseCphEvents = {
       heroImage: "/images/lighthousecph/hero.webp",
       description:
         "Kalendarz przestrzeni społecznościowej, który na podstawie webhooków Stripe rozpoznaje płatnych członków i pozwala rezerwować przestrzeń oraz przeglądać wydarzenia.",
-      links: [{ label: "Strona", href: "https://lighthousecph.dk/dl/events" }],
+      links: [
+        {
+          label: "Strona",
+          href: "https://lighthousecph.dk/dl/events",
+          preview: false,
+        },
+      ],
       content: [
         { type: "heading", text: "Opis projektu" },
         {

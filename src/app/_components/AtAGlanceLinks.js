@@ -6,9 +6,10 @@ import LivePreviewModal from "@/app/_components/LivePreviewModal";
 import {
   isIframeLivePreviewAllowed,
   isLivePreviewLink,
+  isReportPreviewLink,
 } from "@/app/_components/livePreviewUtils";
 
-function LinkIcon({ href, label, isPreview }) {
+export function LinkIcon({ href, label, isPreview }) {
   const normalizedHref = (href || "").toLowerCase();
   const normalizedLabel = (label || "").toLowerCase();
 
@@ -139,6 +140,7 @@ export default function AtAGlanceLinks({
 }) {
   const [show, setShow] = useState(false);
   const headingId = useId();
+  const visibleLinks = (links || []).filter((link) => !link?.preview);
 
   useEffect(() => {
     if (!observeId) return;
@@ -157,7 +159,7 @@ export default function AtAGlanceLinks({
     return () => observer.disconnect();
   }, [observeId]);
 
-  if (!links || links.length === 0) return null;
+  if (!visibleLinks || visibleLinks.length === 0) return null;
 
   return (
     <AnimatePresence initial={false}>
@@ -178,12 +180,14 @@ export default function AtAGlanceLinks({
             {headingLabel}
           </div>
           <div className="mt-2 flex flex-col gap-2">
-            {links.map((link) => {
+            {visibleLinks.map((link) => {
               const allowInlinePreview =
                 isLivePreviewLink(link) &&
                 isIframeLivePreviewAllowed({ slug: projectSlug, href: link.href });
 
-              if (allowInlinePreview) {
+              const allowReportPreview = isReportPreviewLink(link);
+
+              if (allowInlinePreview || allowReportPreview) {
                 return (
                   <LivePreviewModal
                     key={`aside-preview-${link.label}`}
@@ -195,7 +199,11 @@ export default function AtAGlanceLinks({
                     trigger={
                       <span className="flex w-full items-center justify-between gap-3">
                         <span className="flex min-w-0 items-center gap-3">
-                          <LinkIcon href={link.href} label={link.label} isPreview />
+                          <LinkIcon
+                            href={link.href}
+                            label={link.label}
+                            isPreview={allowInlinePreview || allowReportPreview}
+                          />
                           <span className="truncate">{link.label}</span>
                         </span>
                         <span

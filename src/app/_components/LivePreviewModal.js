@@ -141,7 +141,7 @@ export default function LivePreviewModal({
                 />
 
                 <motion.div
-                  className="absolute left-1/2 top-1/2 w-[min(1100px,92vw)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-black/10 bg-white shadow-2xl will-change-[transform,opacity]"
+                  className="absolute inset-0 flex h-full w-full flex-col overflow-hidden bg-white shadow-2xl will-change-[transform,opacity] sm:left-1/2 sm:top-1/2 sm:h-[86vh] sm:max-h-[86vh] sm:w-[min(1100px,92vw)] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:border sm:border-black/10"
                   variants={panelVariants}
                   initial="hidden"
                   animate="visible"
@@ -184,7 +184,7 @@ export default function LivePreviewModal({
                     </div>
                   </div>
 
-                  <div className="h-[78vh] bg-slate-50">
+                  <div className="flex-1 min-h-0 bg-slate-50">
                     <iframe
                       src={url}
                       title={title}

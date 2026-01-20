@@ -11,7 +11,18 @@ const instytutRelacyjny = {
       heroImage: "/images/instytutrelacyjny/thumbnail.png",
       description:
         "A calm, poetic, SEO-friendly Next.js site designed to invite exploration — with care for SEO and AI discoverability.",
-      links: [{ label: "Live", href: "https://www.instytutrelacyjny.pl/" }],
+      links: [
+        {
+          label: "Live preview",
+          href: "https://www.instytutrelacyjny.pl/",
+          preview: true,
+        },
+        {
+          label: "Live",
+          href: "https://www.instytutrelacyjny.pl/",
+          preview: false,
+        },
+      ],
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -57,7 +68,18 @@ const instytutRelacyjny = {
       heroImage: "/images/instytutrelacyjny/thumbnail.png",
       description:
         "Spokojna, poetycka strona w Next.js, która zachęca do eksploracji — z dbałością o SEO i „AI‑discoverability”.",
-      links: [{ label: "Strona", href: "https://www.instytutrelacyjny.pl/" }],
+      links: [
+        {
+          label: "Podgląd na żywo",
+          href: "https://www.instytutrelacyjny.pl/",
+          preview: true,
+        },
+        {
+          label: "Strona",
+          href: "https://www.instytutrelacyjny.pl/",
+          preview: false,
+        },
+      ],
       content: [
         { type: "heading", text: "Opis projektu" },
         {

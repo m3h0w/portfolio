@@ -23,7 +23,7 @@ export default function LocalizedMePage({ locale }) {
       <main className="relative mx-auto flex w-full max-w-2xl flex-1 flex-col justify-start px-6 pt-10 pb-14 sm:px-8 sm:pt-12 sm:pb-16">
         <div className="flex justify-center">
           <Link
-            href={`${basePath}/#portfolio`}
+            href={`${basePath}/projects`}
             className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm text-slate-700 shadow-sm backdrop-blur hover:bg-white"
           >
             <span aria-hidden>←</span>

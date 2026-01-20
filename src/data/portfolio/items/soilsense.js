@@ -11,7 +11,14 @@ const soilsense = {
       heroImage: "/images/soilsense/charts.png",
       description:
         "Progressive Web Application for transforming and visualizing sensor data for irrigation optimization in agriculture.",
-      links: [{ label: "Live", href: "https://app.soilsense.io/" }],
+      links: [
+        {
+          label: "Live preview",
+          href: "https://app.soilsense.io/",
+          preview: true,
+        },
+        { label: "Live", href: "https://app.soilsense.io/", preview: false },
+      ],
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -45,7 +52,14 @@ const soilsense = {
       heroImage: "/images/soilsense/charts.png",
       description:
         "Aplikacja webowa do przetwarzania i wizualizacji danych z sensorów w rolnictwie precyzyjnym.",
-      links: [{ label: "Live", href: "https://app.soilsense.io/" }],
+      links: [
+        {
+          label: "Podgląd na żywo",
+          href: "https://app.soilsense.io/",
+          preview: true,
+        },
+        { label: "Strona", href: "https://app.soilsense.io/", preview: false },
+      ],
       content: [
         { type: "heading", text: "Opis projektu" },
         {

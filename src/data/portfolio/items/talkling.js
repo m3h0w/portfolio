@@ -11,7 +11,10 @@ const talkling = {
       heroImage: "/images/talkling/hero.webp",
       description:
         "Language learning through real conversations: voice messages, live transcription, and instant translations.",
-      links: [{ label: "Live", href: "https://talkling.app/" }],
+      links: [
+        { label: "Live preview", href: "https://talkling.app/", preview: true },
+        { label: "Live", href: "https://talkling.app/", preview: false },
+      ],
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -56,7 +59,14 @@ const talkling = {
       heroImage: "/images/talkling/hero.webp",
       description:
         "Nauka języka przez prawdziwe rozmowy: wiadomości głosowe, transkrypcja na żywo i natychmiastowe tłumaczenia.",
-      links: [{ label: "Strona", href: "https://talkling.app/" }],
+      links: [
+        {
+          label: "Podgląd na żywo",
+          href: "https://talkling.app/",
+          preview: true,
+        },
+        { label: "Strona", href: "https://talkling.app/", preview: false },
+      ],
       content: [
         { type: "heading", text: "Opis projektu" },
         {

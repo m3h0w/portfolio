@@ -127,186 +127,163 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     const container = listRef.current;
     if (!container) return;
 
-    const fitTitle = (title, { maxSize, minSize: minOverride } = {}) => {
-      const link = title.querySelector("a");
-      if (!link) return;
+    const FOOTER_HEIGHT = 2.4; // rem
+    const CARD_BODY_PADDING = 1; // rem (top and sides, bottom has extra for footer)
 
-      const maxFontSize = maxSize ?? 1.15;
-      const minSize = minOverride ?? 0.9;
-      const precision = 0.01;
-
-      let low = minSize;
-      let high = maxFontSize;
-
-      title.style.fontSize = `${high}rem`;
-
-      const computed = window.getComputedStyle(title);
-      const lineHeight = parseFloat(computed.lineHeight) || 0;
-      if (!lineHeight) return;
-
-      const maxHeight = lineHeight * 2 + 0.5;
-      if (title.getBoundingClientRect().height <= maxHeight) return;
-
-      for (let i = 0; i < 14 && high - low > precision; i += 1) {
-        const mid = +(low + (high - low) / 2).toFixed(2);
-        title.style.fontSize = `${mid}rem`;
-        if (title.getBoundingClientRect().height > maxHeight) {
-          high = mid;
-        } else {
-          low = mid;
-        }
-      }
-
-      title.style.fontSize = `${low}rem`;
-      return low;
+    const remToPx = (rem) => {
+      const rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      return rem * (rootSize || 16);
     };
 
-    const fitDescription = (
-      description,
-      { maxLines = 3, maxSize: maxOverride, minSize: minOverride } = {}
-    ) => {
-      const maxSize = maxOverride ?? 0.875;
-      const minSize = minOverride ?? 0.8;
-      const precision = 0.01;
+    const fitCard = (body) => {
+      const title = body.querySelector(".card-title");
+      const description = body.querySelector(".card-text");
+      if (!title || !description) return;
 
-      let low = minSize;
-      let high = maxSize;
+      // Calculate available vertical space
+      const bodyHeight = body.clientHeight;
+      const footerPx = remToPx(FOOTER_HEIGHT);
+      const availableHeight = bodyHeight - footerPx - 10; // 10px safety margin
 
-      description.style.fontSize = `${high}rem`;
+      // Binary search for title font size
+      const fitTitle = (maxSize, minSize) => {
+        let low = minSize;
+        let high = maxSize;
+        const precision = 0.01;
 
-      const computed = window.getComputedStyle(description);
-      const lineHeight = parseFloat(computed.lineHeight) || 0;
-      if (!lineHeight) return;
+        for (let i = 0; i < 16 && high - low > precision; i += 1) {
+          const mid = +(low + (high - low) / 2).toFixed(2);
+          title.style.fontSize = `${mid}rem`;
+          const titleHeight = title.getBoundingClientRect().height;
+          
+          const titleStyles = window.getComputedStyle(title);
+          const titleBottom = titleHeight + parseFloat(titleStyles.marginBottom || 0);
 
-      const maxHeight = lineHeight * maxLines + 0.5;
-      if (description.getBoundingClientRect().height <= maxHeight) return;
-
-      for (let i = 0; i < 14 && high - low > precision; i += 1) {
-        const mid = +(low + (high - low) / 2).toFixed(2);
-        description.style.fontSize = `${mid}rem`;
-        if (description.getBoundingClientRect().height > maxHeight) {
-          high = mid;
-        } else {
-          low = mid;
+          if (titleBottom > availableHeight * 0.35) { // Title can use up to 35% of space
+            high = mid;
+          } else {
+            low = mid;
+          }
         }
-      }
+        title.style.fontSize = `${low}rem`;
+        return low;
+      };
 
-      description.style.fontSize = `${low}rem`;
-      return low;
-    };
+      // Binary search for description font size
+      const fitDescription = (maxSize, minSize) => {
+        let low = minSize;
+        let high = maxSize;
+        const precision = 0.01;
 
-    const pxToRem = (px) => {
-      const rootFontSize = parseFloat(
-        window.getComputedStyle(document.documentElement).fontSize
-      );
-      return (px / (rootFontSize || 16)) || 0;
-    };
+        for (let i = 0; i < 16 && high - low > precision; i += 1) {
+          const mid = +(low + (high - low) / 2).toFixed(2);
+          description.style.fontSize = `${mid}rem`;
+          const descHeight = description.getBoundingClientRect().height;
+          
+          const descStyles = window.getComputedStyle(description);
+          const descBottom = descHeight + parseFloat(descStyles.marginBottom || 0);
 
-
-    const getPx = (value) => {
-      const parsed = parseFloat(value);
-      return Number.isFinite(parsed) ? parsed : 0;
-    };
-
-    const shrinkUntilContentFits = ({ body, title, description, footer }) => {
-      if (!footer) return;
-
-      const titleMin = 0.7;
-      const descMin = 0.62;
-      const step = 0.02;
-      const epsilon = 0.5;
-
-      let titleSize = pxToRem(parseFloat(window.getComputedStyle(title).fontSize));
-      let descSize = pxToRem(
-        parseFloat(window.getComputedStyle(description).fontSize)
-      );
-
-      for (let i = 0; i < 36; i += 1) {
-        const bodyHeight = body.clientHeight;
-        const footerHeight = footer.getBoundingClientRect().height;
-        const available = Math.max(0, bodyHeight - footerHeight);
-
-        const titleStyles = window.getComputedStyle(title);
-        const descStyles = window.getComputedStyle(description);
-
-        const required =
-          title.getBoundingClientRect().height +
-          getPx(titleStyles.marginBottom) +
-          description.getBoundingClientRect().height +
-          getPx(descStyles.marginBottom);
-
-        if (required <= available + epsilon) break;
-
-        if (descSize > descMin + 0.001) {
-          descSize = Math.max(descMin, +(descSize - step).toFixed(2));
-          description.style.fontSize = `${descSize}rem`;
-          continue;
+          if (descBottom > availableHeight * 0.5) { // Description can use up to 50% of space
+            high = mid;
+          } else {
+            low = mid;
+          }
         }
+        description.style.fontSize = `${low}rem`;
+        return low;
+      };
 
-        if (titleSize > titleMin + 0.001) {
-          titleSize = Math.max(titleMin, +(titleSize - step).toFixed(2));
-          title.style.fontSize = `${titleSize}rem`;
-          continue;
-        }
+      // Fit description first
+      fitDescription(0.875, 0.7);
 
-        break;
+      // Then fit title
+      const descStyles = window.getComputedStyle(description);
+      const descLineHeight = parseFloat(descStyles.lineHeight) || 0;
+      const descHeight = description.getBoundingClientRect().height;
+      const descLines = descLineHeight > 0
+        ? Math.round(descHeight / descLineHeight)
+        : 2;
+
+      const titleMaxSize = descLines >= 3 ? 1.0 : 1.1;
+      fitTitle(titleMaxSize, 0.8);
+
+      // Final check: if content still overflows, shrink both more aggressively
+      const titleHeight = title.getBoundingClientRect().height;
+      const titleMargin = parseFloat(window.getComputedStyle(title).marginBottom || 0);
+      const descMargin = parseFloat(window.getComputedStyle(description).marginBottom || 0);
+      const totalContent = titleHeight + titleMargin + descHeight + descMargin;
+
+      if (totalContent > availableHeight) {
+        const scale = Math.min(0.95, availableHeight / totalContent);
+        const currentTitleSize = parseFloat(title.style.fontSize);
+        const currentDescSize = parseFloat(description.style.fontSize);
+        title.style.fontSize = `${(currentTitleSize * scale).toFixed(2)}rem`;
+        description.style.fontSize = `${(currentDescSize * scale).toFixed(2)}rem`;
       }
     };
 
-    const fitAllTitles = () => {
-      container.querySelectorAll(".card-body").forEach((body) => {
-        const title = body.querySelector(".card-title");
-        const description = body.querySelector(".card-text");
-        const footer = body.querySelector(".card-footer");
-        if (!title || !description) return;
-
-        // First pass: fit to the intended clamps without making typography globally smaller.
-        fitDescription(description, { maxLines: 3, maxSize: 0.875, minSize: 0.8 });
-
-        const descStyles = window.getComputedStyle(description);
-        const descLineHeight = parseFloat(descStyles.lineHeight) || 0;
-        const descHeight = description.getBoundingClientRect().height;
-        const descLines = descLineHeight
-          ? Math.max(1, Math.min(3, Math.ceil((descHeight + 0.01) / descLineHeight)))
-          : 2;
-
-        const titleMaxSize = descLines >= 3 ? 1.05 : 1.15;
-        fitTitle(title, { maxSize: titleMaxSize, minSize: 0.9 });
-
-        // Second pass: account for footer height and shrink text if needed.
-        shrinkUntilContentFits({ body, title, description, footer });
-      });
+    const fitAllCards = () => {
+      container.querySelectorAll(".card-body").forEach(fitCard);
     };
 
-    const timeouts = new Set();
-    let rafId = null;
-
-    const scheduleFit = () => {
-      fitAllTitles();
-
-      if (rafId) window.cancelAnimationFrame(rafId);
-      rafId = window.requestAnimationFrame(() => {
-        fitAllTitles();
-      });
-
-      timeouts.forEach((id) => window.clearTimeout(id));
-      timeouts.clear();
-      timeouts.add(window.setTimeout(() => fitAllTitles(), 250));
-      timeouts.add(window.setTimeout(() => fitAllTitles(), 700));
-    };
-
-    scheduleFit();
-    const observer = new ResizeObserver(() => scheduleFit());
+    fitAllCards();
+    const observer = new ResizeObserver(fitAllCards);
     observer.observe(container);
 
     if (document.fonts?.ready) {
-      document.fonts.ready.then(scheduleFit).catch(() => undefined);
+      document.fonts.ready.then(fitAllCards).catch(() => undefined);
     }
 
+    return () => observer.disconnect();
+  }, [filteredItems, locale]);
+
+  useEffect(() => {
+    const container = listRef.current;
+    if (!container) return;
+
+    const prefersReducedMotion =
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+
+    const timers = new Set();
+    const spans = Array.from(container.querySelectorAll(".card-stack-text"));
+
+    spans.forEach((span) => {
+      const fullText = span.getAttribute("data-full-text") || span.textContent || "";
+      if (!fullText.trim()) return;
+
+      if (prefersReducedMotion) {
+        span.textContent = fullText;
+        span.setAttribute("data-full-text", fullText);
+        span.setAttribute("data-typed", "true");
+        return;
+      }
+
+      if (span.getAttribute("data-full-text") === fullText && span.getAttribute("data-typed") === "true") {
+        return;
+      }
+
+      span.setAttribute("data-full-text", fullText);
+      span.setAttribute("data-typed", "false");
+      span.textContent = "";
+
+      let index = 0;
+      const step = () => {
+        index += 1;
+        span.textContent = fullText.slice(0, index);
+        if (index < fullText.length) {
+          const id = window.setTimeout(step, 18);
+          timers.add(id);
+        } else {
+          span.setAttribute("data-typed", "true");
+        }
+      };
+
+      const startId = window.setTimeout(step, 60);
+      timers.add(startId);
+    });
+
     return () => {
-      if (rafId) window.cancelAnimationFrame(rafId);
-      timeouts.forEach((id) => window.clearTimeout(id));
-      observer.disconnect();
+      timers.forEach((id) => window.clearTimeout(id));
     };
   }, [filteredItems, locale]);
 
@@ -337,7 +314,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item) => {
               const data = item.i18n[locale] || item.i18n.en;
-              const href = `${basePath}/portfolio/${item.slug}`;
+              const href = `${basePath}/projects/${item.slug}`;
               const liveLink = getLivePreviewLink(data.links);
               const iframeAllowed = liveLink
                 ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
@@ -370,7 +347,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                               openAriaLabel={siteContent.ui.livePreview}
                               openInNewTabLabel={siteContent.ui.openInNewTab}
                               closeLabel={siteContent.ui.close}
-                              buttonClassName="group pointer-events-none cursor-pointer opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30 rounded-md"
+                              buttonClassName="group pointer-events-auto cursor-pointer opacity-100 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30 rounded-md md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100"
                               trigger={
                                 <>
                                   <span className="sr-only">{siteContent.ui.livePreview}</span>
@@ -394,7 +371,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                                 event.stopPropagation();
                                 window.open(liveLink.href, "_blank", "noopener,noreferrer");
                               }}
-                              className="pointer-events-none grid h-9 w-9 cursor-pointer place-items-center rounded-md border border-black/10 bg-white/90 text-slate-800 shadow-sm opacity-0 backdrop-blur transition duration-200 hover:bg-white group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30"
+                              className="pointer-events-auto grid h-9 w-9 cursor-pointer place-items-center rounded-md border border-black/10 bg-white/90 text-slate-800 shadow-sm opacity-100 backdrop-blur transition duration-200 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30 md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100"
                             >
                               <span aria-hidden className="text-base leading-none">
                                 ↗
@@ -439,10 +416,12 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                       <p className="card-text text-sm text-slate-600">{data.description}</p>
                       <div className="card-footer">
                         <div className="card-divider" aria-hidden="true" />
-                        <p className="card-footer-text">
-                          <span className="font-mono text-slate-400">›</span>{" "}
-                          <span className="font-mono">{item.stack || data.stack}</span>
-                        </p>
+                        <div className="card-stack-area">
+                          <p className="card-footer-text">
+                            <span className="font-mono text-slate-400">›</span>{" "}
+                            <span className="card-stack-text font-mono">{item.stack || data.stack}</span>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>

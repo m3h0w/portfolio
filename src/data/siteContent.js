@@ -72,11 +72,11 @@ export const siteContentByLanguage = {
       ],
     },
     nav: {
-      portfolio: "Portfolio",
+      portfolio: "Projects",
       aboutMe: "About Me",
     },
     ui: {
-      backToPortfolio: "Back to portfolio",
+      backToPortfolio: "Projects",
       previousProject: "Previous project",
       nextProject: "Next project",
       atAGlance: "At a glance",
@@ -128,11 +128,11 @@ export const siteContentByLanguage = {
       ],
     },
     nav: {
-      portfolio: "Portfolio",
+      portfolio: "Projekty",
       aboutMe: "O mnie",
     },
     ui: {
-      backToPortfolio: "Wróć do portfolio",
+      backToPortfolio: "Projekty",
       previousProject: "Poprzedni projekt",
       nextProject: "Następny projekt",
       atAGlance: "W skrócie",

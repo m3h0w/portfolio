@@ -211,20 +211,22 @@ function SidebarContent({
   const basePath = isPlRoute ? "/pl" : "";
   const homePath = basePath || "/";
   const isPortfolio =
-    pathname === homePath || pathname?.startsWith(`${basePath}/portfolio`);
+    pathname === homePath ||
+    pathname === `${basePath}/projects` ||
+    pathname?.startsWith(`${basePath}/projects`);
   const isMe = pathname === `${basePath}/me`;
   const isProfileInteractive = !isMe;
   const siteContent = getSiteContent(language);
 
   const nav = (
-    <nav className="px-5 pb-4">
+    <nav className="px-5 pb-3 md:pb-4">
       <div
         className={`mx-auto flex w-fit items-center gap-1 rounded-full bg-white/85 py-0.5 pl-0.5 pr-2 shadow-xl ring-1 ring-slate-200/70 backdrop-blur ${
-          navOnTop ? "mt-2" : "mt-8"
+          navOnTop ? "mt-1" : "mt-6 md:mt-8"
         }`}
       >
         <NavLink
-          href={`${basePath}/`}
+          href={`${basePath}/projects`}
           label={siteContent.nav.portfolio}
           active={isPortfolio}
           onNavigate={onNavigate}
@@ -242,7 +244,7 @@ function SidebarContent({
   return (
     <div
       className={`relative flex min-h-full flex-col ${
-        navOnTop ? "justify-start py-3" : "justify-center py-6"
+        navOnTop ? "justify-start py-2 md:py-3" : "justify-center py-4 md:py-6"
       }`}
     >
       {showNav && navOnTop && nav}
@@ -250,7 +252,7 @@ function SidebarContent({
       <div className={`px-5 ${navOnTop ? "pt-4" : "pt-8"}`}>
         <div className="flex flex-col items-center text-center">
           <div className="relative w-full">
-            <div className="relative z-20 flex justify-center pb-6">
+            <div className="relative z-20 flex justify-center pb-4 md:pb-6">
               <LanguageToggle
                 language={language}
                 onChange={onLanguageChange}
@@ -261,7 +263,7 @@ function SidebarContent({
               <div className="relative">
                 <div
                   aria-hidden="true"
-                  className="absolute -left-10 -top-10 h-44 w-44 rounded-full bg-[var(--accent)]/12 blur-3xl"
+                  className="absolute -left-10 -top-10 h-36 w-36 rounded-full bg-[var(--accent)]/12 blur-3xl md:h-44 md:w-44"
                 />
 
                 {isProfileInteractive ? (
@@ -282,7 +284,7 @@ function SidebarContent({
                           : { rotate: 0, scale: 1 }
                       }
                       transition={{ duration: 0.18, ease: "easeOut" }}
-                      className="relative h-46 w-46 overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/10 cursor-pointer"
+                      className="relative h-40 w-40 overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/10 cursor-pointer md:h-46 md:w-46"
                     >
                       <div
                         aria-hidden="true"
@@ -305,7 +307,7 @@ function SidebarContent({
                   </Link>
                 ) : (
                   <div className="block rounded-3xl">
-                    <div className="relative h-46 w-46 overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/10 cursor-default">
+                    <div className="relative h-40 w-40 overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/10 cursor-default md:h-46 md:w-46">
                       <div
                         aria-hidden="true"
                         className="absolute -inset-1 rounded-[28px] bg-gradient-to-br from-[var(--accent)]/25 via-transparent to-slate-200/50"
@@ -333,7 +335,7 @@ function SidebarContent({
               <Link
                 href={`${basePath}/me`}
                 onClick={onNavigate}
-                className="absolute -bottom-8 -left-5 -right-5 focus:outline-none"
+                className="absolute -bottom-7 -left-5 -right-5 focus:outline-none md:-bottom-8"
                 aria-label={siteContent.nav.aboutMe}
               >
                 <motion.div
@@ -347,19 +349,19 @@ function SidebarContent({
                       : { rotate: 0, scale: 1 }
                   }
                   transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="py-1 bg-gradient-to-r from-[var(--accent)]/10 via-white/85 to-white/85 px-4 shadow-xl ring-1 ring-slate-200/70 backdrop-blur cursor-pointer"
+                  className="bg-gradient-to-r from-[var(--accent)]/10 via-white/85 to-white/85 px-3 py-1 shadow-xl ring-1 ring-slate-200/70 backdrop-blur cursor-pointer md:px-4"
                 >
                   <div className="flex items-center justify-center gap-3">
                     <GlassesBadge
                       size={40}
                       iconSize={30}
-                      className="shrink-0"
+                      className="shrink-0 scale-[0.9] md:scale-100"
                     />
                     <div className="leading-tight">
-                      <h1 className="text-xl font-bold tracking-tight text-slate-900 uppercase -mt-0.5">
+                      <h1 className="text-lg font-bold tracking-tight text-slate-900 uppercase -mt-0.5 md:text-xl">
                         {siteContent.name}
                       </h1>
-                      <p className="-mt-1 text-[0.97rem] font-medium text-[var(--accent)]">
+                      <p className="-mt-1 text-sm font-medium text-[var(--accent)] md:text-[0.97rem]">
                         {siteContent.title}
                       </p>
                     </div>
@@ -368,25 +370,25 @@ function SidebarContent({
               </Link>
             ) : (
               <div
-                className="absolute -bottom-8 -left-5 -right-5"
+                className="absolute -bottom-7 -left-5 -right-5 md:-bottom-8"
                 aria-label={siteContent.nav.aboutMe}
               >
                 <motion.div
                   animate={{ rotate: 0, scale: 1 }}
                   transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="py-1 bg-gradient-to-r from-[var(--accent)]/10 via-white/85 to-white/85 px-4 shadow-xl ring-1 ring-slate-200/70 backdrop-blur cursor-default"
+                  className="bg-gradient-to-r from-[var(--accent)]/10 via-white/85 to-white/85 px-3 py-1 shadow-xl ring-1 ring-slate-200/70 backdrop-blur cursor-default md:px-4"
                 >
                   <div className="flex items-center justify-center gap-3">
                     <GlassesBadge
                       size={40}
                       iconSize={30}
-                      className="shrink-0"
+                      className="shrink-0 scale-[0.9] md:scale-100"
                     />
                     <div className="leading-tight">
-                      <h1 className="text-xl font-bold tracking-tight text-slate-900 uppercase">
+                      <h1 className="text-lg font-bold tracking-tight text-slate-900 uppercase md:text-xl">
                         {siteContent.name}
                       </h1>
-                      <p className="-mt-1 text-[0.92rem] font-medium text-[var(--accent)]">
+                      <p className="-mt-1 text-sm font-medium text-[var(--accent)] md:text-[0.92rem]">
                         {siteContent.title}
                       </p>
                     </div>
@@ -398,7 +400,7 @@ function SidebarContent({
         </div>
 
         {/* Bio */}
-        <div className="mt-12 space-y-3 text-[13px] leading-relaxed text-slate-600 text-center">
+        <div className="mt-10 space-y-2 text-[13px] leading-relaxed text-slate-600 text-center md:mt-12 md:space-y-3">
           <p>{siteContent.intro.paragraphs[0]}</p>
           <p>
             {siteContent.intro.highlightedLink.prefix}{" "}
@@ -415,7 +417,7 @@ function SidebarContent({
         </div>
 
         {/* Social links */}
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-center">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-center md:mt-5">
           {siteContent.socialLinks.map((link) => (
             <a
               key={link.label}
@@ -448,12 +450,50 @@ export default function SidebarNav() {
   const siteContent = getSiteContent(language);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const currentPathname = window.location.pathname;
+    const isHome =
+      currentPathname === "/" ||
+      currentPathname === "/projects" ||
+      currentPathname === "/pl" ||
+      currentPathname === "/pl/projects";
+    if (!isMobile || !isHome) return;
+
+    const storageKey = "portfolio.mobileNavAutoOpened";
+    if (window.sessionStorage.getItem(storageKey)) return;
+
+    const referrer = document.referrer;
+    const isExternalReferrer = (() => {
+      if (!referrer) return true;
+      try {
+        return new URL(referrer).origin !== window.location.origin;
+      } catch {
+        return true;
+      }
+    })();
+
+    if (!isExternalReferrer) return;
+
+    window.sessionStorage.setItem(storageKey, "1");
+    window.requestAnimationFrame(() => setMobileOpen(true));
+  }, []);
+
+  useEffect(() => {
     if (!mobileOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const onKeyDown = (event) => {
       if (event.key === "Escape") closeMobile();
     };
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+    };
   }, [mobileOpen]);
 
   const handleLanguageChange = (nextLanguage) => {
@@ -468,39 +508,23 @@ export default function SidebarNav() {
 
   return (
     <>
-      {/* Mobile top bar */}
-      <header className="fixed left-0 right-0 top-0 z-50 flex h-14 items-center justify-between border-b border-slate-200/60 bg-white/80 px-4 backdrop-blur-xl md:hidden">
-        <button
-          type="button"
-          onClick={() => setMobileOpen(true)}
-          className="grid h-10 w-10 place-items-center rounded-xl bg-slate-100 text-slate-600 transition hover:bg-slate-200"
-          aria-label="Open navigation"
+      {/* Mobile floating toggle */}
+      <button
+        type="button"
+        onClick={() => setMobileOpen(true)}
+        className="fixed left-0 top-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-r-lg rounded-l-none border border-l-0 border-slate-200/70 bg-white/90 text-slate-700 shadow-lg backdrop-blur-xl transition hover:bg-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 md:hidden"
+        aria-label="Open navigation"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="h-6 w-6"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            className="h-5 w-5"
-          >
-            <path d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-        <div className="flex items-center gap-2.5">
-          <div className="relative h-8 w-8 overflow-hidden rounded-full ring-1 ring-slate-200">
-            <Image
-              src="/images/me2.jpg"
-              alt={siteContent.name}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <span className="text-sm font-semibold text-slate-800">
-            {siteContent.name}
-          </span>
-        </div>
-        <div className="w-10" />
-      </header>
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
 
       {/* Mobile drawer */}
       <AnimatePresence>
@@ -537,11 +561,11 @@ export default function SidebarNav() {
                 mass: 0.7,
               }}
             >
-              <div className="flex h-14 items-center justify-end px-4">
+              <div className="flex h-12 items-center justify-end px-3">
                 <button
                   type="button"
                   onClick={closeMobile}
-                  className="grid h-9 w-9 place-items-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+                  className="grid h-8 w-8 place-items-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
                   aria-label="Close navigation"
                 >
                   <svg

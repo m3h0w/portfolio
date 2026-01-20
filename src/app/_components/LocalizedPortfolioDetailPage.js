@@ -4,14 +4,15 @@ import { notFound } from "next/navigation";
 import AbstractBackdrop from "@/components/AbstractBackdrop";
 import portfolioItems from "@/data/portfolio";
 import { getSiteContent } from "@/data/siteContent";
-import styles from "@/app/portfolio/[slug]/page.module.css";
+import styles from "@/app/projects/[slug]/page.module.css";
 import LivePreviewModal from "@/app/_components/LivePreviewModal";
-import AtAGlanceLinks from "@/app/_components/AtAGlanceLinks";
+import AtAGlanceLinks, { LinkIcon } from "@/app/_components/AtAGlanceLinks";
 import AtAGlanceBackToPortfolio from "@/app/_components/AtAGlanceBackToPortfolio";
 import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
   isLivePreviewLink,
+  isReportPreviewLink,
 } from "@/app/_components/livePreviewUtils";
 
 const renderContentBlock = (block) => {
@@ -116,6 +117,11 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
   const iframeAllowed = liveLink
     ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
     : false;
+  const actionLinks = (data.links || []).filter(
+    (link) =>
+      !link?.preview &&
+      (!liveLink || link?.href !== liveLink.href || link?.label !== liveLink.label)
+  );
   const topActionsId = "portfolio-detail-top-actions";
 
   const stack = item.stack || data.stack || "";
@@ -132,16 +138,19 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
       <main
         className={`${styles.shell} mx-auto w-full max-w-6xl px-4 pb-14 pt-8 sm:px-6 lg:px-8`}
       >
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <Link
-            href={`${basePath}/#portfolio`}
+            href={`${basePath}/projects`}
             className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm text-slate-700 shadow-sm backdrop-blur hover:bg-white"
           >
             <span aria-hidden>←</span>
             {siteContent.ui.backToPortfolio}
           </Link>
 
-          <div id={topActionsId} className="flex flex-wrap items-center gap-2">
+          <div
+            id={topActionsId}
+            className="flex flex-wrap items-center justify-center gap-2 sm:justify-end"
+          >
             {liveLink && iframeAllowed && (
               <LivePreviewModal
                 url={liveLink.href}
@@ -149,29 +158,30 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                 openLabel={siteContent.ui.livePreview}
                 openInNewTabLabel={siteContent.ui.openInNewTab}
                 closeLabel={siteContent.ui.close}
+                trigger={
+                  <span className="flex items-center gap-2">
+                    <LinkIcon
+                      href={liveLink.href}
+                      label={siteContent.ui.livePreview}
+                      isPreview
+                    />
+                    <span>{siteContent.ui.livePreview}</span>
+                    <span aria-hidden>▣</span>
+                  </span>
+                }
               />
             )}
 
-            {liveLink && !iframeAllowed && (
-              <a
-                href={liveLink.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-(--accent-dark)"
-              >
-                {siteContent.ui.openInNewTab}
-                <span aria-hidden>↗</span>
-              </a>
-            )}
-
-            {data.links && data.links.length > 0 && (
+            {actionLinks && actionLinks.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
-                {data.links.map((link) => {
+                {actionLinks.map((link) => {
                   const allowInlinePreview =
                     isLivePreviewLink(link) &&
                     isIframeLivePreviewAllowed({ slug: item.slug, href: link.href });
 
-                  if (allowInlinePreview) {
+                  const allowReportPreview = isReportPreviewLink(link);
+
+                  if (allowInlinePreview || allowReportPreview) {
                     return (
                       <LivePreviewModal
                         key={`preview-${link.label}`}
@@ -180,6 +190,17 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                         openLabel={link.label}
                         openInNewTabLabel={siteContent.ui.openInNewTab}
                         closeLabel={siteContent.ui.close}
+                        trigger={
+                          <span className="flex items-center gap-2">
+                            <LinkIcon
+                              href={link.href}
+                              label={link.label}
+                              isPreview
+                            />
+                            <span>{link.label}</span>
+                            <span aria-hidden>▣</span>
+                          </span>
+                        }
                         buttonClassName="inline-flex cursor-pointer items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-(--accent-dark)"
                       />
                     );
@@ -193,6 +214,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       rel="noreferrer"
                       className="inline-flex items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-(--accent-dark)"
                     >
+                      <LinkIcon href={link.href} label={link.label} />
                       {link.label}
                       <span aria-hidden>↗</span>
                     </a>
@@ -293,7 +315,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
 
               <AtAGlanceBackToPortfolio
                 observeId={topActionsId}
-                href={`${basePath}/#portfolio`}
+                href={`${basePath}/projects`}
                 label={siteContent.ui.backToPortfolio}
                 enabled={Boolean(data.links && data.links.length > 0)}
               />
@@ -306,8 +328,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
             <div className="grid gap-4 sm:grid-cols-2">
               {prevItem && prevData ? (
                 <Link
-                  href={`${basePath}/portfolio/${prevItem.slug}`}
-                  className={`${styles.surface} group flex items-center gap-4 p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                  href={`${basePath}/projects/${prevItem.slug}`}
+                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
                 >
                   <div aria-hidden className="text-slate-400">
                     ←
@@ -338,7 +360,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
               ) : (
                 <Link
                   href={`${basePath}/me`}
-                  className={`${styles.surface} group flex items-center gap-4 p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
                 >
                   <div aria-hidden className="text-slate-400">
                     <svg
@@ -387,8 +409,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
 
               {nextItem && nextData && (
                 <Link
-                  href={`${basePath}/portfolio/${nextItem.slug}`}
-                  className={`${styles.surface} group flex items-center gap-4 p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                  href={`${basePath}/projects/${nextItem.slug}`}
+                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
                 >
                   <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
                     <Image
