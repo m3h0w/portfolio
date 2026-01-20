@@ -3,14 +3,15 @@ const endoscopyQualityEvaluation = {
   categories: ["Science", "image processing", "AI"],
   stack: "C++, OpenCV, OpticalFlow",
   work: { kind: "school", entity: "Carnegie Mellon University" },
+  country: "United States",
   i18n: {
     en: {
       title: "Endoscopy Quality Evaluation",
-      subtitle: "Carnegie Mellon University",
+      subtitle: "Desktop clinical support tool",
       thumbnail: "/images/thumbnails/colonoscopy.webp",
       heroImage: "/images/colonoscopy.png",
       description:
-        "Software that created a real time map for assesing quality of a colonoscopy exam. The project was developed as a desktop app based on gastroentherologist's expertise.",
+        "Desktop tool for real-time colonoscopy quality mapping and reports.",
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -56,11 +57,11 @@ const endoscopyQualityEvaluation = {
     },
     pl: {
       title: "Ocena jakości kolonoskopii",
-      subtitle: "Carnegie Mellon University",
+      subtitle: "Desktopowe narzędzie wsparcia klinicznego",
       thumbnail: "/images/thumbnails/colonoscopy.webp",
       heroImage: "/images/colonoscopy.png",
       description:
-        "Oprogramowanie tworzące mapę jakości badania kolonoskopowego, oparte o wiedzę gastroenterologa.",
+        "Desktopowe narzędzie do mapowania jakości kolonoskopii i raportów.",
       content: [
         { type: "heading", text: "Opis projektu" },
         {

@@ -63,7 +63,7 @@ export const siteContentByLanguage = {
       links: [
         {
           label: "E-mail",
-          href: "mailto:michalgacka@gmail.com",
+          kind: "email",
         },
         {
           label: "LinkedIn",
@@ -81,13 +81,19 @@ export const siteContentByLanguage = {
       nextProject: "Next project",
       atAGlance: "At a glance",
       type: "Type",
-      workKind: "Work",
-      entity: "Entity",
+      madeAt: "Made at",
+      country: "Country",
       workKinds: {
-        company: "Company work",
-        school: "School work",
+        company: "Client project",
+        school: "Academic project",
         community: "Community project",
-        selfEmployment: "Self-employment",
+        selfEmployment: "Personal project",
+      },
+      workKindDescriptions: {
+        company: "Professional",
+        school: "School work or research",
+        community: "Community project",
+        selfEmployment: "Personal project",
       },
       stack: "Stack",
       links: "Links",
@@ -128,7 +134,7 @@ export const siteContentByLanguage = {
       links: [
         {
           label: "E-mail",
-          href: "mailto:michalgacka@gmail.com",
+          kind: "email",
         },
         {
           label: "LinkedIn",
@@ -146,13 +152,19 @@ export const siteContentByLanguage = {
       nextProject: "Następny projekt",
       atAGlance: "W skrócie",
       type: "Typ",
-      workKind: "Rodzaj",
-      entity: "Podmiot",
+      madeAt: "W ramach",
+      country: "Kraj",
       workKinds: {
-        company: "Praca komercyjna",
+        company: "Projekt kliencki",
         school: "Projekt uczelniany",
         community: "Projekt społecznościowy",
-        selfEmployment: "Własna działalność",
+        selfEmployment: "Własny projekt",
+      },
+      workKindDescriptions: {
+        company: "Praca zawodowa",
+        school: "Praca szkolna lub badawcza",
+        community: "Projekt społecznościowy",
+        selfEmployment: "Projekt własny",
       },
       stack: "Stack",
       links: "Linki",

@@ -4,14 +4,15 @@ const instytutRelacyjny = {
   categories: ["landing page", "Design / UX"],
   stack: "TypeScript, Next.js, Tailwind",
   work: { kind: "selfEmployment", entity: "Warsaw Institute of Relating" },
+  country: "Poland",
   i18n: {
     en: {
       title: "Warsaw Institute of Relating",
-      subtitle: "Static website — design & implementation",
+      subtitle: "Brand website with design & implementation",
       thumbnail: "/images/thumbnails/instytutrelacyjny__thumbnail.webp",
       heroImage: "/images/instytutrelacyjny/thumbnail.png",
       description:
-        "A calm, poetic, SEO-friendly Next.js site designed to invite exploration — with care for SEO and AI discoverability.",
+        "Poetic, SEO-friendly Next.js brand site designed for exploration.",
       links: [
         {
           label: "Live preview",
@@ -64,11 +65,11 @@ const instytutRelacyjny = {
     },
     pl: {
       title: "Warszawski Instytut Relacyjny",
-      subtitle: "Strona statyczna — projekt i implementacja",
+      subtitle: "Strona marki — projekt i implementacja",
       thumbnail: "/images/thumbnails/instytutrelacyjny__thumbnail.webp",
       heroImage: "/images/instytutrelacyjny/thumbnail.png",
       description:
-        "Spokojna, poetycka strona w Next.js, która zachęca do eksploracji — z dbałością o SEO i „AI‑discoverability”.",
+        "Poetycka, SEO‑friendly strona w Next.js zachęcająca do eksploracji.",
       links: [
         {
           label: "Podgląd na żywo",

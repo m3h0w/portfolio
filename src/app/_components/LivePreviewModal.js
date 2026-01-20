@@ -64,6 +64,7 @@ export default function LivePreviewModal({
   closeLabel,
   buttonClassName,
   showPreviewIcon = false,
+  cursorVariant,
 }) {
   const [open, setOpen] = useState(false);
   const dialogTitleId = useId();
@@ -89,6 +90,13 @@ export default function LivePreviewModal({
 
   const iframeUrl = getEmbedPreviewUrl(url);
 
+  const cursorStyle =
+    cursorVariant === "white"
+      ? { cursor: "url('/cursor-glasses-white.png') 16 16, pointer" }
+      : cursorVariant === "black"
+        ? { cursor: "url('/cursor-glasses.png') 16 16, pointer" }
+        : undefined;
+
   const portalRoot = typeof document !== "undefined" ? document.body : null;
 
   return (
@@ -102,6 +110,7 @@ export default function LivePreviewModal({
           event.stopPropagation();
           setOpen(true);
         }}
+        style={cursorStyle}
         className={
           buttonClassName ||
           "inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white"

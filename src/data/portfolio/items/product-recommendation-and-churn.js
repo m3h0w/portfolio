@@ -3,14 +3,15 @@ const productRecommendationAndChurn = {
   categories: ["machine learning", "AI"],
   stack: "Python, Sklearn, Keras, SQL, Docker, Flask",
   work: { kind: "company", entity: "TIA Technology" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "Product recommendation and churn in insurance",
-      subtitle: "TIA Technology",
+      subtitle: "Recommendation system + churn model",
       thumbnail: "/images/thumbnails/product_recommendation.webp",
       heroImage: "/images/product_recommendations_and_churn/main.png",
       description:
-        "A product recommendation system and churn model for insurance companies.",
+        "Insurance product recommendations and churn prediction models.",
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -74,11 +75,11 @@ const productRecommendationAndChurn = {
     },
     pl: {
       title: "Rekomendacje produktów i churn w ubezpieczeniach",
-      subtitle: "TIA Technology",
+      subtitle: "System rekomendacji + model churn",
       thumbnail: "/images/thumbnails/product_recommendation.webp",
       heroImage: "/images/product_recommendations_and_churn/main.png",
       description:
-        "System rekomendacji produktów i model churnu dla firm ubezpieczeniowych.",
+        "Rekomendacje produktów ubezpieczeniowych i predykcja churnu.",
       content: [
         { type: "heading", text: "Opis projektu" },
         {

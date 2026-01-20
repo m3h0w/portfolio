@@ -214,7 +214,8 @@ export default function AtAGlanceLinks({
                         />
                       </span>
                     }
-                    buttonClassName={`group ${secondaryButtonClassName} w-full justify-between cursor-glasses`}
+                    buttonClassName={`group ${secondaryButtonClassName} w-full justify-between`}
+                    cursorVariant="black"
                   />
                 );
               }

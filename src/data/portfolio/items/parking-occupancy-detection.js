@@ -3,14 +3,15 @@ const parkingOccupancyDetection = {
   categories: ["image processing", "AI"],
   stack: "Python, OpenCV, Google Cloud Storage",
   work: { kind: "company", entity: "Smart in" },
+  country: "Poland",
   i18n: {
     en: {
       title: "Parking Occupancy Detection",
-      subtitle: "Smart in",
+      subtitle: "Real-time parking occupancy detection (computer vision POC)",
       thumbnail: "/images/thumbnails/parking.webp",
       heroImage: "/images/parking.jpg",
       description:
-        "Real-time detection of parking space occupancy. The project was a POC that aimed to replace expensive sensors. I used traditional computer vision techniques.",
+        "Camera-based parking occupancy detection POC to replace expensive sensors.",
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -46,11 +47,11 @@ const parkingOccupancyDetection = {
     },
     pl: {
       title: "Detekcja zajętości parkingów",
-      subtitle: "Smart in",
+      subtitle: "Detekcja zajętości miejsc parkingowych (POC, wizja komputerowa)",
       thumbnail: "/images/thumbnails/parking.webp",
       heroImage: "/images/parking.jpg",
       description:
-        "Wykrywanie zajętości miejsc parkingowych w czasie rzeczywistym. POC mający zastąpić drogie sensory.",
+        "Kamerowa detekcja zajętości parkingu (POC) jako alternatywa dla drogich sensorów.",
       content: [
         { type: "heading", text: "Opis projektu" },
         {

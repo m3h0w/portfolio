@@ -3,14 +3,15 @@ const insuranceRulesAdminPanel = {
   categories: ["web app", "no code"],
   stack: "Flask, React, SQLite, Docker",
   work: { kind: "company", entity: "GoBundl / TIA Technology" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "Insurance Recommendation Admin Panel",
-      subtitle: "GoBundl/TIA Technology",
-      thumbnail: "/images/thumbnails/rules_module.webp",
+      subtitle: "Rules-driven recommendations admin panel",
+      thumbnail: "/images/thumbnails/rules_module__overview.webp",
       heroImage: "/images/rules_module/Start.png",
       description:
-        "A web app that allows its user to set rules that get evaluated based on input features. Its primary goal was to create a universal way of deciding which insurance products should be displayed depending on the user's information.",
+        "Admin panel for configuring rules-based insurance recommendations.",
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -56,11 +57,11 @@ const insuranceRulesAdminPanel = {
     },
     pl: {
       title: "Panel administracyjny reguł ubezpieczeniowych",
-      subtitle: "GoBundl/TIA Technology",
-      thumbnail: "/images/thumbnails/rules_module.webp",
+      subtitle: "Panel reguł rekomendacji",
+      thumbnail: "/images/thumbnails/rules_module__overview.webp",
       heroImage: "/images/rules_module/Start.png",
       description:
-        "Aplikacja do definiowania reguł, które decydują o widoczności produktów ubezpieczeniowych w zależności od danych klienta.",
+        "Panel do definiowania reguł rekomendacji produktów ubezpieczeniowych.",
       content: [
         { type: "heading", text: "Opis projektu" },
         {

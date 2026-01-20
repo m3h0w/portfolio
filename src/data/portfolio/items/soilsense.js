@@ -4,14 +4,15 @@ const soilsense = {
   stack:
     "React, TypeScript, MongoDB, Firebase, Python, Tensorflow, Docker, GitHub Actions, Google Cloud Platform",
   work: { kind: "company", entity: "SoilSense" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "SoilSense Irrigation Dashboard",
-      subtitle: "Full time work, startup",
+      subtitle: "Data-driven web application and AI service",
       thumbnail: "/images/thumbnails/soilsense.webp",
       heroImage: "/images/soilsense/charts.png",
       description:
-        "Progressive Web Application for transforming and visualizing sensor data for irrigation optimization in agriculture.",
+        "PWA dashboard that turns farm sensor data into irrigation insights.",
       links: [
         {
           label: "Live preview",
@@ -48,11 +49,11 @@ const soilsense = {
     },
     pl: {
       title: "SoilSense – dashboard nawadniania",
-      subtitle: "Praca pełnoetatowa, startup",
+      subtitle: "Aplikacja webowa oparta na danych + warstwa AI",
       thumbnail: "/images/thumbnails/soilsense.webp",
       heroImage: "/images/soilsense/charts.png",
       description:
-        "Aplikacja webowa do przetwarzania i wizualizacji danych z sensorów w rolnictwie precyzyjnym.",
+        "Dashboard PWA zamieniający dane z sensorów na insighty do nawadniania.",
       links: [
         {
           label: "Podgląd na żywo",

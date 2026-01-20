@@ -3,14 +3,15 @@ const proteinStructurePrediction = {
   categories: ["Science", "machine learning", "AI"],
   stack: "Python, RNNs, Tensorflow, Jupyter Notebook",
   work: { kind: "school", entity: "IT University of Copenhagen" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "Protein tertiary structure prediction",
-      subtitle: "ITU University of Copenhagen, group work",
+      subtitle: "Deep learning for protein structure prediction",
       thumbnail: "/images/thumbnails/protein.webp",
       heroImage: "/images/protein.png",
       description:
-        "Predicting the tertiary (3-dimensional) structure of a folded protein given its primary structure (sequence of amino acids).",
+        "Predicting 3D protein structure from an amino-acid sequence.",
       links: [
         {
           label: "GitHub",
@@ -81,11 +82,11 @@ const proteinStructurePrediction = {
     },
     pl: {
       title: "Predykcja struktury trzeciorzędowej białek",
-      subtitle: "ITU University of Copenhagen, praca zespołowa",
+      subtitle: "Deep learning do predykcji struktury białek",
       thumbnail: "/images/thumbnails/protein.webp",
       heroImage: "/images/protein.png",
       description:
-        "Predykcja struktury trzeciorzędowej (3D) białka na podstawie sekwencji aminokwasów.",
+        "Predykcja struktury białka 3D na podstawie sekwencji aminokwasów.",
       links: [
         {
           label: "GitHub",

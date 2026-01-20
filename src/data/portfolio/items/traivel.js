@@ -4,14 +4,15 @@ const traivel = {
   stack:
     "Python, JavaScript, Flask, Skyscanner API, Twitter API, Microsoft Cognitive Services",
   work: { kind: "community" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "TRAiVEL – sentiment-based travel recommendations",
-      subtitle: "Hackathon, group work",
+      subtitle: "Hackathon-built travel recommendation app",
       thumbnail: "/images/thumbnails/traivel.webp",
       heroImage: "/images/traivel.png",
       description:
-        "An app that uses sentiment analysis to estimate current mood in European countries based on twitter data and recommended travel destinations together with flight prices fetched from Skyscanner api.",
+        "Hackathon travel recommender combining Twitter sentiment and Skyscanner prices.",
       links: [
         { label: "GitHub", href: "https://github.com/m3h0w/TRAiVEL" },
         { label: "Video", href: "https://vimeo.com/263715035" },
@@ -62,11 +63,11 @@ const traivel = {
     },
     pl: {
       title: "TRAiVEL – rekomendacje podróży oparte o sentyment",
-      subtitle: "Hackathon, praca zespołowa",
+      subtitle: "Hackathonowa aplikacja rekomendacji podróży",
       thumbnail: "/images/thumbnails/traivel.webp",
       heroImage: "/images/traivel.png",
       description:
-        "Aplikacja analizująca sentyment z Twittera i rekomendująca destynacje wraz z cenami lotów ze Skyscanner.",
+        "Hackathonowa aplikacja podróży łącząca sentyment z Twittera i ceny Skyscanner.",
       links: [
         { label: "GitHub", href: "https://github.com/m3h0w/TRAiVEL" },
         { label: "Wideo", href: "https://vimeo.com/263715035" },

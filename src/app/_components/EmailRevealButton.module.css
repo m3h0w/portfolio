@@ -1,0 +1,93 @@
+.button {
+  perspective: 900px;
+  transform: translateZ(0);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  cursor: pointer;
+  will-change: transform;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.inner {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  transform-style: preserve-3d;
+  white-space: nowrap;
+  transition: all 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.face {
+  grid-column: 1;
+  grid-row: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.front {
+  z-index: 2;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.back {
+  z-index: 1;
+  opacity: 0;
+  transform: translateX(-12px);
+}
+
+.flipped .front {
+  opacity: 0;
+  transform: translateX(12px);
+  pointer-events: none;
+}
+
+.flipped .back {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.email {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-size: 0.875rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animate spinner icon when loading */
+.button[aria-busy="true"] .front svg {
+  animation: spin 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinning .inner {
+    animation: none;
+  }
+  .button[aria-busy="true"] .front svg {
+    animation: none;
+  }
+}

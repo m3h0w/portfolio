@@ -16,6 +16,214 @@ import {
   isReportPreviewLink,
 } from "@/app/_components/livePreviewUtils";
 
+function CountryFlag({ country, className = "" }) {
+  const clipId = `country-flag-${country.replace(/\s/g, "-").toLowerCase()}`;
+
+  // Denmark
+  if (country === "Denmark") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+        <defs>
+          <clipPath id={clipId}>
+            <circle cx="12" cy="12" r="10" />
+          </clipPath>
+        </defs>
+        <circle cx="12" cy="12" r="10" fill="#c60c30" />
+        <g clipPath={`url(#${clipId})`}>
+          {/* Red background */}
+          <rect x="0" y="0" width="24" height="24" fill="#c60c30" />
+          {/* White cross */}
+          <rect x="0" y="9" width="24" height="6" fill="#ffffff" />
+          <rect x="7" y="0" width="4" height="24" fill="#ffffff" />
+        </g>
+        <circle cx="12" cy="12" r="10" fill="none" stroke="rgba(15,23,42,0.08)" />
+      </svg>
+    );
+  }
+
+  // Poland
+  if (country === "Poland") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+        <defs>
+          <clipPath id={clipId}>
+            <circle cx="12" cy="12" r="10" />
+          </clipPath>
+        </defs>
+        <circle cx="12" cy="12" r="10" fill="#ffffff" />
+        <g clipPath={`url(#${clipId})`}>
+          <rect x="2" y="2" width="20" height="10" fill="#ffffff" />
+          <rect x="2" y="12" width="20" height="10" fill="#dc2626" />
+        </g>
+        <circle cx="12" cy="12" r="10" fill="none" stroke="rgba(15,23,42,0.08)" />
+      </svg>
+    );
+  }
+
+  // United States
+  if (country === "United States") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+        <defs>
+          <clipPath id={clipId}>
+            <circle cx="12" cy="12" r="10" />
+          </clipPath>
+        </defs>
+        <circle cx="12" cy="12" r="10" fill="#ffffff" />
+        <g clipPath={`url(#${clipId})`}>
+          {/* Stripes */}
+          <rect x="2" y="2" width="20" height="1.54" fill="#b22234" />
+          <rect x="2" y="3.54" width="20" height="1.54" fill="#ffffff" />
+          <rect x="2" y="5.08" width="20" height="1.54" fill="#b22234" />
+          <rect x="2" y="6.62" width="20" height="1.54" fill="#ffffff" />
+          <rect x="2" y="8.16" width="20" height="1.54" fill="#b22234" />
+          <rect x="2" y="9.7" width="20" height="1.54" fill="#ffffff" />
+          <rect x="2" y="11.24" width="20" height="1.54" fill="#b22234" />
+          <rect x="2" y="12.78" width="20" height="1.54" fill="#ffffff" />
+          <rect x="2" y="14.32" width="20" height="1.54" fill="#b22234" />
+          <rect x="2" y="15.86" width="20" height="1.54" fill="#ffffff" />
+          <rect x="2" y="17.4" width="20" height="1.54" fill="#b22234" />
+          <rect x="2" y="18.94" width="20" height="1.54" fill="#ffffff" />
+          <rect x="2" y="20.48" width="20" height="1.52" fill="#b22234" />
+          {/* Blue canton */}
+          <rect x="2" y="2" width="9" height="8.7" fill="#3c3b6e" />
+        </g>
+        <circle cx="12" cy="12" r="10" fill="none" stroke="rgba(15,23,42,0.08)" />
+      </svg>
+    );
+  }
+
+  // Global (globe icon)
+  if (country === "Global") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+        <circle cx="12" cy="12" r="10" fill="#0ea5e9" stroke="rgba(15,23,42,0.08)" />
+        <g opacity="0.9">
+          <path
+            d="M12 2a10 10 0 0 0 0 20M12 2a10 10 0 0 1 0 20M2 12h20"
+            stroke="#ffffff"
+            strokeWidth="1.2"
+            fill="none"
+          />
+          <ellipse cx="12" cy="12" rx="4" ry="10" stroke="#ffffff" strokeWidth="1.2" fill="none" />
+        </g>
+      </svg>
+    );
+  }
+
+  return null;
+}
+
+function WorkKindIcon({ kind, size = 16, className = "" }) {
+  const commonProps = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    className,
+    "aria-hidden": true,
+  };
+
+  switch (kind) {
+    case "company":
+      return (
+        <svg {...commonProps}>
+          <path
+            d="M10 6h4a2 2 0 0 1 2 2v2h-8V8a2 2 0 0 1 2-2Z"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M4 10h16v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7Z"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M9 13h6"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
+    case "school":
+      return (
+        <svg {...commonProps}>
+          <path
+            d="M12 3 2 8l10 5 10-5-10-5Z"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M6 10v6c0 2 12 2 12 0v-6"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M22 8v6"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
+    case "community":
+      return (
+        <svg {...commonProps}>
+          <path
+            d="M8 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M2.5 20a5.5 5.5 0 0 1 11 0"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <path
+            d="M10.5 20a5.5 5.5 0 0 1 11 0"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
+    case "selfEmployment":
+    default:
+      return (
+        <svg {...commonProps}>
+          <path
+            d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M4 21a8 8 0 0 1 16 0"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
+  }
+}
+
 const renderContentBlock = (block) => {
   switch (block.type) {
     case "heading":
@@ -127,8 +335,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
   const secondaryButtonClassName =
     "inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white";
 
-  const primaryPreviewButtonClassName = `group ${primaryButtonClassName} cursor-glasses`;
-  const secondaryPreviewButtonClassName = `group ${secondaryButtonClassName} cursor-glasses`;
+  const primaryPreviewButtonClassName = `group ${primaryButtonClassName}`;
+  const secondaryPreviewButtonClassName = `group ${secondaryButtonClassName}`;
 
   const actionLinks = (data.links || []).filter((link) => {
     if (link?.preview) return false;
@@ -192,11 +400,12 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       <span>{siteContent.ui.livePreview}</span>
                       <GlassesIcon
                         size={16}
-                        className="shrink-0 opacity-80 transition-[opacity,filter] group-hover:opacity-100 group-hover:brightness-0 group-hover:invert"
+                        className="shrink-0 opacity-90 brightness-0 invert transition-opacity group-hover:opacity-100"
                       />
                     </span>
                   }
                   buttonClassName={primaryPreviewButtonClassName}
+                  cursorVariant="white"
                 />
 
                 <a
@@ -259,6 +468,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                           </span>
                         }
                         buttonClassName={secondaryPreviewButtonClassName}
+                        cursorVariant="black"
                       />
                     );
                   }
@@ -325,7 +535,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
               )}
             </header>
 
-            <section className="project-content mt-8">
+            <section className="mt-8 [&_a]:text-(--accent) [&_a]:no-underline [&_a]:transition-colors [&_a:hover]:text-(--accent-dark)">
               {data.content.map((block, index) => (
                 <div key={`${block.type}-${index}`}>
                   {renderContentBlock(block)}
@@ -337,30 +547,39 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
           <aside className="lg:sticky lg:top-8">
             <div className="space-y-3">
               <div className={`${styles.surface} ${styles.enterAside} p-5 sm:p-6`}>
-                <h2 className="text-sm font-semibold tracking-wide text-slate-900">
-                  {siteContent.ui.atAGlance}
-                </h2>
-
-                <div className="mt-4 space-y-3 text-sm text-slate-700">
-                  {(item?.work?.kind || data.subtitle) && (
+                <div className="space-y-3 text-sm text-slate-700">
+                  {item?.work?.kind && (
                     <div>
                       <div className="text-xs uppercase tracking-wide text-slate-500">
-                        {siteContent.ui.workKind || siteContent.ui.type}
+                        {siteContent.ui.type}
                       </div>
-                      <div className="mt-1">
-                        {item?.work?.kind && siteContent.ui.workKinds?.[item.work.kind]
-                          ? siteContent.ui.workKinds[item.work.kind]
-                          : data.subtitle}
+                      <div className="mt-1 inline-flex items-center gap-2">
+                        <WorkKindIcon
+                          kind={item.work.kind}
+                          size={16}
+                          className="opacity-70"
+                        />
+                        <span>
+                          {siteContent.ui.workKindDescriptions?.[item.work.kind] ||
+                            siteContent.ui.workKinds?.[item.work.kind] ||
+                            data.subtitle}
+                        </span>
                       </div>
                     </div>
                   )}
 
-                  {item?.work?.entity && (
+                  {item?.work?.entity &&
+                  (item?.work?.kind === "company" || item?.work?.kind === "school") && (
                     <div>
                       <div className="text-xs uppercase tracking-wide text-slate-500">
-                        {siteContent.ui.entity}
+                        {siteContent.ui.madeAt}
                       </div>
-                      <div className="mt-1">{item.work.entity}</div>
+                      <div className="mt-1 inline-flex items-center gap-2">
+                        {item?.country && (
+                          <CountryFlag country={item.country} className="h-5 w-5 shrink-0" />
+                        )}
+                        <span>{item.work.entity}</span>
+                      </div>
                     </div>
                   )}
 

@@ -3,14 +3,15 @@ const cnnsAndVisualAttention = {
   categories: ["Science", "image processing", "AI"],
   stack: "Python, CNN, Tensorflow, Keras, Eye-tracking",
   work: { kind: "school", entity: "University of Copenhagen" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "Visual Attention applied to Object Recognition",
-      subtitle: "University of Copenhagen, group work",
+      subtitle: "Eye-tracking and attention visualization for object recognition",
       thumbnail: "/images/thumbnails/attention.webp",
       heroImage: "/images/attention.png",
       description:
-        "CNN's attention compared to human attention based of eye-tracking data.",
+        "Comparing CNN attention with human eye-tracking.",
       links: [
         {
           label: "GitHub",
@@ -82,10 +83,10 @@ const cnnsAndVisualAttention = {
     },
     pl: {
       title: "Uwaga wzrokowa w rozpoznawaniu obiektów",
-      subtitle: "University of Copenhagen, praca zespołowa",
+      subtitle: "Eye‑tracking i wizualizacja uwagi w rozpoznawaniu obiektów",
       thumbnail: "/images/thumbnails/attention.webp",
       heroImage: "/images/attention.png",
-      description: "Porównanie uwagi CNN i człowieka na danych eye‑tracking.",
+      description: "Porównanie uwagi CNN z uwagą człowieka (eye‑tracking).",
       links: [
         {
           label: "GitHub",

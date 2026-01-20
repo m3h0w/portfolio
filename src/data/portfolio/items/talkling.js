@@ -4,14 +4,15 @@ const talkling = {
   categories: ["web app", "LLMs", "AI", "Design / UX"],
   stack: "Nextjs, LLMs, SQL, Supabase",
   work: { kind: "selfEmployment", entity: "Talkling" },
+  country: "Global",
   i18n: {
     en: {
       title: "Talkling",
-      subtitle: "MVP, SaaS",
+      subtitle: "Language-learning SaaS",
       thumbnail: "/images/thumbnails/talkling1.webp",
       heroImage: "/images/talkling/hero.webp",
       description:
-        "Language learning through real conversations: voice messages, live transcription, and instant translations.",
+        "Voice-message language practice with live transcription and translations.",
       links: [
         { label: "Live preview", href: "https://talkling.app/", preview: true },
         { label: "Live", href: "https://talkling.app/", preview: false },
@@ -50,11 +51,11 @@ const talkling = {
     },
     pl: {
       title: "Talkling",
-      subtitle: "MVP, SaaS",
+      subtitle: "Aplikacja SaaS do nauki języków",
       thumbnail: "/images/thumbnails/talkling1.webp",
       heroImage: "/images/talkling/hero.webp",
       description:
-        "Nauka języka przez prawdziwe rozmowy: wiadomości głosowe, transkrypcja na żywo i natychmiastowe tłumaczenia.",
+        "Nauka języka przez wiadomości głosowe z transkrypcją i tłumaczeniami.",
       links: [
         {
           label: "Podgląd na żywo",

@@ -3,15 +3,16 @@ const experimentalBrews = {
   cover: true,
   categories: ["web app", "e-commerce"],
   stack: "Next.js, NestJS, BigCommerce, Stripe",
-  work: { kind: "company", entity: "Kvalifik" },
+  work: { kind: "company", entity: "Kvalifik (for Carlsberg)" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "Experimental Brews",
-      subtitle: "Client work at Kvalifik",
+      subtitle: "Headless e-commerce subscription experience",
       thumbnail: "/images/thumbnails/experimental-brews__hero.webp",
       heroImage: "/images/experimental-brews/hero.webp",
       description:
-        "A headless e-commerce subscription experience with custom integrations (payments, commerce, shipping).",
+        "Headless subscription e-commerce with custom payments and shipping integrations.",
       links: [
         {
           label: "Case study",
@@ -68,11 +69,11 @@ const experimentalBrews = {
     },
     pl: {
       title: "Experimental Brews",
-      subtitle: "Projekt komercyjny w Kvalifik",
+      subtitle: "Headless e‑commerce z subskrypcją",
       thumbnail: "/images/thumbnails/experimental-brews__hero.webp",
       heroImage: "/images/experimental-brews/hero.webp",
       description:
-        "Headless e-commerce dla subskrypcji z integracjami (płatności, commerce, wysyłka).",
+        "Headless e‑commerce subskrypcyjny z integracjami płatności i wysyłki.",
       links: [
         {
           label: "Case study",

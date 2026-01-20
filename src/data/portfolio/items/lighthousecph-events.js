@@ -4,6 +4,7 @@ const lighthouseCphEvents = {
   categories: ["web app", "community project", "no code"],
   stack: "Glide, Stripe Webhooks, Automation",
   work: { kind: "community", entity: "Lighthouse CPH" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "Lighthouse CPH — Community Calendar",
@@ -11,7 +12,7 @@ const lighthouseCphEvents = {
       thumbnail: "/images/thumbnails/lighthousecph__home.webp",
       heroImage: "/images/lighthousecph/hero.webp",
       description:
-        "A community space calendar that verifies paying members via Stripe webhooks and lets them book spaces and browse upcoming events.",
+        "A community calendar and booking app that verifies paying members via Stripe webhooks.",
       links: [
         {
           label: "Live",
@@ -59,7 +60,7 @@ const lighthouseCphEvents = {
       thumbnail: "/images/thumbnails/lighthousecph__home.webp",
       heroImage: "/images/lighthousecph/hero.webp",
       description:
-        "Kalendarz przestrzeni społecznościowej, który na podstawie webhooków Stripe rozpoznaje płatnych członków i pozwala rezerwować przestrzeń oraz przeglądać wydarzenia.",
+        "Kalendarz i rezerwacje dla społeczności z weryfikacją płatnego członkostwa przez webhooki Stripe.",
       links: [
         {
           label: "Strona",

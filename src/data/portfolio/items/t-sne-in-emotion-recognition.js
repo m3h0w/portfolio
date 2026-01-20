@@ -3,14 +3,15 @@ const tSneInEmotionRecognition = {
   categories: ["Science", "machine learning", "AI"],
   stack: "Python, Keras, Parametric t-SNE",
   work: { kind: "school", entity: "University of Copenhagen" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "Parametric t-SNE for temporal, multimodal emotion recognition",
-      subtitle: "University of Copenhagen, group work",
+      subtitle: "Emotion recognition visualization with parametric t-SNE",
       thumbnail: "/images/thumbnails/emotion_recognition.webp",
       heroImage: "/images/emotion_recognition.png",
       description:
-        'A novel technique for visualizing emotion recognition results including the temporal dimension. An "emotion space" is created using parametric t-SNE, where machine learning models can be visually compared with respect to modalities, models, and hyperparameters used.',
+        "Parametric t‑SNE “emotion space” for comparing temporal emotion recognition models.",
       links: [
         {
           label: "Report",
@@ -75,11 +76,11 @@ const tSneInEmotionRecognition = {
     },
     pl: {
       title: "Parametryczne t-SNE dla czasowej, multimodalnej analizy emocji",
-      subtitle: "University of Copenhagen, praca zespołowa",
+      subtitle: "Wizualizacja rozpoznawania emocji z parametrycznym t‑SNE",
       thumbnail: "/images/thumbnails/emotion_recognition.webp",
       heroImage: "/images/emotion_recognition.png",
       description:
-        "Technika wizualizacji wyników rozpoznawania emocji z uwzględnieniem czasu, oparta o parametryczne t‑SNE.",
+        "Parametryczne t‑SNE i „przestrzeń emocji” do porównań modeli temporalnych.",
       links: [
         {
           label: "Raport",

@@ -3,14 +3,15 @@ const cnnForFurnitureRecognition = {
   categories: ["Science", "image processing", "AI"],
   stack: "Azure, CNNs, Keras, Kaggle",
   work: { kind: "school", entity: "University of Copenhagen" },
+  country: "Denmark",
   i18n: {
     en: {
       title: "CNNs & Transfer Learning for furniture recognition",
-      subtitle: "University of Copenhagen, group work and Kaggle competition",
+      subtitle: "Deep learning image classification and Kaggle competition",
       thumbnail: "/images/thumbnails/furniture.webp",
       heroImage: "/images/furniture.png",
       description:
-        "Project developed for a course and a Kaggle competition. I used Convolutional Neural Networks to distinguish between 128 classes of furniture.",
+        "Transfer learning CNN model for 128-class furniture recognition (Kaggle).",
       links: [
         { label: "GitHub", href: "https://github.com/m3h0w/imaterialist_kaggle_competition" },
         {
@@ -59,11 +60,11 @@ const cnnForFurnitureRecognition = {
     },
     pl: {
       title: "CNN i transfer learning do rozpoznawania mebli",
-      subtitle: "University of Copenhagen, praca zespołowa i konkurs Kaggle",
+      subtitle: "Klasyfikacja obrazów w deep learningu i konkurs Kaggle",
       thumbnail: "/images/thumbnails/furniture.webp",
       heroImage: "/images/furniture.png",
       description:
-        "Projekt kursowy i konkurs Kaggle. Model rozróżnia 128 klas mebli z ponad 80% skutecznością.",
+        "Transfer learning CNN do rozpoznawania 128 klas mebli (Kaggle).",
       links: [
         { label: "GitHub", href: "https://github.com/m3h0w/imaterialist_kaggle_competition" },
         {

@@ -3,14 +3,15 @@ const covid19pink = {
   categories: ["web app", "community project", "Design / UX"],
   stack: "TypeScript, React, Recharts, Mobx, Vercel",
   work: { kind: "community" },
+  country: "Global",
   i18n: {
     en: {
       title: "COVID19.PINK",
-      subtitle: "Open source side project",
+      subtitle: "Open-source data visualization",
       thumbnail: "/images/thumbnails/covid19pink.webp",
       heroImage: "/images/covid19pink.png",
       description:
-        "Pandemic visualization made slightly more engaging and little bit more beautiful",
+        "Open-source COVID-19 dashboard with an interactive map and trends.",
       links: [
         {
           label: "GitHub",
@@ -58,11 +59,11 @@ const covid19pink = {
     },
     pl: {
       title: "COVID19.PINK",
-      subtitle: "Open‑source projekt poboczny",
+      subtitle: "Wizualizacja danych open‑source",
       thumbnail: "/images/thumbnails/covid19pink.webp",
       heroImage: "/images/covid19pink.png",
       description:
-        "Wizualizacja pandemii zaprojektowana tak, aby była bardziej angażująca i czytelna.",
+        "Open‑source dashboard COVID‑19 z interaktywną mapą i trendami.",
       links: [
         {
           label: "GitHub",
