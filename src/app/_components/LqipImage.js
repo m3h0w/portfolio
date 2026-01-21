@@ -7,6 +7,7 @@ export default function LqipImage({
   wrapperClassName = "relative",
   className = "",
   style,
+  alt = "",
   onLoad,
   onLoadingComplete,
   blurDataURL,
@@ -35,6 +36,7 @@ export default function LqipImage({
 
       <Image
         {...props}
+        alt={alt}
         placeholder="empty"
         className={`${className} transition-opacity duration-300 ease-out ${
           isLoaded ? "opacity-100" : "opacity-0"

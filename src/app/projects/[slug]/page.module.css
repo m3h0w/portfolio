@@ -49,6 +49,29 @@
   animation: detailEnterAside 680ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
 }
 
+.projectNav {
+  container-type: inline-size;
+  border-top: 1px solid rgba(15, 23, 42, 0.10);
+  padding-top: 1.25rem;
+}
+
+.projectNavGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@container (min-width: 1000px) {
+  .projectNav {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .projectNavGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @keyframes detailEnterMain {
   0% {
     transform: translate3d(0, 16px, 0) scale(0.98);

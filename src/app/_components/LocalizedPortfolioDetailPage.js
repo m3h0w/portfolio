@@ -11,6 +11,7 @@ import AtAGlanceBackToPortfolio from "@/app/_components/AtAGlanceBackToPortfolio
 import GlassesIcon from "@/components/GlassesIcon";
 import IMAGE_LQIP_MAP from "@/data/imageLqipMap";
 import LqipImage from "@/app/_components/LqipImage";
+import ScrollToTopOnSlugChange from "@/app/_components/ScrollToTopOnSlugChange";
 import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
@@ -376,7 +377,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
     .filter(Boolean);
 
   return (
-    <div className={`${styles.page} min-h-screen`}>
+    <div className={`${styles.page} min-h-[100svh] md:min-h-screen`}>
+      <ScrollToTopOnSlugChange slug={slug} />
       <AbstractBackdrop variant="detail" />
 
       <main
@@ -629,8 +631,11 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
         </div>
 
         {(prevItem || nextItem) && (
-          <nav aria-label="Project navigation" className="mt-6">
-            <div className="grid gap-4 sm:grid-cols-2">
+          <nav
+            aria-label="Project navigation"
+            className={`mt-6 ${styles.projectNav}`}
+          >
+            <div className={styles.projectNavGrid}>
               {prevItem && prevData ? (
                 <Link
                   href={`${basePath}/${prevItem.slug}`}
