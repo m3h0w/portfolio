@@ -43,8 +43,8 @@ const sora = Sora({
 
 export const metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
-  title: "Michal Gacka",
-  description: "Portfolio of Michal Gacka",
+  title: "Michał Gacka - Software Engineer",
+  description: "Michał Gacka's professional portfolio website.",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },

@@ -2,7 +2,9 @@ function getRawSiteUrl() {
   return (
     process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.SITE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ||
+    (process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : undefined) ||
     "https://www.michalgacka.com"
   );
 }
@@ -44,8 +46,8 @@ export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Michał Gacka",
-    description: "Portfolio of Michal Gacka",
+    name: "Michał Gacka - Software Engineer",
+    description: "Michał Gacka's professional portfolio website.",
     url,
     inLanguage: ["en", "pl"],
     author: {
@@ -89,7 +91,8 @@ function inferProjectSchemaType(categories = []) {
 
   if (
     normalized.some(
-      (c) => c.includes("web app") || c.includes("mobile app") || c.includes("saas")
+      (c) =>
+        c.includes("web app") || c.includes("mobile app") || c.includes("saas"),
     )
   ) {
     return "SoftwareApplication";
@@ -97,7 +100,8 @@ function inferProjectSchemaType(categories = []) {
 
   if (
     normalized.some(
-      (c) => c.includes("landing") || c.includes("website") || c.includes("site")
+      (c) =>
+        c.includes("landing") || c.includes("website") || c.includes("site"),
     )
   ) {
     return "WebSite";

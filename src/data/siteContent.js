@@ -22,7 +22,7 @@ const shared = {
   about: {
     image: {
       src: "/images/me1.jpg",
-      alt: "Michal Gacka",
+      alt: "Michał Gacka",
       width: 900,
       height: 1200,
     },
