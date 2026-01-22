@@ -50,7 +50,7 @@ export const siteContentByLanguage = {
       ...shared.about,
       heading: "About me",
       paragraphs: [
-        "I’m a software engineer who builds practical products at the intersection of machine learning and full-stack web development.",
+        "I’m a software engineer who builds practical products at the intersection of artificial intelligence and full-stack web development.",
         "I work as a Lead Software Engineer at SoilSense, and I also freelance and consult on web and mobile apps.",
         "Lately I’ve been exploring AI-assisted language learning (e.g. Talkling), alongside research interests in cognitive psychology and computational phenomenology.",
         "Outside of tech and science, I’m the founder of the Warsaw Institute of Relating, where I facilitate relational practices (Authentic Relating and Relational Contact Improvisation) focused on emotional literacy, communication, and conflict.",
@@ -123,7 +123,7 @@ export const siteContentByLanguage = {
       ...shared.about,
       heading: "O mnie",
       paragraphs: [
-        "Jestem inżynierem oprogramowania i tworzę praktyczne produkty na styku machine learningu i full‑stack web developmentu.",
+        "Jestem inżynierem oprogramowania i tworzę praktyczne produkty na styku sztucznej inteligencji i full‑stack web developmentu.",
         "Pracuję jako Lead Software Engineer w SoilSense, a także jako freelancer i konsultant w obszarze aplikacji webowych i mobilnych.",
         "Równolegle rozwijam własne projekty — ostatnio eksploruję AI‑wspomaganą naukę języków (np. Talkling) — oraz prowadzę badania z zakresu psychologii poznawczej i fenomenologii obliczeniowej.",
         "Poza technologią i nauką jestem założycielem Warszawskiego Instytutu Relacyjnego, gdzie facylituję praktyki relacyjne (Authentic Relating i Relational Contact Improvisation) skupione na kompetencjach emocjonalnych, komunikacji i konflikcie.",

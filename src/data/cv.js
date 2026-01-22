@@ -38,7 +38,7 @@ const cv = {
 
     summary: {
       paragraphs: [
-        "I am a software engineer working with machine learning and full-stack web development.",
+        "I am a software engineer working with artificial intelligence and full-stack web development.",
         "I believe in a world where technology is designed and built first and foremost to do no harm and to make our lives richer and more fulfilling.",
         "I take pride in my ability to teach, lead, and make strategic product decisions besides writing clean, maintainable code.",
         "In my spare time I enjoy bouldering, playing music, and dancing.",
