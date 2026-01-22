@@ -3,6 +3,8 @@ const traivel = {
   categories: ["web app", "machine learning", "AI"],
   stack:
     "Python, JavaScript, Flask, Skyscanner API, Twitter API, Microsoft Cognitive Services",
+  mainLanguage: "Python",
+  secondaryLanguage: "JavaScript",
   work: { kind: "community" },
   country: "Denmark",
   i18n: {

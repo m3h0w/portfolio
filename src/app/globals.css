@@ -28,3 +28,25 @@
     text-shadow: 0 0 2px #fff;
   }
 }
+
+@media print {
+  :root {
+    --background: #ffffff;
+    --foreground: #000000;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  /* Avoid a common PDF-export issue where backgrounds get dropped unpredictably */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

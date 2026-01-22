@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { getSiteContent } from "@/data/siteContent";
 import { AnimatePresence, motion } from "framer-motion";
 import GlassesBadge from "@/components/GlassesBadge";
+import CircleFlagIcon from "@/components/CircleFlagIcon";
 
 function SocialIcon({ name }) {
   const common = "h-4 w-4";
@@ -40,65 +41,6 @@ function SocialIcon({ name }) {
   }
 }
 
-function FlagIcon({ code, idPrefix }) {
-  const clipId = `${idPrefix}-flag-${code}`;
-
-  if (code === "pl") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
-        <defs>
-          <clipPath id={clipId}>
-            <circle cx="12" cy="12" r="10" />
-          </clipPath>
-        </defs>
-        <circle cx="12" cy="12" r="10" fill="#ffffff" />
-        <g clipPath={`url(#${clipId})`}>
-          <rect x="2" y="12" width="20" height="10" fill="#dc2626" />
-        </g>
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          fill="none"
-          stroke="rgba(15,23,42,0.08)"
-        />
-      </svg>
-    );
-  }
-
-  // "en" (UK): Union Jack in a circle.
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
-      <defs>
-        <clipPath id={clipId}>
-          <circle cx="12" cy="12" r="10" />
-        </clipPath>
-      </defs>
-      <circle cx="12" cy="12" r="10" fill="#012169" />
-      <g clipPath={`url(#${clipId})`}>
-        <rect width="24" height="24" fill="#012169" />
-
-        {/* white diagonals */}
-        <polygon points="0,0 3,0 24,21 24,24 21,24 0,3" fill="#ffffff" />
-        <polygon points="0,21 0,24 3,24 24,3 24,0 21,0" fill="#ffffff" />
-
-        {/* red diagonals */}
-        <polygon points="0,0 2,0 24,22 24,24 22,24 0,2" fill="#c8102e" />
-        <polygon points="0,22 0,24 2,24 24,2 24,0 22,0" fill="#c8102e" />
-
-        {/* white central cross */}
-        <rect x="9" y="0" width="6" height="24" fill="#ffffff" />
-        <rect x="0" y="9" width="24" height="6" fill="#ffffff" />
-
-        {/* red central cross */}
-        <rect x="10.5" y="0" width="3" height="24" fill="#c8102e" />
-        <rect x="0" y="10.5" width="24" height="3" fill="#c8102e" />
-      </g>
-      <circle cx="12" cy="12" r="10" fill="none" stroke="rgba(15,23,42,0.08)" />
-    </svg>
-  );
-}
-
 function NavLink({ href, label, active, onNavigate }) {
   return (
     <Link
@@ -117,7 +59,7 @@ function NavLink({ href, label, active, onNavigate }) {
   );
 }
 
-function LanguageToggle({ language, onChange, idPrefix }) {
+function LanguageToggle({ language, onChange }) {
   const entries = [
     { code: "en", label: "English" },
     { code: "pl", label: "Polski" },
@@ -161,7 +103,7 @@ function LanguageToggle({ language, onChange, idPrefix }) {
               }`}
           >
             <span aria-hidden="true" className="grid place-items-center">
-              <FlagIcon code={entry.code} idPrefix={idPrefix} />
+              <CircleFlagIcon code={entry.code} className="h-5 w-5" />
             </span>
           </button>
         );
@@ -176,7 +118,6 @@ function SidebarContent({
   language,
   onLanguageChange,
   navOnTop = false,
-  idPrefix,
 }) {
   const [profileHovered, setProfileHovered] = useState(false);
   const hoverOffTimeoutRef = useRef(null);
@@ -210,8 +151,9 @@ function SidebarContent({
   const isPlRoute = pathname === "/pl" || pathname?.startsWith("/pl/");
   const basePath = isPlRoute ? "/pl" : "";
   const homePath = basePath || "/";
-  const isPortfolio = pathname !== `${basePath}/me`;
   const isMe = pathname === `${basePath}/me`;
+  const isCv = pathname === `${basePath}/cv`;
+  const isPortfolio = !isMe && !isCv;
   const isProfileInteractive = !isMe;
   const siteContent = getSiteContent(language);
 
@@ -252,11 +194,7 @@ function SidebarContent({
         <div className="flex flex-col items-center text-center">
           <div className="relative w-full">
             <div className="relative z-20 flex justify-center pb-4 md:pb-6">
-              <LanguageToggle
-                language={language}
-                onChange={onLanguageChange}
-                idPrefix={idPrefix}
-              />
+              <LanguageToggle language={language} onChange={onLanguageChange} />
             </div>
             <div className="flex justify-center">
               <div className="relative">
@@ -586,7 +524,6 @@ export default function SidebarNav() {
                 language={language}
                 onLanguageChange={handleLanguageChange}
                 navOnTop
-                idPrefix="mobile"
               />
             </motion.aside>
           </motion.div>
@@ -599,7 +536,6 @@ export default function SidebarNav() {
           showNav={false}
           language={language}
           onLanguageChange={handleLanguageChange}
-          idPrefix="desktop"
         />
       </aside>
     </>

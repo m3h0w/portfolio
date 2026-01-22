@@ -10,13 +10,17 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LivePreviewModal from "@/app/_components/LivePreviewModal";
 import GlassesBadge from "@/components/GlassesBadge";
+import LanguageIcon from "@/components/LanguageIcon";
+import CloseIcon from "@/components/CloseIcon";
 import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
 } from "@/app/_components/livePreviewUtils";
+import { inferMainLanguage, normalizeLanguageName, parseStackString, splitTechIntoLanguagesAndOther } from "@/lib/tech";
 
 export default function HomeClient({ locale = "en", basePath = "" }) {
   const [activeCategory, setActiveCategory] = useState(null);
+  const [activeLanguage, setActiveLanguage] = useState(null);
   const [animationSeed, setAnimationSeed] = useState(() => `initial-${locale}`);
   const router = useRouter();
   const listRef = useRef(null);
@@ -92,9 +96,26 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
   };
 
   const filteredItems = useMemo(() => {
-    if (!activeCategory) return portfolioItems;
-    return portfolioItems.filter((item) => item.categories?.includes(activeCategory));
-  }, [activeCategory]);
+    let items = portfolioItems;
+    if (activeCategory) {
+      items = items.filter((item) => item.categories?.includes(activeCategory));
+    }
+    if (activeLanguage) {
+      items = items.filter((item) => {
+        const stack = item.stack || "";
+        const inferred = inferMainLanguage({
+          mainLanguage: item.mainLanguage,
+          stack,
+        });
+        return (
+          item.mainLanguage === activeLanguage || 
+          item.secondaryLanguage === activeLanguage ||
+          inferred === activeLanguage
+        );
+      });
+    }
+    return items;
+  }, [activeCategory, activeLanguage]);
 
   const categoryBadgeClassName =
     "inline-flex items-center justify-center px-[0.48rem] py-[0.14rem] text-[0.62rem] font-semibold uppercase tracking-[0.035em] leading-none rounded-full border border-[rgba(155,0,189,0.12)] bg-[rgba(255,255,255,0.8)] text-[#3b1750] shadow-[0_1px_4px_rgba(2,6,23,0.08)] backdrop-blur-[3px] cursor-pointer hover:bg-[rgba(255,255,255,0.9)] hover:border-[rgba(155,0,189,0.18)]";
@@ -176,7 +197,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
     const timers = new Set();
-    const spans = Array.from(container.querySelectorAll(".card-stack-text"));
+    const spans = Array.from(container.querySelectorAll(".card-stack-typed"));
 
     spans.forEach((span) => {
       const fullText = span.getAttribute("data-full-text") || span.textContent || "";
@@ -222,32 +243,58 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
   return (
     <div className="relative min-h-screen flex-1">
       <AbstractBackdrop variant="list" />
-      <main ref={listRef} className="relative mx-auto w-full max-w-6xl flex-1 px-2 py-8 sm:px-4 lg:px-6">
-        {activeCategory && (
+      <main ref={listRef} className="relative mx-auto w-full max-w-6xl flex-1 px-2 py-8 sm:px-3 lg:px-4 min-[1100px]:px-6">
+        {(activeCategory || activeLanguage) && (
           <div className="mb-5 flex items-center gap-2">
-            <button
-              type="button"
-              className={`${categoryBadgeClassName} group gap-[0.35rem] px-[0.6rem] py-[0.22rem]`}
-              onClick={() => {
-                setActiveCategory(null);
-                rerollAnimationSeed();
-              }}
-              aria-label={`Clear filter: ${activeCategory}`}
-            >
-              <span className="category-badge__label">{activeCategory}</span>
-              <span className="category-badge__close" aria-hidden="true">
-                <span className="text-[0.95rem] leading-[0.9] opacity-70 mt-[-1px] group-hover:opacity-100">
-                  ×
+            {activeCategory && (
+              <button
+                type="button"
+                className={`${categoryBadgeClassName} group gap-[0.4rem] px-[0.7rem] py-[0.28rem] !text-[0.7rem]`}
+                onClick={() => {
+                  setActiveCategory(null);
+                  rerollAnimationSeed();
+                }}
+                aria-label={`Clear filter: ${activeCategory}`}
+              >
+                <span className="category-badge__label">{activeCategory}</span>
+                <span className="category-badge__close inline-flex items-center justify-center" aria-hidden="true">
+                  <CloseIcon size={14} className="opacity-70 group-hover:opacity-100" />
                 </span>
-              </span>
-            </button>
+              </button>
+            )}
+            {activeLanguage && (
+              <button
+                type="button"
+                className={`${categoryBadgeClassName} group gap-[0.4rem] px-[0.7rem] py-[0.28rem] !text-[0.7rem]`}
+                onClick={() => {
+                  setActiveLanguage(null);
+                  rerollAnimationSeed();
+                }}
+                aria-label={`Clear filter: ${activeLanguage}`}
+              >
+                <span className="category-badge__label">{activeLanguage}</span>
+                <span className="category-badge__close inline-flex items-center justify-center" aria-hidden="true">
+                  <CloseIcon size={14} className="opacity-70 group-hover:opacity-100" />
+                </span>
+              </button>
+            )}
           </div>
         )}
-        <motion.section layout className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <motion.section layout className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))] [&>*]:w-full [&>*]:max-w-[384px] [&>*]:justify-self-center min-[1100px]:gap-5 min-[1100px]:[grid-template-columns:repeat(auto-fit,minmax(276px,1fr))]">
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item, index) => {
               const data = item.i18n[locale] || item.i18n.en;
               const href = `${basePath}/${item.slug}`;
+              const stack = item.stack || data.stack || "";
+              const stackItems = parseStackString(stack);
+              const { other: otherStack } = splitTechIntoLanguagesAndOther(stackItems);
+              const mainLanguage = inferMainLanguage({
+                mainLanguage: item.mainLanguage,
+                stack,
+              });
+              const secondaryLanguage = item.secondaryLanguage
+                ? normalizeLanguageName(item.secondaryLanguage)
+                : null;
               const liveLink = getLivePreviewLink(data.links);
               const iframeAllowed = liveLink
                 ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
@@ -274,6 +321,40 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                   onClick={(e) => openCard(e, href)}
                   onKeyDown={(e) => onCardKeyDown(e, href)}
                 >
+                  {mainLanguage ? (
+                    <>
+                      <button
+                        type="button"
+                        className="absolute -bottom-2 -right-2 z-10 inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/85 shadow-sm ring-1 ring-black/10 backdrop-blur cursor-pointer transition-transform hover:scale-105"
+                        title={mainLanguage}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setActiveLanguage(mainLanguage);
+                          rerollAnimationSeed();
+                        }}
+                        aria-label={`Filter by language: ${mainLanguage}`}
+                      >
+                        <LanguageIcon name={mainLanguage} size={28} className="block text-slate-500" />
+                      </button>
+                      {secondaryLanguage ? (
+                        <button
+                          type="button"
+                          className="absolute bottom-10 -right-2 z-[9] inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/85 shadow-sm ring-1 ring-black/10 backdrop-blur cursor-pointer transition-transform hover:scale-105"
+                          title={secondaryLanguage}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setActiveLanguage(secondaryLanguage);
+                            rerollAnimationSeed();
+                          }}
+                          aria-label={`Filter by language: ${secondaryLanguage}`}
+                        >
+                          <LanguageIcon name={secondaryLanguage} size={20} className="block text-slate-500" />
+                        </button>
+                      ) : null}
+                    </>
+                  ) : null}
                   <div className="card-link flex flex-1 flex-col text-inherit no-underline">
                     <div className="card-media relative h-[min(180px,50%)] w-full shrink-0 isolation-isolate overflow-hidden">
                       {liveLink && (
@@ -359,16 +440,20 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                         </Link>
                       </h3>
                       <p
-                        className={`card-text mb-3 text-[#5b6472] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] [line-clamp:3] overflow-hidden text-ellipsis min-[768px]:hidden min-[1100px]:[display:-webkit-box] ${typography.desc}`}
+                        className={`card-text mb-3 text-[#5b6472] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] [line-clamp:3] overflow-hidden text-ellipsis ${typography.desc}`}
                       >
                         {data.description}
                       </p>
-                      <div className="card-footer absolute bottom-0 left-4 right-4 flex h-[2.4rem] flex-col">
-                        <div className="card-divider h-px w-full bg-[rgba(15,23,42,0.12)] m-0" aria-hidden="true" />
-                        <div className="card-stack-area flex flex-1 items-center min-h-0">
-                          <p className="card-footer-text m-0 block overflow-hidden text-ellipsis whitespace-nowrap text-[0.82em] font-mono text-[#8b93a4] leading-[1.2]">
-                            <span className="font-mono text-slate-400">›</span>{" "}
-                            <span className="card-stack-text font-mono">{item.stack || data.stack}</span>
+                      <div className="card-footer absolute bottom-0 left-0 right-0 flex h-[2.4rem] flex-col">
+                        <div className="card-divider absolute top-0 left-0 right-0 h-px bg-[rgba(15,23,42,0.12)] z-0" aria-hidden="true" />
+                        <div className="card-stack-area flex flex-1 items-center min-h-0 px-4 pr-16">
+                          <p className="card-footer-text m-0 flex min-w-0 items-center gap-2 text-[0.82em] font-mono text-[#8b93a4] leading-[1.2]">
+                            <span className="shrink-0 font-mono text-slate-400">›</span>
+                            <span className="card-stack-value min-w-0 flex-1 truncate">
+                              <span className="card-stack-typed inline">
+                                {otherStack.length ? otherStack.join(", ") : stack}
+                              </span>
+                            </span>
                           </p>
                         </div>
                       </div>

@@ -1,0 +1,57 @@
+{
+  "outputDir": "public/images/cv",
+  "logos": [
+    {
+      "id": "polsl",
+      "filename": "polsl.png",
+      "url": "https://media.licdn.com/dms/image/v2/C4E0BAQHmxlmdyraecA/company-logo_100_100/company-logo_100_100/0/1648792680983/polsl_logo?e=1770854400&v=beta&t=bOwj1eQ3ipGMqAIDOAq7wXhlfvP40bOHtLV1s-9967A"
+    },
+    {
+      "id": "ucph",
+      "filename": "ucph.png",
+      "url": "https://media.licdn.com/dms/image/v2/C560BAQHDk5tCEnvMIw/company-logo_100_100/company-logo_100_100/0/1631310679588?e=1770854400&v=beta&t=RzcU1O7rk2cOcVxJEuz33-tURvan1OoFXVAPC9_ypVc"
+    },
+    {
+      "id": "cmu",
+      "filename": "cmu.png",
+      "url": "https://media.licdn.com/dms/image/v2/C560BAQH0rMqWuDcNzA/company-logo_100_100/company-logo_100_100/0/1656670432790/carnegie_mellon_university_logo?e=1770854400&v=beta&t=NFtcJuxK2MI4vBFxB_h7qWetAQ3DxlHbUgv5Qz0ukLQ"
+    },
+    {
+      "id": "cluepr",
+      "filename": "cluepr.png",
+      "url": "https://media.licdn.com/dms/image/v2/D4D0BAQFq3ZOrTQ6L5g/company-logo_100_100/B4DZWT9kIiGkAQ-/0/1741944144771/cluepr_logo?e=1770854400&v=beta&t=vs4atBBu9ZpqMcYaJVdGgQwcP4ZgrPJ1iTZ81cDm7H4"
+    },
+    {
+      "id": "iaeste",
+      "filename": "iaeste.png",
+      "url": "https://media.licdn.com/dms/image/v2/C4D0BAQEduPRbhaA0NA/company-logo_100_100/company-logo_100_100/0/1630457922150/iaeste_poland_logo?e=1770854400&v=beta&t=y_eoLMT40TNPmGYJQGsBggTYvWD3OVlll-gV_JEOpLs"
+    },
+    {
+      "id": "wir",
+      "filename": "wir.png",
+      "url": "https://media.licdn.com/dms/image/v2/D4E0BAQFF2DJWraHczw/company-logo_100_100/B4EZjxOCx5GcAQ-/0/1756393650217?e=1770854400&v=beta&t=lkPiyxcfIGSN0Jb867mZE3wZjWX24_IO6erWT2KtxZw"
+    },
+    {
+      "id": "soilsense",
+      "filename": "soilsense.png",
+      "url": "https://media.licdn.com/dms/image/v2/C4D0BAQE7OH5_1MJafQ/company-logo_100_100/company-logo_100_100/0/1630541924638/soilsense_io_logo?e=1770854400&v=beta&t=EGtQvNuRievO2TvLy3zKah0d9jdWOPSRJzLl8tY8U-Y"
+    },
+    {
+      "id": "kvalifik",
+      "filename": "kvalifik.png",
+      "url": "https://media.licdn.com/dms/image/v2/D4D0BAQFtGfPCgi3duw/company-logo_100_100/B4DZaL_mRtG8AU-/0/1746105427481/kvalifik_aps_logo?e=1770854400&v=beta&t=2ek_Yc3-z3ZYzdWxXF_fjjyV_FCoS00a0QmHlIscICc"
+    },
+    {
+      "id": "tia",
+      "filename": "tia.png",
+      "url": "https://media.licdn.com/dms/image/v2/C4E0BAQEM2HpJW73qhQ/company-logo_100_100/company-logo_100_100/0/1651668794159/tia_technology_logo?e=1770854400&v=beta&t=acKEfDpBxJ2OM1O1E0e7nGKNFAo04dJb9dJh6in9VSY"
+    },
+    {
+      "id": "smartin",
+      "filename": "smartin.png",
+      "url": "https://media.licdn.com/dms/image/v2/C4E0BAQEAuQp1quGuWQ/company-logo_100_100/company-logo_100_100/0/1631347715749?e=1770854400&v=beta&t=LOVIWF37ovne63fHUJOZJPUKoWAAyYF1LMHC--ONIVE"
+    }
+  ],
+  "gobundlBase64File": "scripts/cv-logos.gobundl.base64.txt",
+  "gobundlFilename": "gobundl.png"
+}

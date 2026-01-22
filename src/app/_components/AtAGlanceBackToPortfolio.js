@@ -39,7 +39,7 @@ export default function AtAGlanceBackToPortfolio({ observeId, href, label, enabl
         >
           <Link
             href={href}
-            className="inline-flex w-full items-center gap-3 rounded-xl border border-black/10 bg-white/70 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm backdrop-blur transition-colors hover:bg-white"
+            className="inline-flex w-full items-center gap-3 rounded-xl border border-black/10 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-sm backdrop-blur transition-[background-color,transform,box-shadow] hover:bg-white active:scale-[0.98] active:bg-slate-50 active:shadow"
           >
             <span aria-hidden className="text-slate-500">
               ←

@@ -9,6 +9,7 @@ import LivePreviewModal from "@/app/_components/LivePreviewModal";
 import AtAGlanceLinks, { LinkIcon } from "@/app/_components/AtAGlanceLinks";
 import AtAGlanceBackToPortfolio from "@/app/_components/AtAGlanceBackToPortfolio";
 import GlassesIcon from "@/components/GlassesIcon";
+import LanguageIcon from "@/components/LanguageIcon";
 import IMAGE_LQIP_MAP from "@/data/imageLqipMap";
 import LqipImage from "@/app/_components/LqipImage";
 import ScrollToTopOnSlugChange from "@/app/_components/ScrollToTopOnSlugChange";
@@ -18,6 +19,7 @@ import {
   isLivePreviewLink,
   isReportPreviewLink,
 } from "@/app/_components/livePreviewUtils";
+import { inferMainLanguage, parseStackString, splitTechIntoLanguagesAndOther } from "@/lib/tech";
 
 const FALLBACK_BLUR_DATA_URL =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E";
@@ -345,10 +347,10 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
     : false;
 
   const primaryButtonClassName =
-    "inline-flex cursor-pointer items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-(--accent-dark)";
+    "inline-flex cursor-pointer items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-medium text-white shadow-sm transition-[background-color,transform,box-shadow] hover:bg-(--accent-dark) active:scale-[0.98] active:shadow";
 
   const secondaryButtonClassName =
-    "inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white";
+    "inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur transition-[background-color,transform,box-shadow] hover:bg-white active:scale-[0.98] active:bg-slate-50 active:shadow";
 
   const primaryPreviewButtonClassName = `group ${primaryButtonClassName}`;
   const secondaryPreviewButtonClassName = `group ${secondaryButtonClassName}`;
@@ -371,10 +373,14 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
 
   const stack = item.stack || data.stack || "";
 
-  const stackItems = stack
-    .split(",")
-    .map((part) => part.trim())
-    .filter(Boolean);
+  const stackItems = parseStackString(stack);
+  const { languages, other: otherStack } = splitTechIntoLanguagesAndOther(stackItems);
+  const mainLanguage = inferMainLanguage({ mainLanguage: item.mainLanguage, stack });
+  
+  // Ensure mainLanguage is included in languages array if it's not already there
+  if (mainLanguage && !languages.includes(mainLanguage)) {
+    languages.unshift(mainLanguage);
+  }
 
   return (
     <div className={`${styles.page} min-h-[100svh] md:min-h-screen`}>
@@ -455,7 +461,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
             )}
 
             {actionLinks && actionLinks.length > 0 && (
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center justify-center gap-2">
                 {actionLinks.map((link) => {
                   const allowInlinePreview =
                     isLivePreviewLink(link) &&
@@ -540,9 +546,30 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                 </p>
               )}
 
-              {stackItems.length > 0 && (
+              {(languages.length > 0 || otherStack.length > 0) && (
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {stackItems.map((tech) => (
+                  {languages.map((lang) => (
+                    <span
+                      key={`lang-${lang}`}
+                      className={`${styles.chip} !h-[26px] !w-[26px] !p-0 inline-flex items-center justify-center gap-2`}
+                      title={lang}
+                    >
+                      <span className="inline-flex h-[14px] w-[14px] items-center justify-center">
+                        <LanguageIcon
+                          name={lang}
+                          size={24}
+                          className="block"
+                          style={{
+                            WebkitTextStroke: "1px rgba(255,255,255,0.85)",
+                            textShadow:
+                              "0 0 1px rgba(255,255,255,0.9), 0 0 2px rgba(255,255,255,0.6)",
+                          }}
+                        />
+                      </span>
+                      <span className="sr-only">{lang}</span>
+                    </span>
+                  ))}
+                  {otherStack.map((tech) => (
                     <span key={tech} className={styles.chip}>
                       {tech}
                     </span>
@@ -639,7 +666,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
               {prevItem && prevData ? (
                 <Link
                   href={`${basePath}/${prevItem.slug}`}
-                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition-[transform,box-shadow] sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70 active:scale-[0.98] active:shadow`}
                 >
                   <div aria-hidden className="text-slate-400">
                     ←
@@ -672,7 +699,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
               ) : (
                 <Link
                   href={`${basePath}/me`}
-                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition-[transform,box-shadow] sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70 active:scale-[0.98] active:shadow`}
                 >
                   <div aria-hidden className="text-slate-400">
                     <svg
@@ -724,7 +751,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
               {nextItem && nextData && (
                 <Link
                   href={`${basePath}/${nextItem.slug}`}
-                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70`}
+                  className={`${styles.surface} group flex w-full min-w-0 items-center gap-4 overflow-hidden p-4 transition-[transform,box-shadow] sm:p-5 hover:-translate-y-px hover:shadow-md hover:shadow-slate-200/70 active:scale-[0.98] active:shadow`}
                 >
                   <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white">
                     <LqipImage

@@ -1,7 +1,9 @@
 const insuranceRulesAdminPanel = {
   slug: "insurance-rules-admin-panel",
-  categories: ["web app", "no code"],
+  categories: ["web app"],
   stack: "Flask, React, SQLite, Docker",
+  mainLanguage: "JavaScript",
+  secondaryLanguage: "Python",
   work: { kind: "company", entity: "GoBundl / TIA Technology" },
   country: "Denmark",
   i18n: {

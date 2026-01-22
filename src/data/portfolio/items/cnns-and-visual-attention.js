@@ -1,7 +1,8 @@
 const cnnsAndVisualAttention = {
   slug: "cnns-and-visual-attention",
-  categories: ["Science", "image processing", "AI"],
+  categories: ["Science", "image processing", "AI", "machine learning"],
   stack: "Python, CNN, Tensorflow, Keras, Eye-tracking",
+  mainLanguage: "Python",
   work: { kind: "school", entity: "University of Copenhagen" },
   country: "Denmark",
   i18n: {

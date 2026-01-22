@@ -1,8 +1,10 @@
 const soilsense = {
   slug: "soilsense",
-  categories: ["web app", "PWA", "AI", "Design / UX"],
+  categories: ["web app", "AI", "LLMs", "Design / UX"],
   stack:
     "React, TypeScript, MongoDB, Firebase, Python, Tensorflow, Docker, GitHub Actions, Google Cloud Platform",
+  mainLanguage: "TypeScript",
+  secondaryLanguage: "Python",
   work: { kind: "company", entity: "SoilSense" },
   country: "Denmark",
   i18n: {
@@ -45,6 +47,10 @@ const soilsense = {
           type: "paragraph",
           html: "Artificial Intelligence Service provides data analysis and ML functionality: analytical algorithm that detects field capacity (the 100% available water point) and a timeseries forecasting model that predicts change in water volume 3 days into the future.",
         },
+        {
+          type: "paragraph",
+          html: "The dashboard also integrates OpenAI's language models to provide actionable data synthesis. Users can interact with a chat interface to ask questions about their sensor data, receive insights, and get personalized irrigation recommendations based on real-time and historical patterns.",
+        },
       ],
     },
     pl: {
@@ -85,6 +91,10 @@ const soilsense = {
         {
           type: "paragraph",
           html: "Warstwa AI zapewnia analizę danych i funkcje ML: algorytm wykrywa pojemność polową (100% dostępnej wody), a model szeregów czasowych prognozuje zmiany ilości wody na 3 dni do przodu.",
+        },
+        {
+          type: "paragraph",
+          html: "Dashboard integruje również modele językowe OpenAI, aby zapewnić syntetyzację danych w formie użytecznych wniosków. Użytkownicy mogą korzystać z interfejsu czatu, aby zadawać pytania o swoje dane sensorowe, otrzymywać insighty i personalizowane rekomendacje nawadniania oparte na wzorcach czasu rzeczywistego i historycznych.",
         },
       ],
     },

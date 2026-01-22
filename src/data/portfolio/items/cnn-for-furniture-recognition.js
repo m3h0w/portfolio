@@ -1,7 +1,8 @@
 const cnnForFurnitureRecognition = {
   slug: "cnn-for-furniture-recognition",
-  categories: ["Science", "image processing", "AI"],
+  categories: ["Science", "image processing", "AI", "machine learning"],
   stack: "Azure, CNNs, Keras, Kaggle",
+  mainLanguage: "Python",
   work: { kind: "school", entity: "University of Copenhagen" },
   country: "Denmark",
   i18n: {

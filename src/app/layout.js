@@ -57,6 +57,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+      </head>
       <body
         className={`${montserrat.variable} ${openSans.variable} ${alegreya.variable} ${firaCode.variable} ${sora.variable} antialiased min-h-screen bg-[linear-gradient(39deg,rgba(230,230,230,1)_0%,rgba(255,255,255,1)_100%)] text-[var(--foreground)] font-sans [&_h1]:font-display [&_h2]:font-display [&_h3]:font-display [&_h4]:font-display [&_h5]:font-display [&_h6]:font-display`}
       >

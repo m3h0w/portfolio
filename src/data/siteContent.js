@@ -75,6 +75,7 @@ export const siteContentByLanguage = {
     nav: {
       portfolio: "Projects",
       aboutMe: "About Me",
+      cv: "CV",
     },
     ui: {
       backToPortfolio: "Projects",
@@ -147,6 +148,7 @@ export const siteContentByLanguage = {
     nav: {
       portfolio: "Projekty",
       aboutMe: "O mnie",
+      cv: "CV",
     },
     ui: {
       backToPortfolio: "Projekty",

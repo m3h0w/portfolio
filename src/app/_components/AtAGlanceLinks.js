@@ -11,7 +11,7 @@ import {
 } from "@/app/_components/livePreviewUtils";
 
 const secondaryButtonClassName =
-  "inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white";
+  "inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur transition-[background-color,transform,box-shadow] hover:bg-white active:scale-[0.98] active:bg-slate-50 active:shadow w-full";
 
 export function LinkIcon({ href, label, isPreview, className: classNameProp }) {
   const normalizedHref = (href || "").toLowerCase();
@@ -214,7 +214,7 @@ export default function AtAGlanceLinks({
                         />
                       </span>
                     }
-                    buttonClassName={`group ${secondaryButtonClassName} w-full justify-between`}
+                    buttonClassName={`group ${secondaryButtonClassName} justify-between`}
                     cursorVariant="black"
                   />
                 );
@@ -226,7 +226,7 @@ export default function AtAGlanceLinks({
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className={`group ${secondaryButtonClassName} w-full justify-between`}
+                  className={`group ${secondaryButtonClassName} justify-between`}
                 >
                   <span className="flex min-w-0 items-center gap-2">
                     <LinkIcon href={link.href} label={link.label} />

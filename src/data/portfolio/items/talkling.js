@@ -1,8 +1,9 @@
 const talkling = {
   slug: "talkling",
   cover: true,
-  categories: ["web app", "LLMs", "AI", "Design / UX"],
+  categories: ["web app", "LLMs", "AI", "Design / UX", "Landing Page"],
   stack: "Nextjs, LLMs, SQL, Supabase",
+  mainLanguage: "TypeScript",
   work: { kind: "selfEmployment", entity: "Talkling" },
   country: "Global",
   i18n: {
