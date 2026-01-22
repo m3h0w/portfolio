@@ -1,5 +1,7 @@
-import ogImage, { contentType, runtime, size } from "./opengraph-image";
+import ogImage from "./opengraph-image";
 
-export { runtime, size, contentType };
+export const runtime = "edge";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
 
 export default ogImage;
