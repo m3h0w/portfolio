@@ -19,6 +19,31 @@
   letter-spacing: 0.08em;
 }
 
+.emailPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.75);
+  color: rgba(30, 41, 59, 0.92);
+  box-shadow: 0 1px 6px rgba(2, 6, 23, 0.06);
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+  text-decoration: none;
+}
+
+.emailPill:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(15, 23, 42, 0.18);
+  transform: translateY(-1px);
+}
+
+.emailPill:focus-visible {
+  outline: 3px solid rgba(15, 23, 42, 0.2);
+  outline-offset: 2px;
+}
+
 @media print {
   .paper {
     background: #fff;

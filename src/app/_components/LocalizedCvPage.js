@@ -10,6 +10,7 @@ import { getCv } from "@/data/cv";
 import portfolioItems from "@/data/portfolio";
 import PdfPreviewModal from "@/app/_components/PdfPreviewModal";
 import LivePreviewModal from "@/app/_components/LivePreviewModal";
+import EmailRevealButton from "@/app/_components/EmailRevealButton";
 import styles from "@/app/_components/LocalizedCvPage.module.css";
 import {
   formatExperienceShort,
@@ -23,9 +24,10 @@ function formatYearMonth(ym, locale) {
   if (!ym) return null;
   const [y, m] = ym.split("-").map((v) => Number(v));
   const date = new Date(y, (m || 1) - 1, 1);
-  return new Intl.DateTimeFormat(locale, { month: "short", year: "numeric" }).format(
-    date
-  );
+  return new Intl.DateTimeFormat(locale, {
+    month: "short",
+    year: "numeric",
+  }).format(date);
 }
 
 function formatRange({ start, end }, locale, presentLabel) {
@@ -47,9 +49,7 @@ export function getCvMetadata(locale) {
   const siteContent = getSiteContent(locale);
   const title = locale === "pl" ? "CV" : "CV";
   const description =
-    locale === "pl"
-      ? `CV – ${siteContent.name}`
-      : `CV – ${siteContent.name}`;
+    locale === "pl" ? `CV – ${siteContent.name}` : `CV – ${siteContent.name}`;
 
   const canonical = locale === "pl" ? "/pl/cv" : "/cv";
 
@@ -74,9 +74,11 @@ export default function LocalizedCvPage({ locale }) {
 
   const presentLabel = locale === "pl" ? "Obecnie" : "Present";
   const openPdfLabel = locale === "pl" ? "Otwórz PDF" : "Open PDF";
-  const previewProjectLabel = locale === "pl" ? "Podgląd projektu" : "Preview project";
+  const previewProjectLabel =
+    locale === "pl" ? "Podgląd projektu" : "Preview project";
   const openProjectLabel = locale === "pl" ? "Otwórz projekt" : "Open project";
   const closeLabel = locale === "pl" ? "Zamknij" : "Close";
+  const emailLabel = "Reveal Email";
 
   const experience = [...cv.experience].sort(sortByMostRecentRole);
 
@@ -119,7 +121,12 @@ export default function LocalizedCvPage({ locale }) {
                   <path d="M9 17h6" />
                 </svg>
               }
-              rightIcon={<GlassesIcon size={16} className="brightness-0 invert opacity-95" />}
+              rightIcon={
+                <GlassesIcon
+                  size={16}
+                  className="brightness-0 invert opacity-95"
+                />
+              }
               cursorVariant="white"
               buttonClassName="inline-flex items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-(--accent-dark)"
             />
@@ -140,35 +147,23 @@ export default function LocalizedCvPage({ locale }) {
                       height={120}
                       className="rounded-full ring-4 ring-slate-900/5"
                     />
-                    
+
                     <div className="space-y-0">
                       <h1 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">
                         {cv.person.name}
                       </h1>
-                      
+
                       <p className="text-base font-semibold text-(--accent) sm:text-lg">
                         {cv.person.headline}
                       </p>
                     </div>
-                    
+
                     <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
-                      <a
-                        href={`mailto:${cv.person.contact.email}`}
-                        className="text-slate-700 hover:text-(--accent)"
-                      >
-                        {cv.person.contact.email}
-                      </a>
-                      {cv.person.contact.phone && (
-                        <>
-                          <span className="text-slate-400">•</span>
-                          <a
-                            href={`tel:${cv.person.contact.phone.replace(/\s+/g, "")}`}
-                            className="text-slate-700 hover:text-(--accent)"
-                          >
-                            {cv.person.contact.phone}
-                          </a>
-                        </>
-                      )}
+                      <EmailRevealButton
+                        label={emailLabel}
+                        className={styles.emailPill}
+                        copiedLabel={locale === "pl" ? "Skopiowano" : "Copied"}
+                      />
                     </div>
 
                     <div className="flex flex-wrap items-center justify-center gap-2">
@@ -181,17 +176,29 @@ export default function LocalizedCvPage({ locale }) {
                           className="inline-flex items-center gap-2 rounded-full bg-slate-900/5 px-3 py-1.5 text-xs font-medium text-slate-700 ring-1 ring-slate-900/10 hover:bg-slate-900/10 hover:text-slate-900"
                         >
                           {link.kind === "github" && (
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="h-4 w-4"
+                            >
                               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                             </svg>
                           )}
                           {link.kind === "linkedin" && (
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="h-4 w-4"
+                            >
                               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                             </svg>
                           )}
                           {link.kind === "website" && (
-                            <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="h-4 w-4"
+                            >
                               <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1 16.057v-3.057h2.994c-.059 1.143-.212 2.24-.456 3.279-.823-.12-1.674-.188-2.538-.222zm1.957 2.162c-.499 1.33-1.159 2.497-1.957 3.456v-3.62c.666.028 1.319.081 1.957.164zm-1.957-7.219v-3.015c.868-.034 1.721-.103 2.548-.224.238 1.027.389 2.111.446 3.239h-2.994zm0-5.014v-3.661c.806.969 1.471 2.15 1.971 3.496-.642.084-1.3.137-1.971.165zm2.703-3.267c1.237.496 2.354 1.228 3.29 2.146-.642.234-1.311.442-2.019.607-.344-.992-.775-1.91-1.271-2.753zm-7.241 13.56c-.244-1.039-.398-2.136-.456-3.279h2.994v3.057c-.865.034-1.714.102-2.538.222zm2.538 1.776v-3.62c-.798-.959-1.458-2.126-1.957-3.456.638-.083 1.291-.136 1.957-.164zm-2.994-7.055c.057-1.128.207-2.212.446-3.239.827.121 1.68.19 2.548.224v3.015h-2.994zm1.024-5.179c.5-1.346 1.165-2.527 1.97-3.496v3.661c-.671-.028-1.329-.081-1.97-.165zm-2.005-.35c-.708-.165-1.377-.373-2.018-.607.937-.918 2.053-1.65 3.29-2.146-.496.844-.927 1.762-1.272 2.753zm-.549 1.918c-.264 1.151-.434 2.36-.492 3.611h-3.933c.165-1.658.739-3.197 1.617-4.518.88.361 1.816.67 2.808.907zm.009 9.262c-.988.236-1.92.542-2.797.9-.89-1.328-1.471-2.879-1.637-4.551h3.934c.058 1.265.231 2.488.5 3.651zm.553 1.917c.342.976.768 1.881 1.257 2.712-1.223-.49-2.326-1.211-3.256-2.115.636-.229 1.299-.435 1.999-.597zm9.924 0c.7.163 1.362.367 1.999.597-.931.903-2.034 1.625-3.257 2.116.489-.832.915-1.737 1.258-2.713zm.553-1.917c.27-1.163.442-2.386.501-3.651h3.934c-.167 1.672-.748 3.223-1.638 4.551-.877-.358-1.81-.664-2.797-.9zm.501-5.651c-.058-1.251-.229-2.46-.492-3.611.992-.237 1.929-.546 2.809-.907.877 1.321 1.451 2.86 1.616 4.518h-3.933z" />
                             </svg>
                           )}
@@ -254,20 +261,27 @@ export default function LocalizedCvPage({ locale }) {
 
             {/* Experience */}
             <section className="mt-8">
-              <h2 className={`text-xl font-bold text-slate-900 ${styles.sectionTitle}`}>
+              <h2
+                className={`text-xl font-bold text-slate-900 ${styles.sectionTitle}`}
+              >
                 {locale === "pl" ? "Doświadczenie" : "Experience"}
               </h2>
 
               <div className="mt-5 space-y-6">
                 {experience.map((company) => (
-                  <div key={company.company.name} className="rounded-2xl bg-white/60 p-5 ring-1 ring-slate-900/10">
+                  <div
+                    key={company.company.name}
+                    className="rounded-2xl bg-white/60 p-5 ring-1 ring-slate-900/10"
+                  >
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                       <div>
                         <div className="flex items-center gap-3">
                           {company.company.logo?.src ? (
                             <Image
                               src={company.company.logo.src}
-                              alt={company.company.logo.alt || company.company.name}
+                              alt={
+                                company.company.logo.alt || company.company.name
+                              }
                               width={28}
                               height={28}
                               className="h-7 w-7 rounded-lg ring-1 ring-slate-900/10"
@@ -306,9 +320,11 @@ export default function LocalizedCvPage({ locale }) {
                         <div
                           key={`${company.company.name}-${role.title}-${role.start}`}
                           className={roleIndex > 0 ? "mt-8" : undefined}
-                        > 
+                        >
                           <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                            <p className="text-sm font-semibold text-slate-900">{role.title}</p>
+                            <p className="text-sm font-semibold text-slate-900">
+                              {role.title}
+                            </p>
                             <p className="text-xs text-slate-600">
                               {formatRange(role, locale, presentLabel)}
                             </p>
@@ -330,31 +346,38 @@ export default function LocalizedCvPage({ locale }) {
                             </ul>
                           ) : null}
 
-                          {role.tech?.length ? (() => {
-                            const { languages, other } = splitTechIntoLanguagesAndOther(role.tech);
+                          {role.tech?.length
+                            ? (() => {
+                                const { languages, other } =
+                                  splitTechIntoLanguagesAndOther(role.tech);
 
-                            return (
-                              <div className="mt-4 flex flex-wrap items-center gap-2">
-                                {languages.map((l) => (
-                                  <span
-                                    key={l}
-                                    className="inline-flex items-center justify-center rounded-full bg-slate-900/5 p-0.5 ring-1 ring-slate-900/10"
-                                    title={l}
-                                  >
-                                    <LanguageIcon name={l} size={14} className="block text-slate-500" />
-                                  </span>
-                                ))}
-                                {other.map((t) => (
-                                  <span
-                                    key={t}
-                                    className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[10px] font-medium text-slate-700 ring-1 ring-slate-900/10"
-                                  >
-                                    {t}
-                                  </span>
-                                ))}
-                              </div>
-                            );
-                          })() : null}
+                                return (
+                                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                                    {languages.map((l) => (
+                                      <span
+                                        key={l}
+                                        className="inline-flex items-center justify-center rounded-full bg-slate-900/5 p-0.5 ring-1 ring-slate-900/10"
+                                        title={l}
+                                      >
+                                        <LanguageIcon
+                                          name={l}
+                                          size={14}
+                                          className="block text-slate-500"
+                                        />
+                                      </span>
+                                    ))}
+                                    {other.map((t) => (
+                                      <span
+                                        key={t}
+                                        className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[10px] font-medium text-slate-700 ring-1 ring-slate-900/10"
+                                      >
+                                        {t}
+                                      </span>
+                                    ))}
+                                  </div>
+                                );
+                              })()
+                            : null}
                         </div>
                       ))}
                     </div>
@@ -368,8 +391,12 @@ export default function LocalizedCvPage({ locale }) {
 
             {/* Programming languages */}
             <section className="mt-10">
-              <h2 className={`text-xl font-bold text-slate-900 ${styles.sectionTitle}`}>
-                {locale === "pl" ? "Języki programowania" : "Programming languages"}
+              <h2
+                className={`text-xl font-bold text-slate-900 ${styles.sectionTitle}`}
+              >
+                {locale === "pl"
+                  ? "Języki programowania"
+                  : "Programming languages"}
               </h2>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {cv.programmingLanguages.items.map((lang) => {
@@ -385,7 +412,11 @@ export default function LocalizedCvPage({ locale }) {
                           className="inline-flex items-center rounded-full bg-white/70 p-1 ring-1 ring-slate-900/10"
                           title={lang.name}
                         >
-                          <LanguageIcon name={lang.name} size={18} className="block" />
+                          <LanguageIcon
+                            name={lang.name}
+                            size={18}
+                            className="block"
+                          />
                         </span>
                         <span className="min-w-0">
                           <span className="block truncate text-sm font-semibold text-slate-900">
@@ -408,7 +439,9 @@ export default function LocalizedCvPage({ locale }) {
 
             {/* Education */}
             <section className="mt-10">
-              <h2 className={`text-xl font-bold text-slate-900 ${styles.sectionTitle}`}>
+              <h2
+                className={`text-xl font-bold text-slate-900 ${styles.sectionTitle}`}
+              >
                 {locale === "pl" ? "Edukacja" : "Education"}
               </h2>
               <div className="mt-5 space-y-4">
@@ -457,30 +490,37 @@ export default function LocalizedCvPage({ locale }) {
                         ))}
                       </ul>
                     ) : null}
-                    {e.technologies?.length ? (() => {
-                      const { languages, other } = splitTechIntoLanguagesAndOther(e.technologies);
-                      return (
-                        <div className="mt-3 flex flex-wrap items-center gap-2">
-                          {languages.map((l) => (
-                            <span
-                              key={l}
-                              className="inline-flex items-center justify-center rounded-full bg-slate-900/5 p-1.5 ring-1 ring-slate-900/10"
-                              title={l}
-                            >
-                              <LanguageIcon name={l} size={18} className="block" />
-                            </span>
-                          ))}
-                          {other.map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-full bg-slate-900/5 px-2.5 py-1 text-[11px] font-medium text-slate-700 ring-1 ring-slate-900/10"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      );
-                    })() : null}
+                    {e.technologies?.length
+                      ? (() => {
+                          const { languages, other } =
+                            splitTechIntoLanguagesAndOther(e.technologies);
+                          return (
+                            <div className="mt-3 flex flex-wrap items-center gap-2">
+                              {languages.map((l) => (
+                                <span
+                                  key={l}
+                                  className="inline-flex items-center justify-center rounded-full bg-slate-900/5 p-1.5 ring-1 ring-slate-900/10"
+                                  title={l}
+                                >
+                                  <LanguageIcon
+                                    name={l}
+                                    size={18}
+                                    className="block"
+                                  />
+                                </span>
+                              ))}
+                              {other.map((t) => (
+                                <span
+                                  key={t}
+                                  className="rounded-full bg-slate-900/5 px-2.5 py-1 text-[11px] font-medium text-slate-700 ring-1 ring-slate-900/10"
+                                >
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+                          );
+                        })()
+                      : null}
                   </div>
                 ))}
               </div>
@@ -488,7 +528,9 @@ export default function LocalizedCvPage({ locale }) {
 
             {/* Projects */}
             <section className="mt-10">
-              <h2 className={`text-xl font-bold text-slate-900 ${styles.sectionTitle}`}>
+              <h2
+                className={`text-xl font-bold text-slate-900 ${styles.sectionTitle}`}
+              >
                 {locale === "pl" ? "Projekty" : "Projects"}
               </h2>
 
@@ -499,7 +541,8 @@ export default function LocalizedCvPage({ locale }) {
 
                   const stack = item.stack || t?.stack || "";
                   const stackItems = parseStackString(stack);
-                  const { other: otherStack } = splitTechIntoLanguagesAndOther(stackItems);
+                  const { other: otherStack } =
+                    splitTechIntoLanguagesAndOther(stackItems);
                   const mainLanguage = inferMainLanguage({
                     mainLanguage: item.mainLanguage,
                     stack,
@@ -510,15 +553,20 @@ export default function LocalizedCvPage({ locale }) {
                   const entityName = item.work?.entity || "";
                   const entityLower = String(entityName || "").toLowerCase();
                   const communityEntities = ["lighthouse cph", "traivel"];
-                  const personalEntities = ["talkling", "warsaw institute of relating"];
+                  const personalEntities = [
+                    "talkling",
+                    "warsaw institute of relating",
+                  ];
                   const researchCategories = item.categories || [];
-                  const isResearch = researchCategories.some(cat => 
-                    cat.toLowerCase().includes("research") || cat.toLowerCase().includes("science")
+                  const isResearch = researchCategories.some(
+                    (cat) =>
+                      cat.toLowerCase().includes("research") ||
+                      cat.toLowerCase().includes("science"),
                   );
-                  
+
                   let badgeLabel = null;
                   let badgeType = null;
-                  
+
                   if (communityEntities.includes(entityLower)) {
                     badgeLabel = "Community Project";
                     badgeType = "community";
@@ -555,20 +603,40 @@ export default function LocalizedCvPage({ locale }) {
                               className="absolute bottom-3 right-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-900/5 p-1 ring-1 ring-slate-900/10"
                               title={mainLanguage}
                             >
-                              <LanguageIcon name={mainLanguage} size={22} className="block text-slate-500" />
+                              <LanguageIcon
+                                name={mainLanguage}
+                                size={22}
+                                className="block text-slate-500"
+                              />
                             </span>
                           ) : null}
                           <div>
                             {badgeLabel ? (
                               <span className="mb-2 inline-flex items-center gap-1.5 rounded-md bg-slate-100/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-600 ring-1 ring-slate-900/5">
                                 {badgeType === "personal" && (
-                                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="h-3 w-3"
+                                  >
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                     <circle cx="12" cy="7" r="4" />
                                   </svg>
                                 )}
                                 {badgeType === "community" && (
-                                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="h-3 w-3"
+                                  >
                                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                                     <circle cx="9" cy="7" r="4" />
                                     <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -576,13 +644,36 @@ export default function LocalizedCvPage({ locale }) {
                                   </svg>
                                 )}
                                 {badgeType === "professional" && (
-                                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
-                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="h-3 w-3"
+                                  >
+                                    <rect
+                                      x="2"
+                                      y="7"
+                                      width="20"
+                                      height="14"
+                                      rx="2"
+                                      ry="2"
+                                    />
                                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                                   </svg>
                                 )}
                                 {badgeType === "research" && (
-                                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="h-3 w-3"
+                                  >
                                     <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                                     <path d="M6 12v5c3 3 9 3 12 0v-5" />
                                   </svg>
@@ -597,7 +688,9 @@ export default function LocalizedCvPage({ locale }) {
                             </p>
                           </div>
                           {t?.description ? (
-                            <p className="mt-3 text-sm text-slate-800 leading-6">{t.description}</p>
+                            <p className="mt-3 text-sm text-slate-800 leading-6">
+                              {t.description}
+                            </p>
                           ) : null}
                           {otherStack.length ? (
                             <div className="mt-3 flex flex-wrap items-center gap-2">

@@ -63,7 +63,7 @@ export const siteContentByLanguage = {
         "Please get in touch if you believe that we can do something good together!",
       links: [
         {
-          label: "E-mail",
+          label: "Email",
           kind: "email",
         },
         {
@@ -136,7 +136,7 @@ export const siteContentByLanguage = {
         "Odezwij się, jeśli czujesz, że możemy zrobić razem coś dobrego!",
       links: [
         {
-          label: "E-mail",
+          label: "Email",
           kind: "email",
         },
         {

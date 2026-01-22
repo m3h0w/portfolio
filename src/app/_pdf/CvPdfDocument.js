@@ -518,11 +518,12 @@ function PillList({ items, variant = "default", limit }) {
   );
 }
 
-export default function CvPdfDocument({ cv, locale = "en" }) {
+export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) {
   const strings = t(locale);
   const presentLabel = strings.present;
 
   const contact = cv?.person?.contact;
+  const showPhoneContact = Boolean(showPhone && contact?.phone);
   const links = contact?.links || [];
   const skillsHighlight = cv?.skills?.highlight || [];
   const skillsExperienced = cv?.skills?.experienced || [];
@@ -559,7 +560,7 @@ export default function CvPdfDocument({ cv, locale = "en" }) {
                   </Text>
                 </View>
               ) : null}
-              {contact?.phone ? (
+              {showPhoneContact ? (
                 <View style={styles.linkRow}>
                   <Svg width={10} height={10} viewBox="0 0 24 24" style={styles.linkIcon}>
                     <Path d={getContactIconPath("phone")} fill={ACCENT} />

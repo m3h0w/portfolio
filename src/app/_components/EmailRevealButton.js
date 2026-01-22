@@ -61,10 +61,7 @@ function SpinnerIcon({ className }) {
       aria-hidden="true"
     >
       <circle cx="12" cy="12" r="10" opacity="0.25" />
-      <path
-        d="M12 2a10 10 0 0 1 10 10"
-        strokeLinecap="round"
-      />
+      <path d="M12 2a10 10 0 0 1 10 10" strokeLinecap="round" />
     </svg>
   );
 }
@@ -97,7 +94,7 @@ export default function EmailRevealButton({
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [justCopied, setJustCopied] = useState(false);
-  const revealLabel = label || "E-mail";
+  const revealLabel = label || "Email";
 
   const buttonClassName = useMemo(() => {
     const extra = [
@@ -116,12 +113,12 @@ export default function EmailRevealButton({
     setIsLoading(true);
     try {
       const [data] = await Promise.all([
-        fetch("/api/contact-email", { cache: "no-store" }).then(res => {
+        fetch("/api/contact-email", { cache: "no-store" }).then((res) => {
           if (!res.ok) throw new Error("Failed to fetch email");
           return res.json();
         }),
         // Minimum loading time to show spinner
-        new Promise(resolve => setTimeout(resolve, 800))
+        new Promise((resolve) => setTimeout(resolve, 800)),
       ]);
 
       if (!data?.email) throw new Error("Invalid response");
@@ -171,17 +168,19 @@ export default function EmailRevealButton({
           ) : (
             <MailIcon className="h-4 w-4 text-(--accent)" />
           )}
-          <span className="text-sm font-medium">
-            {revealLabel}
-          </span>
+          <span className="text-sm font-medium">{revealLabel}</span>
         </span>
 
         <span className={`${styles.face} ${styles.back}`}>
-          <span className={`text-sm font-medium ${styles.email}`}>{email || ""}</span>
+          <span className={`text-sm font-medium ${styles.email}`}>
+            {email || ""}
+          </span>
           {justCopied ? (
             <>
               <CheckIcon className="h-4 w-4 text-green-600" />
-              <span className="text-xs text-green-600 font-medium">{copiedLabel}</span>
+              <span className="text-xs text-green-600 font-medium">
+                {copiedLabel}
+              </span>
             </>
           ) : (
             <CopyIcon className="h-4 w-4 text-(--accent)" />

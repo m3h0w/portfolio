@@ -22,11 +22,22 @@ function getFilename(locale) {
   return locale === "pl" ? "Michal-Gacka-CV-PL.pdf" : "Michal-Gacka-CV.pdf";
 }
 
+function isLocalhostHostname(hostname) {
+  return (
+    hostname === "localhost" ||
+    hostname === "127.0.0.1" ||
+    hostname === "0.0.0.0" ||
+    hostname === "::1"
+  );
+}
+
 export async function GET(request) {
   const locale = getLocaleFromRequest(request);
   const cv = getCv();
+  const hostname = new URL(request.url).hostname;
+  const showPhone = isLocalhostHostname(hostname);
 
-  const element = React.createElement(CvPdfDocument, { cv, locale });
+  const element = React.createElement(CvPdfDocument, { cv, locale, showPhone });
   const pdfBuffer = await renderToBuffer(element);
 
   const filename = getFilename(locale);
