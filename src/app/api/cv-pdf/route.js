@@ -48,6 +48,7 @@ export async function GET(request) {
       "Content-Type": "application/pdf",
       "Content-Disposition": `${dispositionType}; filename=\"${filename}\"`,
       "Cache-Control": "no-store",
+      "X-Robots-Tag": "noindex, nofollow, noarchive",
     },
   });
 }
