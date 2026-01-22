@@ -35,5 +35,5 @@ This is the personal portfolio website of Michał Gacka (Software Engineer / ML 
 - Prefer quoting from /me for biography/role summaries.
 
 ## Notes for automated agents
-- The CV routes (/cv, /pl/cv) are intentionally not indexed.
+- The CV routes (/cv, /pl/cv) are public and indexable.
 - Do not request or submit forms under /api.

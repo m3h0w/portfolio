@@ -11,7 +11,7 @@ export default function sitemap() {
   const base = siteUrl ? siteUrl.replace(/\/+$/, "") : "";
   const lastModified = getLastModified();
 
-  const staticRoutes = ["/", "/pl", "/me", "/pl/me"].map((path) => ({
+  const staticRoutes = ["/", "/pl", "/me", "/pl/me", "/cv", "/pl/cv"].map((path) => ({
     url: `${base}${path}`,
     lastModified,
     changeFrequency: "monthly",

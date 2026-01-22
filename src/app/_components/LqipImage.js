@@ -9,11 +9,15 @@ export default function LqipImage({
   style,
   alt = "",
   onLoad,
-  onLoadingComplete,
   blurDataURL,
+  unoptimized,
   ...props
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const isGif =
+    typeof props.src === "string" &&
+    props.src.toLowerCase().endsWith(".gif");
+  const shouldUnoptimize = unoptimized ?? isGif;
 
   return (
     <div className={wrapperClassName}>
@@ -38,6 +42,7 @@ export default function LqipImage({
         {...props}
         alt={alt}
         placeholder="empty"
+        unoptimized={shouldUnoptimize}
         className={`${className} transition-opacity duration-300 ease-out ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
@@ -45,10 +50,6 @@ export default function LqipImage({
         onLoad={(event) => {
           setIsLoaded(true);
           onLoad?.(event);
-        }}
-        onLoadingComplete={(img) => {
-          setIsLoaded(true);
-          onLoadingComplete?.(img);
         }}
       />
     </div>

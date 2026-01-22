@@ -4,12 +4,8 @@ const cv = {
 
   person: {
     name: "Michał Gacka",
-    headline: "Software Engineer, Entrepreneur, Facilitator, Scientist, Human",
-    location: {
-      city: "Warsaw",
-      region: "Mazowieckie",
-      country: "Poland",
-    },
+    headline: "Software Engineer",
+    location: null,
     contact: {
       email: "michalgacka@gmail.com",
       phone: "+48 572 660 445",
@@ -38,10 +34,7 @@ const cv = {
 
     summary: {
       paragraphs: [
-        "I am a software engineer working with artificial intelligence and full-stack web development.",
-        "I believe in a world where technology is designed and built first and foremost to do no harm and to make our lives richer and more fulfilling.",
-        "I take pride in my ability to teach, lead, and make strategic product decisions besides writing clean, maintainable code.",
-        "In my spare time I enjoy bouldering, playing music, and dancing.",
+        "I am a software engineer working with artificial intelligence and full-stack web development. I\u00A0believe in a world where technology is designed and built first and foremost to do no harm and to make our lives richer and more fulfilling. I take pride in my ability to teach, lead, and make strategic product decisions besides writing clean, maintainable code. In my spare time I enjoy bouldering, playing music, and dancing.",
       ],
     },
 
@@ -64,20 +57,22 @@ const cv = {
       "Docker",
       "NestJS",
       "Node.js",
-      "HTML & CSS",
+      "AI-assisted development",
+      "Product Management",
       "Leadership",
       "Teaching",
     ],
     experienced: [
       "Python",
       "React Native",
+      "Next.js",
+      "Supabase",
       "TypeORM",
       "Postgres",
       "Machine Learning",
       "OpenCV",
       "Google Cloud",
       "MongoDB",
-      "Product Management",
     ],
     favorites: ["Python", "TypeScript", "Tensorflow", "Docker", "React"],
   },
@@ -104,24 +99,6 @@ const cv = {
         category: "professional",
         enjoyment: 5,
       },
-      {
-        name: "Java",
-        experience: { months: 4 },
-        category: "professional",
-        enjoyment: 3,
-      },
-      {
-        name: "C++",
-        experience: { months: 6 },
-        category: "professional",
-        enjoyment: 3,
-      },
-      {
-        name: "C#",
-        experience: { months: 4 },
-        category: "professional",
-        enjoyment: 2,
-      },
     ],
   },
 
@@ -141,13 +118,14 @@ const cv = {
         {
           title: "Lead Software Engineer",
           employmentType: "Part-time",
-          location: "Copenhagen Metropolitan Area (Remote)",
+          location: "Copenhagen, Denmark",
           locationMeta: { mode: "remoteCompanyBased", countryCode: "DK" },
           start: "2023-02",
           end: null,
           highlights: [
-            "Built a data ingestion pipeline and an online data visualisation dashboard (Progressive Web Application) for a soil moisture sensor system helping farmers save water and grow healthier crops.",
-            "Used Tensorflow and FastAPI to develop a machine learning algorithm for time series prediction to estimate future values of soil moisture and integrate it into the dashboard.",
+            "Built a data ingestion pipeline and an online data visualisation dashboard (Progressive Web Application) for a soil moisture sensor system helping farmers save water and grow healthier crops",
+            "Used Tensorflow and FastAPI to develop a machine learning algorithm for time series prediction to estimate future values of soil moisture and integrate it into the dashboard",
+            "Integrated OpenAI language models into the dashboard to deliver actionable data synthesis and personalized irrigation recommendations via chat",
           ],
           tech: [
             "TypeScript",
@@ -164,12 +142,12 @@ const cv = {
         {
           title: "Co-Founder & Lead Software Engineer",
           employmentType: "Full-time",
-          location: "Copenhagen, Capital Region, Denmark",
+          location: "Copenhagen, Denmark",
           locationMeta: { mode: "onsite", countryCode: "DK" },
           start: "2019-04",
           end: "2021-11",
           highlights: [
-            "Developed affordable and easy-to-use moisture sensors and irrigation management software to save water and improve crop yield in emerging markets.",
+            "Developed affordable and easy-to-use moisture sensors and irrigation management software to save water and improve crop yield in emerging markets",
           ],
           tech: [
             "React",
@@ -187,7 +165,6 @@ const cv = {
           ],
         },
       ],
-      tags: ["iot", "agritech", "ml", "fullstack"],
     },
 
     {
@@ -209,10 +186,10 @@ const cv = {
           start: "2022-02",
           end: "2023-03",
           highlights: [
-            "Introduced consistent software development and teamwork practices in a team of 6 developers, stabilising the delivery process and increasing well-being.",
-            "Developed role descriptions and product management practices to clarify discovery vs delivery responsibilities and improve customer satisfaction and internal alignment.",
-            "Built and product-managed a new subscription-based e-commerce platform for a large Danish brewery, increasing MRR by ~300%.",
-            "Developed a Postgres-based data warehouse synchronised via a NestJS API integration with an external employee management system, cutting monthly salary data analysis time by ~80%.",
+            "Introduced consistent software development and teamwork practices in a team of 6 developers, stabilising the delivery process and increasing well-being",
+            "Developed role descriptions and product management practices to clarify discovery vs delivery responsibilities and improve customer satisfaction and internal alignment",
+            "Built and product-managed a new subscription-based e-commerce platform for a large Danish brewery, increasing MRR by ~300%",
+            "Developed a Postgres-based data warehouse synchronised via a NestJS API integration with an external employee management system, cutting monthly salary data analysis time by ~80%",
           ],
           tech: [
             "TypeScript",
@@ -230,7 +207,6 @@ const cv = {
           ],
         },
       ],
-      tags: ["leadership", "product", "fullstack"],
     },
 
     {
@@ -252,9 +228,9 @@ const cv = {
           start: "2018-02",
           end: "2020-01",
           highlights: [
-            "Took a full proof-of-concept product recommendation system from raw data to an API integrated into a front-end solution using Oracle SQL Developer, Python, Scikit-Learn, Flask, and React.",
-            "Developed a rules-based product recommendation engine using Flask, React, and Docker.",
-            "Built an integration between an insurance product management layer and the core insurance system API in Java (Spring).",
+            "Took a full proof-of-concept product recommendation system from raw data to an API integrated into a front-end solution using Oracle SQL Developer, Python, Scikit-Learn, Flask, and React",
+            "Developed a rules-based product recommendation engine using Flask, React, and Docker",
+            "Built an integration between an insurance product management layer and the core insurance system API in Java (Spring)",
           ],
           tech: [
             "Python",
@@ -268,7 +244,6 @@ const cv = {
           ],
         },
       ],
-      tags: ["ml", "recommenders", "insurance"],
     },
 
     {
@@ -290,10 +265,10 @@ const cv = {
           start: "2017-07",
           end: "2018-01",
           highlights: [
-            "Developed an integration with an email automation provider in C# (ASP.NET).",
-            "Built and maintained core product features using HTML/CSS/JavaScript and PostgreSQL.",
-            "Prototyped product ideas in Python using Flask.",
-            "In a team of 3, built a futuristic web application for selling insurance to groups of friends — a project that led TIA Technology to acquire GoBundl.",
+            "Developed an integration with an email automation provider in C# (ASP.NET)",
+            "Built and maintained core product features using HTML/CSS/JavaScript and PostgreSQL",
+            "Prototyped product ideas in Python using Flask",
+            "In a team of 3, built a futuristic web application for selling insurance to groups of friends — a project that led TIA Technology to acquire GoBundl",
           ],
           tech: [
             "C#",
@@ -308,35 +283,6 @@ const cv = {
           ],
         },
       ],
-      tags: ["fullstack", "startup"],
-      notes: ["GoBundl was acquired by TIA Technology."],
-    },
-
-    {
-      company: {
-        name: "CluePR",
-        logo: {
-          src: "/images/cv/cluepr.png",
-          alt: "CluePR",
-          width: 128,
-          height: 128,
-        },
-      },
-      roles: [
-        {
-          title: "Public Relations Assistant",
-          employmentType: "Internship",
-          location: "Katowice, Poland",
-          locationMeta: { mode: "onsite", countryCode: "PL" },
-          start: "2015-07",
-          end: "2015-09",
-          highlights: [
-            "Supported public relations work and communication activities.",
-          ],
-          tech: [],
-        },
-      ],
-      tags: ["communications"],
     },
 
     {
@@ -358,13 +304,12 @@ const cv = {
           start: "2017-01",
           end: "2017-06",
           highlights: [
-            "Developed a proof of concept parking occupancy detection system in Python and OpenCV.",
-            "Built a web application in React to display data from air quality sensors.",
+            "Developed a proof of concept parking occupancy detection system in Python and OpenCV",
+            "Built a web application in React to display data from air quality sensors",
           ],
           tech: ["Python", "OpenCV", "JavaScript", "React"],
         },
       ],
-      tags: ["computer-vision", "poc"],
     },
 
     {
@@ -386,13 +331,12 @@ const cv = {
           start: "2016-04",
           end: "2016-10",
           highlights: [
-            "Designed and programmed an algorithm for calculating distance travelled by an endoscopy camera inside a patient’s body using C++ and OpenCV.",
-            "Improved an existing codebase for providing a map of examination quality during a live colonoscopy exam and delivered a live demo that persuaded the sponsor to extend the project.",
+            "Designed and programmed an algorithm for calculating distance travelled by an endoscopy camera inside a patient’s body using C++ and OpenCV",
+            "Improved an existing codebase for providing a map of examination quality during a live colonoscopy exam and delivered a live demo that persuaded the sponsor to extend the project",
           ],
           tech: ["C++", "OpenCV"],
         },
       ],
-      tags: ["research", "medtech", "computer-vision"],
     },
   ],
 
@@ -476,7 +420,7 @@ const cv = {
         "Focus: foundational maths and physics, low-level programming, computer vision.",
         "Completed a bachelor thesis project in image processing with a grade of 4.5/5.",
       ],
-      technologies: ["C++", "OpenCV", "MatLab"],
+      technologies: ["C++", "OpenCV", "MATLAB"],
       activities: [
         "IAESTE (marketing, PR, recruitment, mentoring)",
         "CaseWeek",
@@ -512,9 +456,8 @@ const cv = {
   },
 
   languages: [
-    { name: "Polish", proficiency: "Native" },
-    { name: "English", proficiency: "Full professional" },
-    { name: "Danish", proficiency: "Elementary" },
+    { name: "English", proficiency: "Fluent" },
+    { name: "Polish", proficiency: "Fluent" },
   ],
 
   certifications: [

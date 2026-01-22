@@ -9,8 +9,6 @@ export default function robots() {
       allow: "/",
       disallow: [
         "/api/",
-        "/cv",
-        "/pl/cv",
       ],
     },
     sitemap: siteUrl ? `${siteUrl}/sitemap.xml` : undefined,

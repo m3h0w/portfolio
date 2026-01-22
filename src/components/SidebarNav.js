@@ -369,6 +369,32 @@ function SidebarContent({
             </a>
           ))}
         </div>
+
+        <div className="mt-2 flex items-center justify-center">
+          <Link
+            href={`${basePath}/cv`}
+            onClick={onNavigate}
+            className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 transition hover:bg-[var(--accent)]/10 hover:text-[var(--accent)]"
+            title="Curriculum Vitae"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+              aria-hidden
+            >
+              <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+              <path d="M14 2v6h6" />
+              <path d="M9 13h6" />
+              <path d="M9 17h6" />
+            </svg>
+            <span>{language === "pl" ? "Curriculum Vitae" : "Curriculum Vitae"}</span>
+          </Link>
+        </div>
       </div>
 
       {/* Navigation */}

@@ -20,17 +20,9 @@ export function middleware(request: Request) {
   const pathname = url.pathname;
   const requestHeaders = new Headers(request.headers);
 
-  // Protect CV PDF endpoint publicly (but keep it available on localhost in dev).
+  // CV PDF endpoint is public.
   if (pathname === "/api/cv-pdf") {
-    const hostname = getHostname(request);
-    const allow = process.env.NODE_ENV === "development" && isLocalhost(hostname);
-
-    if (allow) return NextResponse.next();
-
-    return new Response("Not Found", {
-      status: 404,
-      headers: { "content-type": "text/plain; charset=utf-8" },
-    });
+    return NextResponse.next();
   }
 
   // Static assets and Next internals.
@@ -45,20 +37,7 @@ export function middleware(request: Request) {
     return NextResponse.next();
   }
 
-  // Block CV routes publicly (but keep them available on localhost in dev).
-  const isCvRoute = pathname === "/cv" || pathname === "/pl/cv" || pathname === "/en/cv";
-
-  if (isCvRoute) {
-    const hostname = getHostname(request);
-    const allow = process.env.NODE_ENV === "development" && isLocalhost(hostname);
-
-    if (allow) return NextResponse.next();
-
-    return new Response("Not Found", {
-      status: 404,
-      headers: { "content-type": "text/plain; charset=utf-8" },
-    });
-  }
+  // CV routes are public.
 
   // Canonical URLs:
   // - EN has no prefix (/) but is served from internal /en via rewrite

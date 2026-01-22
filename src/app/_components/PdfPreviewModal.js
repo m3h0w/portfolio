@@ -60,6 +60,10 @@ export default function PdfPreviewModal({
   openInNewTabLabel,
   closeLabel,
   buttonClassName,
+  openIcon,
+  rightIcon,
+  openIconPosition = "left",
+  cursorVariant,
 }) {
   const [open, setOpen] = useState(false);
   const dialogTitleId = useId();
@@ -84,6 +88,12 @@ export default function PdfPreviewModal({
   if (!url) return null;
 
   const portalRoot = typeof document !== "undefined" ? document.body : null;
+  const cursorStyle =
+    cursorVariant === "white"
+      ? { cursor: "url('/cursor-glasses-white.png') 16 16, pointer" }
+      : cursorVariant === "black"
+        ? { cursor: "url('/cursor-glasses.png') 16 16, pointer" }
+        : undefined;
 
   return (
     <>
@@ -96,13 +106,28 @@ export default function PdfPreviewModal({
           event.stopPropagation();
           setOpen(true);
         }}
+        style={cursorStyle}
         className={
           buttonClassName ||
           "inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur hover:bg-white"
         }
       >
+        {openIcon && openIconPosition !== "right" ? (
+          <span className="inline-flex h-4 w-4 items-center" aria-hidden>
+            {openIcon}
+          </span>
+        ) : null}
         {openLabel}
-        <span aria-hidden>▣</span>
+        {openIcon && openIconPosition === "right" ? (
+          <span className="inline-flex h-4 w-4 items-center" aria-hidden>
+            {openIcon}
+          </span>
+        ) : null}
+        {rightIcon ? (
+          <span className="inline-flex h-4 w-4 items-center" aria-hidden>
+            {rightIcon}
+          </span>
+        ) : null}
       </button>
 
       {portalRoot &&

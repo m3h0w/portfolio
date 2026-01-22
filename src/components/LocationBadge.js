@@ -5,7 +5,7 @@ function Circle({ children, className = "" }) {
   return (
     <span
       aria-hidden
-      className={`relative inline-flex h-5 w-5 shrink-0 overflow-hidden rounded-full ring-1 ring-black/10 bg-white ${className}`}
+      className={`relative inline-flex h-4 w-4 shrink-0 overflow-hidden rounded-full ring-1 ring-black/10 bg-white ${className}`}
     >
       {children}
     </span>
@@ -15,13 +15,13 @@ function Circle({ children, className = "" }) {
 function FlagCircle({ countryCode }) {
   const code = String(countryCode || "").trim().toLowerCase();
   if (!code) return null;
-  return <CircleFlagIcon code={code} className="h-5 w-5" />;
+  return <CircleFlagIcon code={code} className="h-4 w-4" />;
 }
 
 function GlobeCircle() {
   return (
     <Circle className="grid place-items-center bg-slate-50">
-      <GlobeIcon className="h-3.5 w-3.5 text-slate-700" />
+      <GlobeIcon className="h-3 w-3 text-slate-700" />
     </Circle>
   );
 }
@@ -51,7 +51,7 @@ export default function LocationBadge({ meta, children, className = "" }) {
 
   let icon = null;
   if (mode === "remote") icon = <GlobeCircle />;
-  else if (mode === "remoteCompanyBased") icon = <SplitGlobeFlagCircle countryCode={countryCode} />;
+  else if (mode === "remoteCompanyBased") icon = <FlagCircle countryCode={countryCode} />;
   else if (countryCode) icon = <FlagCircle countryCode={countryCode} />;
 
   return (
