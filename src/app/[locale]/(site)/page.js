@@ -24,11 +24,9 @@ export async function generateMetadata({ params }) {
     openGraph: {
       locale: resolvedLocale === "pl" ? "pl_PL" : "en_US",
       alternateLocale: resolvedLocale === "pl" ? ["en_US"] : ["pl_PL"],
-      images: [{ url: ogImage, alt: "Michal Gacka" }],
     },
     twitter: {
       card: "summary_large_image",
-      images: [ogImage],
     },
   };
 }

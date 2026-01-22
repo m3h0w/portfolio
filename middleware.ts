@@ -64,6 +64,23 @@ export function middleware(request: Request) {
   // - EN has no prefix (/) but is served from internal /en via rewrite
   // - PL uses /pl
   // - /en is never canonical (redirect away)
+  const isSocialImageRoute =
+    pathname.includes("/opengraph-image-") || pathname.includes("/twitter-image-");
+
+  if (isSocialImageRoute) {
+    if (pathname === "/en" || pathname.startsWith("/en/")) {
+      requestHeaders.set("x-locale", "en");
+    }
+
+    if (pathname === "/pl" || pathname.startsWith("/pl/")) {
+      requestHeaders.set("x-locale", "pl");
+    }
+
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
+  }
+
   if (pathname === "/en" || pathname.startsWith("/en/")) {
     const targetPath = pathname === "/en" ? "/" : pathname.replace(/^\/en/, "");
     url.pathname = targetPath;

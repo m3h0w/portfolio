@@ -26,6 +26,22 @@ const nextConfig = {
       { source: "/:slug", destination: "/en/:slug" },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/en",
+        has: [{ type: "header", key: "accept", value: "text/html" }],
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/en/:path*",
+        has: [{ type: "header", key: "accept", value: "text/html" }],
+        destination: "/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

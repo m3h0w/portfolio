@@ -349,18 +349,11 @@ export function getPortfolioDetailMetadata({ slug, locale }) {
       siteName: siteContent.name,
       locale: locale === "pl" ? "pl_PL" : "en_US",
       alternateLocale: locale === "pl" ? ["en_US"] : ["pl_PL"],
-      images: [
-        {
-          url: ogImage,
-          alt: data.title,
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
     },
   };
 }
@@ -757,7 +750,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       height={240}
                       placeholder="blur"
                       blurDataURL={getBlurDataURL(prevData.thumbnail || prevData.heroImage)}
-                      className="h-full w-full object-cover"
+                      wrapperClassName="relative h-full w-full"
+                      className="block h-full w-full object-cover"
                     />
                   </div>
                 </Link>
@@ -826,7 +820,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                       height={240}
                       placeholder="blur"
                       blurDataURL={getBlurDataURL(nextData.thumbnail || nextData.heroImage)}
-                      className="h-full w-full object-cover"
+                      wrapperClassName="relative h-full w-full"
+                      className="block h-full w-full object-cover"
                     />
                   </div>
                   <div className="min-w-0">

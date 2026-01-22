@@ -10,7 +10,7 @@ const lighthouseCphEvents = {
       title: "Lighthouse CPH — Community Calendar",
       subtitle: "Glide app with Stripe membership logic",
       thumbnail: "/images/thumbnails/lighthousecph__home.webp",
-      heroImage: "/images/lighthousecph/hero.webp",
+        heroImage: "/images/lighthousecph/hero.webp",
       description:
         "A community calendar and booking app that verifies paying members via Stripe webhooks.",
       links: [
@@ -58,7 +58,7 @@ const lighthouseCphEvents = {
       title: "Lighthouse CPH — Kalendarz społeczności",
       subtitle: "Aplikacja Glide z logiką członkostwa Stripe",
       thumbnail: "/images/thumbnails/lighthousecph__home.webp",
-      heroImage: "/images/lighthousecph/hero.webp",
+        heroImage: "/images/lighthousecph/hero.webp",
       description:
         "Kalendarz i rezerwacje dla społeczności z weryfikacją płatnego członkostwa przez webhooki Stripe.",
       links: [

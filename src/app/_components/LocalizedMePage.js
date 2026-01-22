@@ -38,15 +38,11 @@ export function getMeMetadata(locale) {
       title,
       description,
       url: canonical,
-      images: siteContent.about?.image?.src
-        ? [{ url: siteContent.about.image.src, alt: siteContent.about.image.alt || siteContent.name }]
-        : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: siteContent.about?.image?.src ? [siteContent.about.image.src] : undefined,
     },
   };
 }

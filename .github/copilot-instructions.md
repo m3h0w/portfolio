@@ -56,6 +56,13 @@
 	Clean up the copilot-instructions.md file in the .github directory by removing all HTML comments.
 	 -->
 
+- Routing and localization rules
+	- Canonical URLs use no /en prefix. /en and /en/* must redirect to / and /<path>.
+	- English pages are served from internal /en via rewrites (both in middleware and next.config).
+	- Polish uses /pl and is passed through without rewrites.
+	- Middleware sets x-locale (en or pl) and performs the canonical redirects/rewrites.
+	- If /en redirect behavior breaks, update both middleware and next.config.mjs redirects so /en/* always redirects to /<path>.
+
 <!--
 ## Execution Guidelines
 PROGRESS TRACKING:
