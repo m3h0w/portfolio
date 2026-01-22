@@ -9,23 +9,9 @@ const nextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/en",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/en/:path*",
-        destination: "/:path*",
-        permanent: true,
-      },
-    ];
-  },
   async rewrites() {
     return [
-      // Keep Polish URLs as-is.
+      // Keep Polish URLs as-is (no rewrite needed, just pass through).
       { source: "/pl", destination: "/pl" },
       { source: "/pl/:path*", destination: "/pl/:path*" },
 

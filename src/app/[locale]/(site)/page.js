@@ -1,5 +1,12 @@
 import LocalizedHomePage from "@/app/_components/LocalizedHomePage";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "pl" }];
+}
+
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const resolvedLocale = locale === "pl" ? "pl" : "en";
