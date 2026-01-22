@@ -54,7 +54,22 @@ export function getCvMetadata(locale) {
   return {
     title: `${siteContent.name} | ${title}`,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: {
+        en: "/cv",
+        pl: "/pl/cv",
+        "x-default": "/cv",
+      },
+    },
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    },
   };
 }
 

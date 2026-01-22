@@ -4,21 +4,64 @@ import AbstractBackdrop from "@/components/AbstractBackdrop";
 import { getSiteContent } from "@/data/siteContent";
 import EmailRevealButton from "@/app/_components/EmailRevealButton";
 import styles from "@/app/me/page.module.css";
+import { personJsonLd } from "@/lib/seo";
 
 export function getMeMetadata(locale) {
   const siteContent = getSiteContent(locale);
+  const canonical = locale === "pl" ? "/pl/me" : "/me";
+  const title = `${siteContent.name} | ${locale === "pl" ? "O mnie" : "Me"}`;
+  const description = locale === "pl" ? `O ${siteContent.name}` : `About ${siteContent.name}`;
+
   return {
-    title: `${siteContent.name} | ${locale === "pl" ? "O mnie" : "Me"}`,
-    description: locale === "pl" ? `O ${siteContent.name}` : `About ${siteContent.name}`,
+    title,
+    description,
+    authors: [{ name: siteContent.name }],
+    creator: siteContent.name,
+    publisher: siteContent.name,
+    keywords: [
+      siteContent.name,
+      "software engineer",
+      "machine learning",
+      "full-stack",
+      "portfolio",
+      locale === "pl" ? "o mnie" : "about",
+    ],
+    alternates: {
+      canonical,
+      languages: {
+        en: "/me",
+        pl: "/pl/me",
+        "x-default": "/me",
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      images: siteContent.about?.image?.src
+        ? [{ url: siteContent.about.image.src, alt: siteContent.about.image.alt || siteContent.name }]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: siteContent.about?.image?.src ? [siteContent.about.image.src] : undefined,
+    },
   };
 }
 
 export default function LocalizedMePage({ locale }) {
   const siteContent = getSiteContent(locale);
   const basePath = locale === "pl" ? "/pl" : "";
+  const jsonLd = personJsonLd();
 
   return (
     <div className={`relative flex min-h-screen flex-col ${styles.page}`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <AbstractBackdrop variant="me" />
 
       <main className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-start px-6 pt-10 pb-14 sm:px-8 sm:pt-12 sm:pb-16">

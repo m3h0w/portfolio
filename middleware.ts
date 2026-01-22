@@ -18,23 +18,81 @@ function isLocalhost(hostname: string) {
 export function middleware(request: Request) {
   const url = new URL(request.url);
   const pathname = url.pathname;
+  const requestHeaders = new Headers(request.headers);
 
-  const isCvRoute = pathname === "/cv" || pathname === "/pl/cv";
-  const isCvPdfRoute = pathname === "/api/cv-pdf";
+  // Protect CV PDF endpoint publicly (but keep it available on localhost in dev).
+  if (pathname === "/api/cv-pdf") {
+    const hostname = getHostname(request);
+    const allow = process.env.NODE_ENV === "development" && isLocalhost(hostname);
 
-  if (!isCvRoute && !isCvPdfRoute) return NextResponse.next();
+    if (allow) return NextResponse.next();
 
-  const hostname = getHostname(request);
-  const allow = process.env.NODE_ENV === "development" && isLocalhost(hostname);
+    return new Response("Not Found", {
+      status: 404,
+      headers: { "content-type": "text/plain; charset=utf-8" },
+    });
+  }
 
-  if (allow) return NextResponse.next();
+  // Static assets and Next internals.
+  const isStaticFile = /\.[a-zA-Z0-9]+$/.test(pathname);
+  if (
+    pathname.startsWith("/_next/") ||
+    pathname.startsWith("/api/") ||
+    pathname === "/robots.txt" ||
+    pathname === "/sitemap.xml" ||
+    isStaticFile
+  ) {
+    return NextResponse.next();
+  }
 
-  return new Response("Not Found", {
-    status: 404,
-    headers: { "content-type": "text/plain; charset=utf-8" },
+  // Block CV routes publicly (but keep them available on localhost in dev).
+  const isCvRoute = pathname === "/cv" || pathname === "/pl/cv" || pathname === "/en/cv";
+
+  if (isCvRoute) {
+    const hostname = getHostname(request);
+    const allow = process.env.NODE_ENV === "development" && isLocalhost(hostname);
+
+    if (allow) return NextResponse.next();
+
+    return new Response("Not Found", {
+      status: 404,
+      headers: { "content-type": "text/plain; charset=utf-8" },
+    });
+  }
+
+  // Canonical URLs:
+  // - EN has no prefix (/) but is served from internal /en via rewrite
+  // - PL uses /pl
+  // - /en is never canonical (redirect away)
+  if (pathname === "/en" || pathname.startsWith("/en/")) {
+    const targetPath = pathname === "/en" ? "/" : pathname.replace(/^\/en/, "");
+    url.pathname = targetPath;
+    return NextResponse.redirect(url);
+  }
+
+  if (pathname === "/") {
+    requestHeaders.set("x-locale", "en");
+    url.pathname = "/en";
+    return NextResponse.rewrite(url, {
+      request: { headers: requestHeaders },
+    });
+  }
+
+  if (pathname === "/pl" || pathname.startsWith("/pl/")) {
+    requestHeaders.set("x-locale", "pl");
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
+  }
+
+  // Any other path is EN.
+  requestHeaders.set("x-locale", "en");
+  url.pathname = `/en${pathname}`;
+  return NextResponse.rewrite(url, {
+    request: { headers: requestHeaders },
   });
 }
 
 export const config = {
-  matcher: ["/cv", "/pl/cv", "/api/cv-pdf"],
+  matcher: ["/:path*"],
 };

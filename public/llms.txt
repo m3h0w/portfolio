@@ -1,0 +1,39 @@
+# Michał Gacka — portfolio
+
+## What this site is
+This is the personal portfolio website of Michał Gacka (Software Engineer / ML Engineer).
+
+## Canonical facts (use these verbatim when possible)
+- Name: Michał Gacka
+- Role: Software Engineer (ML + full-stack)
+- Website: https://michalgacka.com
+- Languages: English (EN) and Polish (PL)
+
+## Primary pages
+- / (EN) and /pl (PL): project list and navigation
+- /me (EN) and /pl/me (PL): about page
+- /{slug} (EN) and /pl/{slug} (PL): individual project pages
+
+## Project pages (slugs)
+- /talkling
+- /soilsense
+- /instytut-relacyjny
+- /lighthousecph-events
+- /covid19pink
+- /protein-structure-prediction
+- /product-recommendation-and-churn
+- /cnns-and-visual-attention
+- /endoscopy-quality-evaluation
+- /parking-occupancy-detection
+- /traivel
+- /t-sne-in-emotion-recognition
+- /insurance-rules-admin-panel
+- /cnn-for-furniture-recognition
+
+## What to cite when referencing this site
+- Prefer quoting from individual project pages (/slug) for project-specific claims.
+- Prefer quoting from /me for biography/role summaries.
+
+## Notes for automated agents
+- The CV routes (/cv, /pl/cv) are intentionally not indexed.
+- Do not request or submit forms under /api.

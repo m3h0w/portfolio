@@ -6,12 +6,11 @@ import {
   Sora,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { headers } from "next/headers";
 import "./globals.css";
+import { getSiteUrl, personJsonLd, websiteJsonLd } from "@/lib/seo";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  process.env.SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
+const siteUrl = getSiteUrl();
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -52,15 +51,39 @@ export const metadata = {
       { url: "/favicon.ico" },
     ],
   },
+  openGraph: {
+    title: "Michal Gacka",
+    description: "Portfolio of Michal Gacka",
+    type: "website",
+    siteName: "Michal Gacka",
+    locale: "en_US",
+    alternateLocale: ["pl_PL"],
+    images: [{ url: "/og/site.png", alt: "Michal Gacka" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Michal Gacka",
+    description: "Portfolio of Michal Gacka",
+    images: ["/og/site.png"],
+  },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const headerList = await headers();
+  const locale = headerList.get("x-locale") === "pl" ? "pl" : "en";
+  const jsonLd = [websiteJsonLd(), personJsonLd()];
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+        <script
+          type="application/ld+json"
+          // JSON-LD must be injected as a raw string.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body

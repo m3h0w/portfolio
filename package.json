@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "generate:lqip": "node scripts/generate-lqip.mjs",
+    "generate:og": "node scripts/generate-og-images.mjs",
     "generate:favicon": "node scripts/generate-favicon.mjs",
     "fetch:cv-logos": "node scripts/fetch-cv-logos.mjs",
     "cv:pdf:preview": "node scripts/preview-cv-pdf.mjs --lang en --inline",

@@ -95,10 +95,20 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     }),
   };
 
+  const normalizeCategory = (value) =>
+    String(value || "")
+      .trim()
+      .toLowerCase();
+
   const filteredItems = useMemo(() => {
     let items = portfolioItems;
     if (activeCategory) {
-      items = items.filter((item) => item.categories?.includes(activeCategory));
+      const targetCategory = normalizeCategory(activeCategory);
+      items = items.filter((item) =>
+        item.categories?.some(
+          (category) => normalizeCategory(category) === targetCategory
+        )
+      );
     }
     if (activeLanguage) {
       items = items.filter((item) => {

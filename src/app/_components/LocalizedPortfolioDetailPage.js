@@ -20,6 +20,7 @@ import {
   isReportPreviewLink,
 } from "@/app/_components/livePreviewUtils";
 import { inferMainLanguage, parseStackString, splitTechIntoLanguagesAndOther } from "@/lib/tech";
+import { breadcrumbJsonLd, projectJsonLd } from "@/lib/seo";
 
 const FALLBACK_BLUR_DATA_URL =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0' filter='url(%23b)'/%3E%3C/svg%3E";
@@ -311,9 +312,56 @@ export function getPortfolioDetailMetadata({ slug, locale }) {
   const data = item.i18n[locale] || item.i18n.en;
   const siteContent = getSiteContent(locale);
 
+  const canonical = locale === "pl" ? `/pl/${slug}` : `/${slug}`;
+  const title = `${data.title} | ${siteContent.name}`;
+  const description = data.description;
+  const ogImage = `/og/projects/${slug}-${locale}.png`;
+  const keywordSet = new Set([
+    ...(Array.isArray(item.categories) ? item.categories : []),
+    ...(parseStackString(item.stack || data.stack || "") || []),
+    data.title,
+    siteContent.name,
+  ]);
+  const keywords = Array.from(keywordSet)
+    .map((k) => String(k).trim())
+    .filter(Boolean)
+    .slice(0, 30);
+
   return {
-    title: `${data.title} | ${siteContent.name}`,
-    description: data.description,
+    title,
+    description,
+    authors: [{ name: siteContent.name }],
+    creator: siteContent.name,
+    publisher: siteContent.name,
+    keywords,
+    alternates: {
+      canonical,
+      languages: {
+        en: `/${slug}`,
+        pl: `/pl/${slug}`,
+        "x-default": `/${slug}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: siteContent.name,
+      locale: locale === "pl" ? "pl_PL" : "en_US",
+      alternateLocale: locale === "pl" ? ["en_US"] : ["pl_PL"],
+      images: [
+        {
+          url: ogImage,
+          alt: data.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
   };
 }
 
@@ -327,6 +375,19 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
 
   const data = item.i18n[locale] || item.i18n.en;
   const siteContent = getSiteContent(locale);
+
+  const jsonLd = [
+    breadcrumbJsonLd({ locale, title: data.title, slug }),
+    projectJsonLd({
+      locale,
+      slug,
+      title: data.title,
+      description: data.description,
+      image: data.heroImage,
+      keywords: parseStackString(item.stack || data.stack || ""),
+      categories: item.categories,
+    }),
+  ];
 
   const heroBlurDataURL = getBlurDataURL(data.heroImage);
 
@@ -384,6 +445,10 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
 
   return (
     <div className={`${styles.page} min-h-[100svh] md:min-h-screen`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ScrollToTopOnSlugChange slug={slug} />
       <AbstractBackdrop variant="detail" />
 
