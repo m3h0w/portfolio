@@ -230,7 +230,7 @@ export default function LocalizedCvPage({ locale }) {
                       {cv.skills.highlight.map((s) => (
                         <span
                           key={s}
-                          className="rounded-full bg-slate-900/5 px-2.5 py-1 text-xs font-medium text-slate-800"
+                          className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[11px] font-medium text-slate-800"
                         >
                           {s}
                         </span>
@@ -248,7 +248,7 @@ export default function LocalizedCvPage({ locale }) {
                       {cv.skills.experienced.map((s) => (
                         <span
                           key={s}
-                          className="rounded-full bg-slate-900/5 px-2.5 py-1 text-xs font-medium text-slate-800"
+                          className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[11px] font-medium text-slate-800"
                         >
                           {s}
                         </span>
@@ -595,7 +595,7 @@ export default function LocalizedCvPage({ locale }) {
                       openAriaLabel={previewProjectLabel}
                       openInNewTabLabel={openProjectLabel}
                       closeLabel={closeLabel}
-                      buttonClassName="group relative w-full text-left rounded-2xl bg-white/60 p-5 pb-12 ring-1 ring-slate-900/10 hover:ring-(--accent)/30 flex flex-col items-start justify-start"
+                      buttonClassName="group relative w-full cursor-pointer text-left rounded-2xl bg-white/60 p-5 pb-12 ring-1 ring-slate-900/10 hover:ring-(--accent)/30 flex flex-col items-start justify-start"
                       trigger={
                         <>
                           {mainLanguage ? (
