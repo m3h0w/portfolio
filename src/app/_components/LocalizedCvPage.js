@@ -38,9 +38,9 @@ function formatRange({ start, end }, locale, presentLabel) {
   return `${startText} – ${endText}`;
 }
 
-function capitalizeFirst(value) {
+function capitalizeWords(value) {
   if (!value) return value;
-  return value.charAt(0).toUpperCase() + value.slice(1);
+  return value.replace(/\b\p{L}/gu, (char) => char.toUpperCase());
 }
 
 function sortByMostRecentRole(a, b) {
@@ -243,7 +243,7 @@ export default function LocalizedCvPage({ locale, variant = "default" }) {
                           key={s}
                           className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[11px] font-medium text-slate-800"
                         >
-                          {capitalizeFirst(s)}
+                          {capitalizeWords(s)}
                         </span>
                       ))}
                     </div>
@@ -261,7 +261,7 @@ export default function LocalizedCvPage({ locale, variant = "default" }) {
                           key={s}
                           className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[11px] font-medium text-slate-800"
                         >
-                          {capitalizeFirst(s)}
+                          {capitalizeWords(s)}
                         </span>
                       ))}
                     </div>
@@ -282,7 +282,7 @@ export default function LocalizedCvPage({ locale, variant = "default" }) {
                         key={p}
                         className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[11px] font-medium text-slate-800"
                       >
-                        {capitalizeFirst(p)}
+                        {capitalizeWords(p)}
                       </span>
                     ))}
                   </div>

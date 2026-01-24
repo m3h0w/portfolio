@@ -530,9 +530,9 @@ function PillList({ items, variant = "default", limit }) {
   );
 }
 
-function capitalizeFirst(value) {
+function capitalizeWords(value) {
   if (!value) return value;
-  return value.charAt(0).toUpperCase() + value.slice(1);
+  return value.replace(/\b\p{L}/gu, (char) => char.toUpperCase());
 }
 
 export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) {
@@ -542,9 +542,9 @@ export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) 
   const contact = cv?.person?.contact;
   const showPhoneContact = Boolean(showPhone && contact?.phone);
   const links = contact?.links || [];
-  const skillsHighlight = (cv?.skills?.highlight || []).map(capitalizeFirst);
-  const skillsExperienced = (cv?.skills?.experienced || []).map(capitalizeFirst);
-  const passions = (cv?.passions || []).map(capitalizeFirst);
+  const skillsHighlight = (cv?.skills?.highlight || []).map(capitalizeWords);
+  const skillsExperienced = (cv?.skills?.experienced || []).map(capitalizeWords);
+  const passions = (cv?.passions || []).map(capitalizeWords);
   const languages = cv?.languages || [];
   const programmingLanguages = cv?.programmingLanguages?.items || [];
   const selectedProjects = cv?.projects?.selected || [];
