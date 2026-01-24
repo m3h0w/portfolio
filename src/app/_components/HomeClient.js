@@ -19,7 +19,7 @@ import {
 import { inferMainLanguage, normalizeLanguageName, parseStackString, splitTechIntoLanguagesAndOther } from "@/lib/tech";
 
 export default function HomeClient({ locale = "en", basePath = "" }) {
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeCategories, setActiveCategories] = useState([]);
   const [activeLanguage, setActiveLanguage] = useState(null);
   const [animationSeed, setAnimationSeed] = useState(() => `initial-${locale}`);
   const router = useRouter();
@@ -100,13 +100,40 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
       .trim()
       .toLowerCase();
 
+  const CATEGORY_PAIR = {
+    mobile: "mobile app",
+    pwa: "pwa",
+  };
+
+  const getCategoryPairSelection = (category) => {
+    const normalized = normalizeCategory(category);
+    if (normalized === CATEGORY_PAIR.mobile || normalized === CATEGORY_PAIR.pwa) {
+      return ["mobile app", "PWA"];
+    }
+    return [category];
+  };
+
+  const setCategorySelection = (category) => {
+    setActiveCategories(getCategoryPairSelection(category));
+  };
+
+  const clearCategorySelection = (category) => {
+    setActiveCategories((prev) => {
+      const normalized = normalizeCategory(category);
+      const next = prev.filter((entry) => normalizeCategory(entry) !== normalized);
+      return next;
+    });
+  };
+
   const filteredItems = useMemo(() => {
     let items = portfolioItems;
-    if (activeCategory) {
-      const targetCategory = normalizeCategory(activeCategory);
+    if (activeCategories.length > 0) {
+      const targetCategories = new Set(
+        activeCategories.map((category) => normalizeCategory(category))
+      );
       items = items.filter((item) =>
         item.categories?.some(
-          (category) => normalizeCategory(category) === targetCategory
+          (category) => targetCategories.has(normalizeCategory(category))
         )
       );
     }
@@ -125,7 +152,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
       });
     }
     return items;
-  }, [activeCategory, activeLanguage]);
+  }, [activeCategories, activeLanguage]);
 
   const categoryBadgeClassName =
     "inline-flex items-center justify-center px-[0.48rem] py-[0.14rem] text-[0.62rem] font-semibold uppercase tracking-[0.035em] leading-none rounded-full border border-[rgba(155,0,189,0.12)] bg-[rgba(255,255,255,0.8)] text-[#3b1750] shadow-[0_1px_4px_rgba(2,6,23,0.08)] backdrop-blur-[3px] cursor-pointer hover:bg-[rgba(255,255,255,0.9)] hover:border-[rgba(155,0,189,0.18)]";
@@ -254,24 +281,25 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     <div className="relative min-h-screen flex-1">
       <AbstractBackdrop variant="list" />
       <main ref={listRef} className="relative mx-auto w-full max-w-6xl flex-1 px-2 py-8 sm:px-3 lg:px-4 min-[1100px]:px-6">
-        {(activeCategory || activeLanguage) && (
+        {(activeCategories.length > 0 || activeLanguage) && (
           <div className="mb-5 flex items-center gap-2">
-            {activeCategory && (
+            {activeCategories.map((category) => (
               <button
+                key={category}
                 type="button"
                 className={`${categoryBadgeClassName} group gap-[0.4rem] px-[0.7rem] py-[0.28rem] !text-[0.7rem]`}
                 onClick={() => {
-                  setActiveCategory(null);
+                  clearCategorySelection(category);
                   rerollAnimationSeed();
                 }}
-                aria-label={`Clear filter: ${activeCategory}`}
+                aria-label={`Clear filter: ${category}`}
               >
-                <span className="category-badge__label">{activeCategory}</span>
+                <span className="category-badge__label">{category}</span>
                 <span className="category-badge__close inline-flex items-center justify-center" aria-hidden="true">
                   <CloseIcon size={14} className="opacity-70 group-hover:opacity-100" />
                 </span>
               </button>
-            )}
+            ))}
             {activeLanguage && (
               <button
                 type="button"
@@ -430,7 +458,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                setActiveCategory(category);
+                                setCategorySelection(category);
                                 rerollAnimationSeed();
                               }}
                               aria-label={`Filter by category: ${category}`}

@@ -39,6 +39,8 @@ Font.register({
   ],
 });
 
+Font.registerHyphenationCallback((word) => [word]);
+
 // React-PDF supports a subset of CSS. Avoid `gap` and rely on margins.
 const styles = StyleSheet.create({
   page: {
@@ -48,13 +50,13 @@ const styles = StyleSheet.create({
     lineHeight: 1.35,
     color: "#0f172a",
     backgroundColor: "#ffffff",
-    paddingTop: PAGE_TOP_PAD,
+    paddingTop: 0,
     paddingBottom: 0,
   },
 
   sidebar: {
     width: "33%",
-    paddingTop: 0,
+    paddingTop: PAGE_TOP_PAD,
     paddingBottom: 28,
     paddingLeft: 24,
     paddingRight: 18,
@@ -65,56 +67,45 @@ const styles = StyleSheet.create({
   },
   main: {
     width: "67%",
-    paddingTop: 0,
+    paddingTop: PAGE_TOP_PAD,
     paddingBottom: 28,
     paddingLeft: 22,
     paddingRight: 24,
   },
-  topPadRow: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: PAGE_TOP_PAD,
-    flexDirection: "row",
-  },
-  topPadSidebar: {
-    width: "33%",
-    backgroundColor: "#f8fafc",
-    borderRightWidth: 1,
-    borderRightColor: "#e2e8f0",
-    borderRightStyle: "solid",
-  },
-  topPadMain: {
-    width: "67%",
-    backgroundColor: "#ffffff",
-  },
-
   identityRow: {
     flexDirection: "row",
     alignItems: "center",
+    flexWrap: "nowrap",
   },
   identityText: {
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "center",
     flexWrap: "wrap",
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+    maxWidth: "100%",
   },
   profilePhoto: {
     width: 50,
     height: 50,
     borderRadius: 25,
     marginRight: 12,
+    objectFit: "cover",
   },
   name: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 700,
     letterSpacing: -0.2,
+    textAlign: "center",
   },
   headline: {
     marginTop: 6,
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: 600,
     color: ACCENT,
+    textAlign: "center",
+    maxWidth: "100%",
   },
   location: {
     marginTop: 4,
@@ -124,6 +115,9 @@ const styles = StyleSheet.create({
 
   section: {
     marginTop: 18,
+  },
+  sectionTight: {
+    marginTop: 4,
   },
   sectionTitle: {
     fontSize: 9,
@@ -194,11 +188,12 @@ const styles = StyleSheet.create({
   },
 
   summary: {
-    marginTop: 8,
+    marginTop: 10,
   },
   summaryText: {
     fontSize: 8,
     color: "#0f172a",
+    textAlign: "center",
   },
 
   item: {
@@ -268,18 +263,21 @@ const styles = StyleSheet.create({
   },
   bullet: {
     flexDirection: "row",
-    marginTop: 2,
+    marginTop: 2.5,
+    alignItems: "flex-start",
   },
   bulletDot: {
-    width: 10,
+    width: 12,
     color: ACCENT,
     fontWeight: 700,
+    fontSize: 9,
+    lineHeight: 1.3,
   },
   bulletText: {
     flex: 1,
     color: "#0f172a",
     fontSize: 7,
-    lineHeight: 1.4,
+    lineHeight: 1.25,
   },
 
   footer: {
@@ -349,6 +347,7 @@ function t(locale) {
     otherActivities: isPl ? "Inne aktywności" : "Other activities",
     volunteering: isPl ? "Wolontariat" : "Volunteering",
     languages: isPl ? "Języki" : "Languages",
+    passions: isPl ? "Pasje" : "Passions",
     contact: isPl ? "Kontakt" : "Contact",
     links: isPl ? "Linki" : "Links",
     present: isPl ? "Obecnie" : "Present",
@@ -488,12 +487,25 @@ function BulletList({ items }) {
   );
 }
 
-function Section({ title, children, minPresenceAhead, breakBefore = false }) {
+function Section({
+  title,
+  children,
+  minPresenceAhead,
+  breakBefore = false,
+  style,
+  titleMinPresenceAhead = 40,
+}) {
   if (!children) return null;
   return (
-    <View style={styles.section} minPresenceAhead={minPresenceAhead} break={breakBefore}>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      <View style={styles.sectionRule} />
+    <View
+      style={[styles.section, style]}
+      minPresenceAhead={minPresenceAhead}
+      break={breakBefore}
+    >
+      <View minPresenceAhead={titleMinPresenceAhead}>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <View style={styles.sectionRule} />
+      </View>
       {children}
     </View>
   );
@@ -518,6 +530,11 @@ function PillList({ items, variant = "default", limit }) {
   );
 }
 
+function capitalizeFirst(value) {
+  if (!value) return value;
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) {
   const strings = t(locale);
   const presentLabel = strings.present;
@@ -525,11 +542,13 @@ export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) 
   const contact = cv?.person?.contact;
   const showPhoneContact = Boolean(showPhone && contact?.phone);
   const links = contact?.links || [];
-  const skillsHighlight = cv?.skills?.highlight || [];
-  const skillsExperienced = cv?.skills?.experienced || [];
+  const skillsHighlight = (cv?.skills?.highlight || []).map(capitalizeFirst);
+  const skillsExperienced = (cv?.skills?.experienced || []).map(capitalizeFirst);
+  const passions = (cv?.passions || []).map(capitalizeFirst);
   const languages = cv?.languages || [];
   const programmingLanguages = cv?.programmingLanguages?.items || [];
-  const recentNonProfit = [];
+  const selectedProjects = cv?.projects?.selected || [];
+  const recentNonProfit = cv?.projects?.recentNonProfit || [];
   const otherActivities = [];
   const locationParts = [
     cv?.person?.location?.city,
@@ -537,15 +556,69 @@ export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) 
   ].filter(Boolean);
   const locationLine = locationParts.join(", ");
 
+  const renderProjectList = (items) => (
+    <View style={{ marginTop: 6 }}>
+      {items.map((p, idx) => {
+        const mainLanguage = inferMainLanguageFromTechList(p.tech);
+        const { languages: langs, other } = splitTechIntoLanguagesAndOther(p.tech);
+
+        return (
+          <View
+            key={p.name}
+            style={idx === 0 ? styles.itemFirst : styles.item}
+            wrap={false}
+            minPresenceAhead={120}
+          >
+            <View style={styles.itemHeaderRow}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                {mainLanguage ? (
+                  <View style={[styles.iconChip, { marginRight: 8, marginBottom: 0 }]}>
+                    <PdfLanguageIcon name={mainLanguage} size={10} />
+                  </View>
+                ) : null}
+                <Text style={styles.companyName}>{p.name}</Text>
+              </View>
+              {p.start ? (
+                <Text style={styles.metaRight}>
+                  {formatRange(p, locale, presentLabel)}
+                </Text>
+              ) : null}
+            </View>
+
+            {p.location ? <Text style={styles.metaLine}>{p.location}</Text> : null}
+            <BulletList items={p.highlights} />
+
+            {p.tech?.length ? <TechBadges languages={langs} other={other} /> : null}
+          </View>
+        );
+      })}
+    </View>
+  );
+
   return (
     <Document title={`${cv.person.name} - CV`}>
       <Page size="A4" style={styles.page}>
-        <View style={styles.topPadRow} fixed>
-          <View style={styles.topPadSidebar} />
-          <View style={styles.topPadMain} />
-        </View>
         {/* Sidebar */}
         <View style={styles.sidebar}>
+          <View style={styles.identityRow}>
+            <Image src={PROFILE_PHOTO_PATH} style={styles.profilePhoto} />
+            <View style={styles.identityText}>
+              <Text style={styles.name}>{cv.person.name}</Text>
+              <Text style={styles.headline}>{cv.person.headline}</Text>
+            </View>
+          </View>
+          {locationLine ? (
+            <Text style={styles.location}>{locationLine}</Text>
+          ) : null}
+
+          {cv.person.summary?.paragraphs?.length ? (
+            <View style={styles.summary}>
+              <Text style={styles.summaryText}>
+                {cv.person.summary.paragraphs.join(" ")}
+              </Text>
+            </View>
+          ) : null}
+
           <Section title={strings.contact}>
             <View style={{ marginTop: 10 }}>
               {contact?.email ? (
@@ -602,8 +675,29 @@ export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) 
             </Section>
           ) : null}
 
+          {languages.length ? (
+            <Section title={strings.languages}>
+              <View style={{ marginTop: 10 }}>
+                {languages.map((l) => (
+                  <Text key={l.name} style={[styles.small, { marginTop: 4 }]}>
+                    <Text style={{ fontWeight: 700 }}>{l.name}</Text>
+                    <Text style={styles.muted}>{`  ·  ${l.proficiency}`}</Text>
+                  </Text>
+                ))}
+              </View>
+            </Section>
+          ) : null}
+
+          {passions.length ? (
+            <Section title={strings.passions}>
+              <View style={{ marginTop: 6 }}>
+                <PillList items={passions} limit={12} />
+              </View>
+            </Section>
+          ) : null}
+
           {skillsHighlight.length || skillsExperienced.length ? (
-            <Section title={strings.skills}>
+            <Section title={strings.skills} breakBefore>
               {skillsHighlight.length ? (
                 <View style={{ marginTop: 6 }}>
                   <Text style={styles.skillLabel}>
@@ -624,7 +718,10 @@ export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) 
           ) : null}
 
           {programmingLanguages.length ? (
-            <Section title={locale === "pl" ? "Języki programowania" : "Programming"}>
+            <Section
+              title={locale === "pl" ? "Języki programowania" : "Programming"}
+              breakBefore={!(skillsHighlight.length || skillsExperienced.length)}
+            >
               <View style={{ marginTop: 10 }}>
                 {programmingLanguages.slice(0, 6).map((pl) => {
                   const exp = formatExperienceShort(pl?.experience);
@@ -646,43 +743,12 @@ export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) 
             </Section>
           ) : null}
 
-          {languages.length ? (
-            <Section title={strings.languages}>
-              <View style={{ marginTop: 10 }}>
-                {languages.map((l) => (
-                  <Text key={l.name} style={[styles.small, { marginTop: 4 }]}>
-                    <Text style={{ fontWeight: 700 }}>{l.name}</Text>
-                    <Text style={styles.muted}>{`  ·  ${l.proficiency}`}</Text>
-                  </Text>
-                ))}
-              </View>
-            </Section>
-          ) : null}
         </View>
 
         {/* Main */}
         <View style={styles.main}>
-          <View style={styles.identityRow}>
-            <Image src={PROFILE_PHOTO_PATH} style={styles.profilePhoto} />
-            <View style={styles.identityText}>
-              <Text style={styles.name}>{cv.person.name}</Text>
-              <Text style={styles.headline}>{cv.person.headline}</Text>
-            </View>
-          </View>
-          {locationLine ? (
-            <Text style={styles.location}>{locationLine}</Text>
-          ) : null}
-
-          {cv.person.summary?.paragraphs?.length ? (
-            <View style={styles.summary}>
-              <Text style={styles.summaryText}>
-                {cv.person.summary.paragraphs.join(" ")}
-              </Text>
-            </View>
-          ) : null}
-
           {cv.experience?.length ? (
-            <Section title={strings.experience} minPresenceAhead={90}>
+            <Section title={strings.experience} minPresenceAhead={90} style={styles.sectionTight}>
               <View style={{ marginTop: 4 }}>
                 {cv.experience.map((company, idx) => {
                   const companyTech = (company.roles || [])
@@ -698,6 +764,7 @@ export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) 
                       key={company.company.name}
                       style={idx === 0 ? styles.itemFirst : styles.item}
                       minPresenceAhead={90}
+                      wrap={false}
                     >
                     {company.roles?.map((role, roleIndex) => {
                       const nextLocationLine = role.location
@@ -748,51 +815,34 @@ export default function CvPdfDocument({ cv, locale = "en", showPhone = false }) 
             </Section>
           ) : null}
 
-          {recentNonProfit.length ? (
+          {false ? (
             <Section title={strings.projects} minPresenceAhead={140}>
-              <Text style={styles.subSectionTitle}>
-                {locale === "pl" ? "Ostatnie projekty non-profit" : "Recent non-profit"}
-              </Text>
-              <View style={{ marginTop: 6 }}>
-                {recentNonProfit.map((p, idx) => {
-                  const mainLanguage = inferMainLanguageFromTechList(p.tech);
-                  const { languages: langs, other } = splitTechIntoLanguagesAndOther(p.tech);
+              {selectedProjects.length ? (
+                <>
+                  <Text style={styles.subSectionTitle}>
+                    {locale === "pl" ? "Wybrane projekty" : "Selected projects"}
+                  </Text>
+                  {renderProjectList(selectedProjects)}
+                </>
+              ) : null}
 
-                  return (
-                    <View
-                      key={p.name}
-                      style={idx === 0 ? styles.itemFirst : styles.item}
-                      wrap={false}
-                    >
-                      <View style={styles.itemHeaderRow}>
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                          {mainLanguage ? (
-                            <View style={[styles.iconChip, { marginRight: 8, marginBottom: 0 }]}>
-                              <PdfLanguageIcon name={mainLanguage} size={10} />
-                            </View>
-                          ) : null}
-                          <Text style={styles.companyName}>{p.name}</Text>
-                        </View>
-                        {p.start ? (
-                          <Text style={styles.metaRight}>
-                            {formatRange(p, locale, presentLabel)}
-                          </Text>
-                        ) : null}
-                      </View>
-
-                      {p.location ? <Text style={styles.metaLine}>{p.location}</Text> : null}
-                      <BulletList items={p.highlights} />
-
-                      {p.tech?.length ? <TechBadges languages={langs} other={other} /> : null}
-                    </View>
-                  );
-                })}
-              </View>
+              {recentNonProfit.length ? (
+                <>
+                  <Text style={styles.subSectionTitle}>
+                    {locale === "pl" ? "Ostatnie projekty non-profit" : "Recent non-profit"}
+                  </Text>
+                  {renderProjectList(recentNonProfit)}
+                </>
+              ) : null}
             </Section>
           ) : null}
 
           {cv.education?.length ? (
-            <Section title={strings.education} minPresenceAhead={120}>
+            <Section
+              title={strings.education}
+              minPresenceAhead={200}
+              titleMinPresenceAhead={200}
+            >
               <View style={{ marginTop: 6 }}>
                 {cv.education.map((e, idx) => (
                   <View key={e.school} style={idx === 0 ? styles.itemFirst : styles.item}>

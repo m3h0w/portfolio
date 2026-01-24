@@ -19,6 +19,7 @@ const nextConfig = {
       { source: "/", destination: "/en" },
       { source: "/me", destination: "/en/me" },
       { source: "/cv", destination: "/en/cv" },
+      { source: "/cv/:path*", destination: "/en/cv/:path*" },
       { source: "/projects", destination: "/en/projects" },
       { source: "/projects/:slug", destination: "/en/projects/:slug" },
       { source: "/portfolio", destination: "/en/portfolio" },

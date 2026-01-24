@@ -1,5 +1,5 @@
 import CvPdfDocument from "@/app/_pdf/CvPdfDocument";
-import { getCv } from "@/data/cv";
+import { getCvBundle, getCvVariantFromRequest } from "@/data/cv_bundle";
 import React from "react";
 import { renderToBuffer } from "@react-pdf/renderer";
 
@@ -33,7 +33,8 @@ function isLocalhostHostname(hostname) {
 
 export async function GET(request) {
   const locale = getLocaleFromRequest(request);
-  const cv = getCv();
+  const variant = getCvVariantFromRequest(request);
+  const { cv } = getCvBundle({ locale, variant });
   const hostname = new URL(request.url).hostname;
   const showPhone = isLocalhostHostname(hostname);
 

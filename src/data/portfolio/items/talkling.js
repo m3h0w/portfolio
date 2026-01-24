@@ -13,7 +13,7 @@ const talkling = {
       thumbnail: "/images/thumbnails/talkling1.webp",
       heroImage: "/images/talkling/hero.webp",
       description:
-        "Voice-message language practice with live transcription and translations.",
+        "Mobile-first voice-message language practice with live transcription and translations.",
       links: [
         { label: "Live preview", href: "https://talkling.app/", preview: true },
         { label: "Live", href: "https://talkling.app/", preview: false },
@@ -56,7 +56,7 @@ const talkling = {
       thumbnail: "/images/thumbnails/talkling1.webp",
       heroImage: "/images/talkling/hero.webp",
       description:
-        "Nauka języka przez wiadomości głosowe z transkrypcją i tłumaczeniami.",
+        "Mobile-first nauka języka przez wiadomości głosowe z transkrypcją i tłumaczeniami.",
       links: [
         {
           label: "Podgląd na żywo",

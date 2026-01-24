@@ -12,6 +12,7 @@ import GlassesIcon from "@/components/GlassesIcon";
 import LanguageIcon from "@/components/LanguageIcon";
 import IMAGE_LQIP_MAP from "@/data/imageLqipMap";
 import LqipImage from "@/app/_components/LqipImage";
+import ImageCarousel from "@/app/_components/ImageCarousel";
 import ScrollToTopOnSlugChange from "@/app/_components/ScrollToTopOnSlugChange";
 import {
   getLivePreviewLink,
@@ -284,11 +285,12 @@ const renderContentBlock = (block) => {
             <LqipImage
               src={block.src}
               alt={block.alt}
-              width={1200}
-              height={800}
+              fill
+              sizes="(min-width: 1024px) 768px, 100vw"
               placeholder="blur"
               blurDataURL={contentBlurDataURL}
-              className="h-auto w-full object-cover"
+              wrapperClassName="relative aspect-[16/9] w-full max-h-[520px]"
+              className="h-full w-full object-cover"
             />
           </div>
           {block.caption && (
@@ -297,6 +299,16 @@ const renderContentBlock = (block) => {
             </figcaption>
           )}
         </figure>
+      );
+    case "imageCarousel":
+      return (
+        <ImageCarousel
+          title={block.title}
+          images={(block.images || []).map((image) => ({
+            ...image,
+            blurDataURL: getBlurDataURL(image.src),
+          }))}
+        />
       );
     default:
       return null;
@@ -382,7 +394,8 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
     }),
   ];
 
-  const heroBlurDataURL = getBlurDataURL(data.heroImage);
+  const heroImage = data.thumbnail || data.heroImage;
+  const heroBlurDataURL = getBlurDataURL(heroImage);
 
   const currentIndex = portfolioItems.findIndex((entry) => entry.slug === slug);
   const prevItem = currentIndex > 0 ? portfolioItems[currentIndex - 1] : null;
@@ -576,13 +589,13 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
           <article className={`${styles.surface} ${styles.enterMain} p-5 sm:p-7`}>
             <div className={styles.hero}>
               <LqipImage
-                src={data.heroImage}
+                src={heroImage}
                 alt={data.title}
                 width={1600}
                 height={1000}
                 placeholder="blur"
                 blurDataURL={heroBlurDataURL}
-                className="h-auto w-full object-cover"
+                className={styles.heroImage}
                 priority
               />
             </div>

@@ -12,12 +12,14 @@ import tSneInEmotionRecognition from "@/data/portfolio/items/t-sne-in-emotion-re
 import insuranceRulesAdminPanel from "@/data/portfolio/items/insurance-rules-admin-panel";
 import cnnForFurnitureRecognition from "@/data/portfolio/items/cnn-for-furniture-recognition";
 import lighthouseCphEvents from "@/data/portfolio/items/lighthousecph-events";
+import commons from "@/data/portfolio/items/commons";
 
 const portfolioItems = [
   talkling,
   soilsense,
   instytutRelacyjny,
   lighthouseCphEvents,
+  commons,
   covid19pink,
   proteinStructurePrediction,
   productRecommendationAndChurn,

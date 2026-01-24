@@ -13,7 +13,8 @@
     "generate:favicon": "node scripts/generate-favicon.mjs",
     "fetch:cv-logos": "node scripts/fetch-cv-logos.mjs",
     "cv:pdf:preview": "node scripts/preview-cv-pdf.mjs --lang en --inline",
-    "cv:pdf:preview:pl": "node scripts/preview-cv-pdf.mjs --lang pl --inline"
+    "cv:pdf:preview:pl": "node scripts/preview-cv-pdf.mjs --lang pl --inline",
+    "export:ai-context": "node --experimental-default-type=module scripts/export-ai-context.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",

@@ -1,6 +1,6 @@
 const cv = {
   version: 1,
-  updatedAt: "2026-01-22",
+  updatedAt: "2026-01-23",
 
   person: {
     name: "Michał Gacka",
@@ -60,6 +60,8 @@ const cv = {
       "Landing Pages",
       "NoSQL",
       "AI-assisted development",
+      "GitHub Copilot",
+      "Data Analysis",
       "Product Management",
       "Leadership",
       "Teaching",
@@ -110,6 +112,7 @@ const cv = {
 
   experience: [
     {
+      id: "soilsense",
       company: {
         name: "SoilSense",
         website: "https://soilsense.io/",
@@ -122,6 +125,7 @@ const cv = {
       },
       roles: [
         {
+          id: "soilsense-lead-software-engineer",
           title: "Lead Software Engineer",
           employmentType: "Part-time",
           location: "Copenhagen, Denmark",
@@ -146,6 +150,7 @@ const cv = {
           ],
         },
         {
+          id: "soilsense-cofounder-lead-software-engineer",
           title: "Co-Founder & Lead Software Engineer",
           employmentType: "Full-time",
           location: "Copenhagen, Denmark",
@@ -174,6 +179,7 @@ const cv = {
     },
 
     {
+      id: "kvalifik",
       company: {
         name: "Kvalifik",
         logo: {
@@ -185,6 +191,7 @@ const cv = {
       },
       roles: [
         {
+          id: "kvalifik-tech-lead-senior-fullstack-engineer",
           title: "Tech Lead & Senior Full-stack Engineer",
           employmentType: "Full-time",
           location: "Copenhagen, Denmark",
@@ -216,6 +223,7 @@ const cv = {
     },
 
     {
+      id: "tia-technology",
       company: {
         name: "TIA Technology",
         logo: {
@@ -227,6 +235,7 @@ const cv = {
       },
       roles: [
         {
+          id: "tia-ml-software-engineer",
           title: "ML Software Engineer",
           employmentType: "Full-time",
           location: "Copenhagen Area, Denmark",
@@ -253,6 +262,7 @@ const cv = {
     },
 
     {
+      id: "gobundl",
       company: {
         name: "GoBundl",
         logo: {
@@ -264,6 +274,7 @@ const cv = {
       },
       roles: [
         {
+          id: "gobundl-software-engineer",
           title: "Software Engineer",
           employmentType: "Full-time",
           location: "Copenhagen, Denmark",
@@ -292,6 +303,7 @@ const cv = {
     },
 
     {
+      id: "smartin",
       company: {
         name: "Smartin",
         logo: {
@@ -303,6 +315,7 @@ const cv = {
       },
       roles: [
         {
+          id: "smartin-software-engineer",
           title: "Software Engineer",
           employmentType: "Contract",
           location: "Katowice, Poland",
@@ -319,6 +332,7 @@ const cv = {
     },
 
     {
+      id: "carnegie-mellon-university",
       company: {
         name: "Carnegie Mellon University",
         logo: {
@@ -330,6 +344,7 @@ const cv = {
       },
       roles: [
         {
+          id: "cmu-computer-vision-research-assistant",
           title: "Computer Vision Research Assistant",
           employmentType: "Research",
           location: "Pittsburgh, USA",
@@ -479,6 +494,14 @@ const cv = {
       issued: "2017-01",
       source: "Coursera",
     },
+  ],
+
+  passions: [
+    "Climbing",
+    "Partner dancing",
+    "Relational arts",
+    "Guitar & clarinet",
+    "Contact improvisation",
   ],
 
   volunteering: [

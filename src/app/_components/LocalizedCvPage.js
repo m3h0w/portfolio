@@ -5,9 +5,8 @@ import HappyRating from "@/components/HappyRating";
 import GlassesIcon from "@/components/GlassesIcon";
 import LanguageIcon from "@/components/LanguageIcon";
 import LocationBadge from "@/components/LocationBadge";
+import { getCvBundle } from "@/data/cv_bundle";
 import { getSiteContent } from "@/data/siteContent";
-import { getCv } from "@/data/cv";
-import portfolioItems from "@/data/portfolio";
 import PdfPreviewModal from "@/app/_components/PdfPreviewModal";
 import LivePreviewModal from "@/app/_components/LivePreviewModal";
 import EmailRevealButton from "@/app/_components/EmailRevealButton";
@@ -39,6 +38,11 @@ function formatRange({ start, end }, locale, presentLabel) {
   return `${startText} – ${endText}`;
 }
 
+function capitalizeFirst(value) {
+  if (!value) return value;
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 function sortByMostRecentRole(a, b) {
   const aLatest = a?.roles?.[0]?.start || "0000-00";
   const bLatest = b?.roles?.[0]?.start || "0000-00";
@@ -67,10 +71,12 @@ export function getCvMetadata(locale) {
   };
 }
 
-export default function LocalizedCvPage({ locale }) {
-  const siteContent = getSiteContent(locale);
+export default function LocalizedCvPage({ locale, variant = "default" }) {
   const basePath = locale === "pl" ? "/pl" : "";
-  const cv = getCv();
+  const { site: siteContent, cv, portfolioItems } = getCvBundle({
+    locale,
+    variant,
+  });
 
   const presentLabel = locale === "pl" ? "Obecnie" : "Present";
   const openPdfLabel = locale === "pl" ? "Otwórz PDF" : "Open PDF";
@@ -79,6 +85,11 @@ export default function LocalizedCvPage({ locale }) {
   const openProjectLabel = locale === "pl" ? "Otwórz projekt" : "Open project";
   const closeLabel = locale === "pl" ? "Zamknij" : "Close";
   const emailLabel = "Reveal Email";
+  const pdfVariantParam =
+    variant && variant !== "default"
+      ? `&variant=${encodeURIComponent(variant)}`
+      : "";
+  const pdfUrl = `/api/cv-pdf?lang=${locale === "pl" ? "pl" : "en"}&inline=1${pdfVariantParam}`;
 
   const experience = [...cv.experience].sort(sortByMostRecentRole);
 
@@ -100,7 +111,7 @@ export default function LocalizedCvPage({ locale }) {
 
           <div className="flex flex-wrap items-center gap-2">
             <PdfPreviewModal
-              url={`/api/cv-pdf?lang=${locale === "pl" ? "pl" : "en"}&inline=1`}
+              url={pdfUrl}
               title={locale === "pl" ? "CV (PDF)" : "CV (PDF)"}
               openLabel={openPdfLabel}
               openInNewTabLabel={openPdfLabel}
@@ -232,7 +243,7 @@ export default function LocalizedCvPage({ locale }) {
                           key={s}
                           className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[11px] font-medium text-slate-800"
                         >
-                          {s}
+                          {capitalizeFirst(s)}
                         </span>
                       ))}
                     </div>
@@ -250,13 +261,33 @@ export default function LocalizedCvPage({ locale }) {
                           key={s}
                           className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[11px] font-medium text-slate-800"
                         >
-                          {s}
+                          {capitalizeFirst(s)}
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
               </div>
+
+              {cv.passions?.length ? (
+                <div className="mt-6 rounded-2xl bg-white/70 p-4 ring-1 ring-slate-900/10">
+                  <p
+                    className={`text-xs font-semibold uppercase ${styles.smallCaps} text-slate-600`}
+                  >
+                    {locale === "pl" ? "Pasje" : "Passions"}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {cv.passions.map((p) => (
+                      <span
+                        key={p}
+                        className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[11px] font-medium text-slate-800"
+                      >
+                        {capitalizeFirst(p)}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </header>
 
             {/* Experience */}
@@ -268,7 +299,15 @@ export default function LocalizedCvPage({ locale }) {
               </h2>
 
               <div className="mt-5 space-y-6">
-                {experience.map((company) => (
+                {experience.map((company) => {
+                  const companyTech = (company.roles || [])
+                    .flatMap((role) => role.tech || [])
+                    .filter(Boolean);
+                  const uniqueCompanyTech = Array.from(new Set(companyTech));
+                  const { languages: companyLangs, other: companyOther } =
+                    splitTechIntoLanguagesAndOther(uniqueCompanyTech);
+
+                  return (
                   <div
                     key={company.company.name}
                     className="rounded-2xl bg-white/60 p-5 ring-1 ring-slate-900/10"
@@ -346,43 +385,37 @@ export default function LocalizedCvPage({ locale }) {
                             </ul>
                           ) : null}
 
-                          {role.tech?.length
-                            ? (() => {
-                                const { languages, other } =
-                                  splitTechIntoLanguagesAndOther(role.tech);
-
-                                return (
-                                  <div className="mt-4 flex flex-wrap items-center gap-2">
-                                    {languages.map((l) => (
-                                      <span
-                                        key={l}
-                                        className="inline-flex items-center justify-center rounded-full bg-slate-900/5 p-0.5 ring-1 ring-slate-900/10"
-                                        title={l}
-                                      >
-                                        <LanguageIcon
-                                          name={l}
-                                          size={14}
-                                          className="block text-slate-500"
-                                        />
-                                      </span>
-                                    ))}
-                                    {other.map((t) => (
-                                      <span
-                                        key={t}
-                                        className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[10px] font-medium text-slate-700 ring-1 ring-slate-900/10"
-                                      >
-                                        {t}
-                                      </span>
-                                    ))}
-                                  </div>
-                                );
-                              })()
-                            : null}
                         </div>
                       ))}
                     </div>
+                    {uniqueCompanyTech.length ? (
+                      <div className="mt-4 flex flex-wrap items-center gap-2">
+                        {companyLangs.map((l) => (
+                          <span
+                            key={l}
+                            className="inline-flex items-center justify-center rounded-full bg-slate-900/5 p-0.5 ring-1 ring-slate-900/10"
+                            title={l}
+                          >
+                            <LanguageIcon
+                              name={l}
+                              size={14}
+                              className="block text-slate-500"
+                            />
+                          </span>
+                        ))}
+                        {companyOther.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full bg-slate-900/5 px-2 py-0.5 text-[10px] font-medium text-slate-700 ring-1 ring-slate-900/10"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
-                ))}
+                );
+                })}
               </div>
             </section>
 

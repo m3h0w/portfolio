@@ -63,6 +63,10 @@
 	- Middleware sets x-locale (en or pl) and performs the canonical redirects/rewrites.
 	- If /en redirect behavior breaks, update both middleware and next.config.mjs redirects so /en/* always redirects to /<path>.
 
+- Content locations
+  - Portfolio projects live in src/data/portfolio/items/* and are registered in src/data/portfolio.js.
+  - CV data lives in src/data/cv.js (experience, projects, education, etc.).
+
 <!--
 ## Execution Guidelines
 PROGRESS TRACKING:

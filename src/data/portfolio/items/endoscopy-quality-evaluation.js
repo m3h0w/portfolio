@@ -1,6 +1,6 @@
 const endoscopyQualityEvaluation = {
   slug: "endoscopy-quality-evaluation",
-  categories: ["Science", "image processing", "AI"],
+  categories: ["Science", "computer vision", "AI"],
   stack: "C++, OpenCV, OpticalFlow",
   work: { kind: "school", entity: "Carnegie Mellon University" },
   country: "United States",

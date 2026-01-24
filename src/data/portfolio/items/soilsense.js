@@ -1,8 +1,8 @@
 const soilsense = {
   slug: "soilsense",
-  categories: ["web app", "AI", "LLMs", "Design / UX"],
+  categories: ["web app", "PWA", "AI", "LLMs", "Design / UX"],
   stack:
-    "React, TypeScript, MongoDB, Firebase, Python, Tensorflow, Docker, GitHub Actions, Google Cloud Platform",
+    "React, TypeScript, MongoDB, Firebase, Python, Tensorflow, Docker, GitHub Actions, Google Cloud Platform, Sentry",
   mainLanguage: "TypeScript",
   secondaryLanguage: "Python",
   work: { kind: "company", entity: "SoilSense" },
@@ -11,8 +11,8 @@ const soilsense = {
     en: {
       title: "SoilSense Irrigation Dashboard",
       subtitle: "Data-driven web application and AI service",
-      thumbnail: "/images/thumbnails/soilsense.webp",
-      heroImage: "/images/soilsense/charts.png",
+      thumbnail: "/images/soilsense/field-overlay.webp",
+      heroImage: "/images/soilsense/field-overlay.webp",
       description:
         "PWA dashboard that turns farm sensor data into irrigation insights.",
       links: [
@@ -35,9 +35,22 @@ const soilsense = {
           html: 'The dashboard provides an overview of current sensor statuses and detailed charts with current and historical data transformed and visualized in a simple way. Green "safe zone" is derived from a sensor-specific calibration and indicates what values are desirable. We have hundreds of dataloggers deployed to farms all over the world.',
         },
         {
-          type: "image",
-          src: "/images/soilsense/map.png",
-          alt: "SoilSense map view",
+          type: "imageCarousel",
+          title: "Dashboard views",
+          images: [
+            {
+              src: "/images/soilsense/soilsense-01.webp",
+              alt: "SoilSense dashboard screen",
+            },
+            {
+              src: "/images/soilsense/soilsense-03.webp",
+              alt: "SoilSense dashboard screen",
+            },
+            {
+              src: "/images/soilsense/soilsense-04.webp",
+              alt: "SoilSense dashboard screen",
+            },
+          ],
         },
         {
           type: "paragraph",
@@ -56,8 +69,8 @@ const soilsense = {
     pl: {
       title: "SoilSense – dashboard nawadniania",
       subtitle: "Aplikacja webowa oparta na danych + warstwa AI",
-      thumbnail: "/images/thumbnails/soilsense.webp",
-      heroImage: "/images/soilsense/charts.png",
+      thumbnail: "/images/soilsense/field-overlay.webp",
+      heroImage: "/images/soilsense/field-overlay.webp",
       description:
         "Dashboard PWA zamieniający dane z sensorów na insighty do nawadniania.",
       links: [
@@ -80,9 +93,22 @@ const soilsense = {
           html: 'Dashboard pokazuje statusy sensorów oraz wykresy danych bieżących i historycznych. Zielona "strefa bezpieczeństwa" wynika z kalibracji sensora i wskazuje wartości pożądane. System działa produkcyjnie i jest używany przez płacących klientów.',
         },
         {
-          type: "image",
-          src: "/images/soilsense/map.png",
-          alt: "Widok mapy SoilSense",
+          type: "imageCarousel",
+          title: "Widoki dashboardu",
+          images: [
+            {
+              src: "/images/soilsense/soilsense-01.webp",
+              alt: "Ekran dashboardu SoilSense",
+            },
+            {
+              src: "/images/soilsense/soilsense-03.webp",
+              alt: "Ekran dashboardu SoilSense",
+            },
+            {
+              src: "/images/soilsense/soilsense-04.webp",
+              alt: "Ekran dashboardu SoilSense",
+            },
+          ],
         },
         {
           type: "paragraph",

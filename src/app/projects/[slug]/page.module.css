@@ -20,6 +20,24 @@
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
 }
 
+.heroImage {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+@media (min-width: 640px) {
+  .heroImage {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroImage {
+    height: 360px;
+  }
+}
+
 .chip {
   display: inline-flex;
   align-items: center;
