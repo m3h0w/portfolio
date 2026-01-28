@@ -1,7 +1,7 @@
 const lighthouseCphEvents = {
   slug: "lighthousecph-events",
   cover: false,
-  categories: ["web app", "community project", "no code"],
+  categories: ["web app", "community project", "no-code"],
   stack: "Glide, Stripe Webhooks, Automation",
   work: { kind: "community", entity: "Lighthouse CPH" },
   country: "Denmark",

@@ -14,6 +14,7 @@ import IMAGE_LQIP_MAP from "@/data/imageLqipMap";
 import LqipImage from "@/app/_components/LqipImage";
 import ImageCarousel from "@/app/_components/ImageCarousel";
 import ScrollToTopOnSlugChange from "@/app/_components/ScrollToTopOnSlugChange";
+import ImagePreviewModal from "@/app/_components/ImagePreviewModal";
 import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
@@ -239,7 +240,7 @@ function WorkKindIcon({ kind, size = 16, className = "" }) {
   }
 }
 
-const renderContentBlock = (block) => {
+const renderContentBlock = (block, siteContent) => {
   switch (block.type) {
     case "heading":
       return (
@@ -309,6 +310,32 @@ const renderContentBlock = (block) => {
             blurDataURL: getBlurDataURL(image.src),
           }))}
         />
+      );
+    case "imageModal":
+      return (
+        <div className="mt-6 space-y-3">
+          {block.html ? (
+            <p
+              className="text-[15px] leading-7 text-slate-700 sm:text-base"
+              dangerouslySetInnerHTML={{ __html: block.html }}
+            />
+          ) : null}
+
+          <ImagePreviewModal
+            src={block.src}
+            title={block.title || ""}
+            openLabel={block.openLabel}
+            openAriaLabel={block.openAriaLabel}
+            openInNewTabLabel={siteContent?.ui?.openInNewTab}
+            closeLabel={siteContent?.ui?.close}
+            buttonClassName={block.buttonClassName}
+            cursorVariant={block.cursorVariant}
+          />
+
+          {block.caption ? (
+            <p className="text-xs text-slate-500">{block.caption}</p>
+          ) : null}
+        </div>
       );
     default:
       return null;
@@ -652,7 +679,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
             <section className="mt-8 [&_a]:text-(--accent) [&_a]:no-underline [&_a]:transition-colors [&_a:hover]:text-(--accent-dark)">
               {data.content.map((block, index) => (
                 <div key={`${block.type}-${index}`}>
-                  {renderContentBlock(block)}
+                  {renderContentBlock(block, siteContent)}
                 </div>
               ))}
             </section>
