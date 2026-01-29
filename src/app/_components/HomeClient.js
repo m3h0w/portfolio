@@ -16,7 +16,12 @@ import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
 } from "@/app/_components/livePreviewUtils";
-import { inferMainLanguage, normalizeLanguageName, parseStackString, splitTechIntoLanguagesAndOther } from "@/lib/tech";
+import {
+  inferMainLanguage,
+  normalizeLanguageName,
+  parseStackString,
+  splitTechIntoLanguagesAndOther,
+} from "@/lib/tech";
 
 export default function HomeClient({ locale = "en", basePath = "" }) {
   const [activeCategories, setActiveCategories] = useState([]);
@@ -69,7 +74,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
 
   const selectionExistsInside = (container) => {
     const selection = window.getSelection?.();
-    if (!selection || selection.rangeCount === 0 || selection.isCollapsed) return false;
+    if (!selection || selection.rangeCount === 0 || selection.isCollapsed)
+      return false;
 
     const selectedText = selection.toString();
     if (!selectedText || selectedText.trim().length === 0) return false;
@@ -111,7 +117,10 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
 
   const getCategoryPairSelection = (category) => {
     const normalized = normalizeCategory(category);
-    if (normalized === CATEGORY_PAIR.mobile || normalized === CATEGORY_PAIR.pwa) {
+    if (
+      normalized === CATEGORY_PAIR.mobile ||
+      normalized === CATEGORY_PAIR.pwa
+    ) {
       return ["mobile app", "PWA"];
     }
     return [category];
@@ -125,7 +134,9 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
   const clearCategorySelection = (category) => {
     setActiveCategories((prev) => {
       const normalized = normalizeCategory(category);
-      const next = prev.filter((entry) => normalizeCategory(entry) !== normalized);
+      const next = prev.filter(
+        (entry) => normalizeCategory(entry) !== normalized,
+      );
       return next;
     });
   };
@@ -134,12 +145,12 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     let items = portfolioItems;
     if (activeCategories.length > 0) {
       const targetCategories = new Set(
-        activeCategories.map((category) => normalizeCategory(category))
+        activeCategories.map((category) => normalizeCategory(category)),
       );
       items = items.filter((item) =>
-        item.categories?.some(
-          (category) => targetCategories.has(normalizeCategory(category))
-        )
+        item.categories?.some((category) =>
+          targetCategories.has(normalizeCategory(category)),
+        ),
       );
     }
     if (activeLanguage) {
@@ -150,7 +161,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
           stack,
         });
         return (
-          item.mainLanguage === activeLanguage || 
+          item.mainLanguage === activeLanguage ||
           item.secondaryLanguage === activeLanguage ||
           inferred === activeLanguage
         );
@@ -175,7 +186,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
   const categoryBadgeClassName =
     "inline-flex items-center justify-center px-[0.6rem] py-[0.26rem] text-[0.66rem] font-semibold uppercase tracking-[0.035em] leading-none rounded-full border border-[rgba(155,0,189,0.12)] bg-[rgba(255,255,255,0.8)] text-[#3b1750] shadow-[0_1px_4px_rgba(2,6,23,0.08)] backdrop-blur-[3px] cursor-pointer hover:bg-[rgba(255,255,255,0.9)] hover:border-[rgba(155,0,189,0.18)] md:px-[0.48rem] md:py-[0.14rem] md:text-[0.62rem]";
 
-  const normalizeCardText = (value) => (value || "").replace(/\s+/g, " ").trim();
+  const normalizeCardText = (value) =>
+    (value || "").replace(/\s+/g, " ").trim();
 
   const getCardTypographyByLength = ({ title, description }) => {
     const combinedLen =
@@ -186,8 +198,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
         // Base styles cover <1100px (compact). Restore the previous sizing at >=1100px.
         title:
           "text-[0.98rem] leading-[1.22] min-[1100px]:text-[1.15rem] min-[1100px]:leading-[1.3]",
-        desc:
-          "text-[0.88rem] leading-[1.38] min-[1100px]:text-[0.95rem] min-[1100px]:leading-[1.45]",
+        desc: "text-[0.88rem] leading-[1.38] min-[1100px]:text-[0.95rem] min-[1100px]:leading-[1.45]",
       };
     }
 
@@ -195,8 +206,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
       return {
         title:
           "text-[0.94rem] leading-[1.2] min-[1100px]:text-[1.08rem] min-[1100px]:leading-[1.28]",
-        desc:
-          "text-[0.86rem] leading-[1.36] min-[1100px]:text-[0.92rem] min-[1100px]:leading-[1.43]",
+        desc: "text-[0.86rem] leading-[1.36] min-[1100px]:text-[0.92rem] min-[1100px]:leading-[1.43]",
       };
     }
 
@@ -204,16 +214,14 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
       return {
         title:
           "text-[0.9rem] leading-[1.18] min-[1100px]:text-[1.02rem] min-[1100px]:leading-[1.25]",
-        desc:
-          "text-[0.83rem] leading-[1.34] min-[1100px]:text-[0.89rem] min-[1100px]:leading-[1.4]",
+        desc: "text-[0.83rem] leading-[1.34] min-[1100px]:text-[0.89rem] min-[1100px]:leading-[1.4]",
       };
     }
 
     return {
       title:
         "text-[0.86rem] leading-[1.16] min-[1100px]:text-[0.98rem] min-[1100px]:leading-[1.22]",
-      desc:
-        "text-[0.8rem] leading-[1.32] min-[1100px]:text-[0.86rem] min-[1100px]:leading-[1.38]",
+      desc: "text-[0.8rem] leading-[1.32] min-[1100px]:text-[0.86rem] min-[1100px]:leading-[1.38]",
     };
   };
 
@@ -228,7 +236,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     const spans = Array.from(container.querySelectorAll(".card-stack-typed"));
 
     spans.forEach((span) => {
-      const fullText = span.getAttribute("data-full-text") || span.textContent || "";
+      const fullText =
+        span.getAttribute("data-full-text") || span.textContent || "";
       if (!fullText.trim()) return;
 
       if (prefersReducedMotion) {
@@ -238,7 +247,10 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
         return;
       }
 
-      if (span.getAttribute("data-full-text") === fullText && span.getAttribute("data-typed") === "true") {
+      if (
+        span.getAttribute("data-full-text") === fullText &&
+        span.getAttribute("data-typed") === "true"
+      ) {
         return;
       }
 
@@ -267,12 +279,13 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     };
   }, [filteredItems, locale]);
 
-
-
   return (
     <div className="relative min-h-screen flex-1">
       <AbstractBackdrop variant="list" />
-      <main ref={listRef} className="relative mx-auto w-full max-w-6xl flex-1 px-2 py-8 sm:px-3 lg:px-4 min-[1100px]:px-6">
+      <main
+        ref={listRef}
+        className="relative mx-auto w-full max-w-6xl flex-1 px-2 py-8 sm:px-3 lg:px-4 min-[1100px]:px-6"
+      >
         {(activeCategories.length > 0 || activeLanguage) && (
           <div className="mb-5 flex flex-wrap items-center justify-center gap-2 md:justify-start">
             {activeCategories.map((category) => (
@@ -286,8 +299,14 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                 aria-label={`Clear filter: ${category}`}
               >
                 <span className="category-badge__label">{category}</span>
-                <span className="category-badge__close inline-flex items-center justify-center" aria-hidden="true">
-                  <CloseIcon size={14} className="opacity-70 group-hover:opacity-100" />
+                <span
+                  className="category-badge__close inline-flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  <CloseIcon
+                    size={14}
+                    className="opacity-70 group-hover:opacity-100"
+                  />
                 </span>
               </button>
             ))}
@@ -301,22 +320,32 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                 aria-label={`Clear filter: ${activeLanguage}`}
               >
                 <span className="category-badge__label">{activeLanguage}</span>
-                <span className="category-badge__close inline-flex items-center justify-center" aria-hidden="true">
-                  <CloseIcon size={14} className="opacity-70 group-hover:opacity-100" />
+                <span
+                  className="category-badge__close inline-flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  <CloseIcon
+                    size={14}
+                    className="opacity-70 group-hover:opacity-100"
+                  />
                 </span>
               </button>
             )}
           </div>
         )}
         <h2 className="sr-only">{siteContent.nav.portfolio}</h2>
-        <motion.section layout className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))] [&>*]:w-full [&>*]:max-w-[384px] [&>*]:justify-self-center min-[1100px]:gap-5 min-[1100px]:[grid-template-columns:repeat(auto-fit,minmax(276px,1fr))]">
+        <motion.section
+          layout
+          className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))] [&>*]:w-full [&>*]:max-w-[384px] [&>*]:justify-self-center min-[1100px]:gap-5 min-[1100px]:[grid-template-columns:repeat(auto-fit,minmax(276px,1fr))]"
+        >
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item, index) => {
               const data = item.i18n[locale] || item.i18n.en;
               const href = `${basePath}/${item.slug}`;
               const stack = item.stack || data.stack || "";
               const stackItems = parseStackString(stack);
-              const { other: otherStack } = splitTechIntoLanguagesAndOther(stackItems);
+              const { other: otherStack } =
+                splitTechIntoLanguagesAndOther(stackItems);
               const mainLanguage = inferMainLanguage({
                 mainLanguage: item.mainLanguage,
                 stack,
@@ -326,14 +355,17 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                 : null;
               const liveLink = getLivePreviewLink(data.links);
               const iframeAllowed = liveLink
-                ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
+                ? isIframeLivePreviewAllowed({
+                    slug: item.slug,
+                    href: liveLink.href,
+                  })
                 : false;
               const custom = cardCustomBySlug.get(item.slug);
               // Mobile LCP is typically the first visible thumbnail. Keep priority tight to
               // avoid competing preloads on slow connections.
               // Depending on viewport, the LCP thumbnail can be 1st/2nd/3rd card in the grid.
               // Prioritize a small set to ensure LCP isn't lazy-loaded.
-              const isPriority = index < 3;
+              const isPriority = index < 2;
               const typography = getCardTypographyByLength({
                 title: data.title,
                 description: data.description,
@@ -367,7 +399,11 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                         }}
                         aria-label={`Filter by language: ${mainLanguage}`}
                       >
-                        <LanguageIcon name={mainLanguage} size={28} className="block text-slate-500" />
+                        <LanguageIcon
+                          name={mainLanguage}
+                          size={28}
+                          className="block text-slate-500"
+                        />
                       </button>
                       {secondaryLanguage ? (
                         <button
@@ -382,7 +418,11 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                           }}
                           aria-label={`Filter by language: ${secondaryLanguage}`}
                         >
-                          <LanguageIcon name={secondaryLanguage} size={20} className="block text-slate-500" />
+                          <LanguageIcon
+                            name={secondaryLanguage}
+                            size={20}
+                            className="block text-slate-500"
+                          />
                         </button>
                       ) : null}
                     </>
@@ -404,7 +444,9 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                               cursorVariant="black"
                               trigger={
                                 <>
-                                  <span className="sr-only">{siteContent.ui.livePreview}</span>
+                                  <span className="sr-only">
+                                    {siteContent.ui.livePreview}
+                                  </span>
                                   <GlassesBadge
                                     size={40}
                                     iconSize={30}
@@ -423,11 +465,18 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                               onClick={(event) => {
                                 event.preventDefault();
                                 event.stopPropagation();
-                                window.open(liveLink.href, "_blank", "noopener,noreferrer");
+                                window.open(
+                                  liveLink.href,
+                                  "_blank",
+                                  "noopener,noreferrer",
+                                );
                               }}
                               className="pointer-events-auto grid h-11 w-11 cursor-pointer place-items-center rounded-md border border-black/10 bg-white/90 text-slate-800 shadow-sm opacity-100 backdrop-blur transition duration-200 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30 md:h-9 md:w-9 md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100"
                             >
-                              <span aria-hidden className="text-base leading-none">
+                              <span
+                                aria-hidden
+                                className="text-base leading-none"
+                              >
                                 ↗
                               </span>
                             </a>
@@ -477,13 +526,20 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                         {data.description}
                       </p>
                       <div className="card-footer absolute bottom-0 left-0 right-0 flex h-[2.4rem] flex-col">
-                        <div className="card-divider absolute top-0 left-0 right-0 h-px bg-[rgba(15,23,42,0.12)] z-0" aria-hidden="true" />
+                        <div
+                          className="card-divider absolute top-0 left-0 right-0 h-px bg-[rgba(15,23,42,0.12)] z-0"
+                          aria-hidden="true"
+                        />
                         <div className="card-stack-area flex flex-1 items-center min-h-0 px-4 pr-16">
                           <p className="card-footer-text m-0 flex min-w-0 items-center gap-2 text-[0.82em] font-mono text-[#8b93a4] leading-[1.2]">
-                            <span className="shrink-0 font-mono text-slate-400">›</span>
+                            <span className="shrink-0 font-mono text-slate-400">
+                              ›
+                            </span>
                             <span className="card-stack-value min-w-0 flex-1 truncate">
                               <span className="card-stack-typed inline">
-                                {otherStack.length ? otherStack.join(", ") : stack}
+                                {otherStack.length
+                                  ? otherStack.join(", ")
+                                  : stack}
                               </span>
                             </span>
                           </p>
