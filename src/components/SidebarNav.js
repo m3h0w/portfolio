@@ -231,8 +231,10 @@ function SidebarContent({
                           src="/images/me2.jpg"
                           alt={siteContent.name}
                           fill
+                          sizes="(min-width: 768px) 184px, 160px"
                           className="object-cover"
                           priority
+                          fetchPriority="high"
                         />
                         <div
                           aria-hidden="true"
@@ -253,8 +255,10 @@ function SidebarContent({
                           src="/images/me2.jpg"
                           alt={siteContent.name}
                           fill
+                          sizes="(min-width: 768px) 184px, 160px"
                           className="object-cover"
                           priority
+                          fetchPriority="high"
                         />
                         <div
                           aria-hidden="true"

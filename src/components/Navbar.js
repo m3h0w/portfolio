@@ -37,6 +37,7 @@ export default function Navbar({ active = "portfolio" }) {
               src="/icon.svg"
               width={18}
               height={18}
+              sizes="18px"
               alt=""
               aria-hidden="true"
               className="block shrink-0 invert"

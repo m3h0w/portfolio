@@ -19,6 +19,7 @@ export default function GlassesBadge({
         src="/icon.svg"
         width={resolvedIconSize}
         height={resolvedIconSize}
+        sizes={`${resolvedIconSize}px`}
         alt=""
         aria-hidden="true"
         className={`block ${iconClassName}`}

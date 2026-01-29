@@ -620,6 +620,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
                 alt={data.title}
                 width={1600}
                 height={1000}
+                sizes="(min-width: 1024px) 720px, (min-width: 640px) calc(100vw - 104px), calc(100vw - 72px)"
                 placeholder="blur"
                 blurDataURL={heroBlurDataURL}
                 className={styles.heroImage}

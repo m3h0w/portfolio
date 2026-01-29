@@ -82,6 +82,7 @@ export default function LocalizedMePage({ locale }) {
                   width={420}
                   height={560}
                   className="h-auto w-72 object-cover sm:w-80 lg:w-full"
+                  sizes="(min-width: 1024px) 420px, (min-width: 640px) 320px, 288px"
                   priority
                 />
               </div>

@@ -156,6 +156,7 @@ export default function LocalizedCvPage({ locale, variant = "default" }) {
                       alt={cv.person.name}
                       width={120}
                       height={120}
+                      sizes="120px"
                       className="rounded-full ring-4 ring-slate-900/5"
                     />
 
@@ -323,6 +324,7 @@ export default function LocalizedCvPage({ locale, variant = "default" }) {
                               }
                               width={28}
                               height={28}
+                              sizes="28px"
                               className="h-7 w-7 rounded-lg ring-1 ring-slate-900/10"
                             />
                           ) : (
@@ -490,6 +492,7 @@ export default function LocalizedCvPage({ locale, variant = "default" }) {
                           alt={e.logo.alt || e.school}
                           width={28}
                           height={28}
+                          sizes="28px"
                           className="mt-0.5 h-7 w-7 rounded-lg ring-1 ring-slate-900/10"
                         />
                       ) : null}
