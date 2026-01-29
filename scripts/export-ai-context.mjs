@@ -40,8 +40,8 @@ for (const key of orderedKeys) {
     "src/data/portfolio/items",
     `${relPath}.js`,
   );
-  const module = await import(pathToFileURL(absolutePath).href);
-  projects.push(module.default ?? module);
+  const importedModule = await import(pathToFileURL(absolutePath).href);
+  projects.push(importedModule.default ?? importedModule);
 }
 
 const payload = {

@@ -7,8 +7,7 @@ import portfolioItems from "@/data/portfolio";
 import AbstractBackdrop from "@/components/AbstractBackdrop";
 import { getSiteContent } from "@/data/siteContent";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import LivePreviewModal from "@/app/_components/LivePreviewModal";
+import OnDemandLivePreviewModal from "@/app/_components/OnDemandLivePreviewModal";
 import GlassesBadge from "@/components/GlassesBadge";
 import LanguageIcon from "@/components/LanguageIcon";
 import CloseIcon from "@/components/CloseIcon";
@@ -21,26 +20,15 @@ import { inferMainLanguage, normalizeLanguageName, parseStackString, splitTechIn
 export default function HomeClient({ locale = "en", basePath = "" }) {
   const [activeCategories, setActiveCategories] = useState([]);
   const [activeLanguage, setActiveLanguage] = useState(null);
-  const [animationSeed, setAnimationSeed] = useState(() => `initial-${locale}`);
   const router = useRouter();
   const listRef = useRef(null);
   const siteContent = getSiteContent(locale);
 
-  const rerollAnimationSeed = () => {
-    if (globalThis.crypto?.randomUUID) {
-      setAnimationSeed(globalThis.crypto.randomUUID());
-      return;
+  const scrollToTopOnMobile = () => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia?.("(max-width: 767px)")?.matches) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    setAnimationSeed(Math.random().toString(36).slice(2));
-  };
-
-  const hashToUnit = (value) => {
-    let hash = 0;
-    for (let i = 0; i < value.length; i += 1) {
-      hash = (hash << 5) - hash + value.charCodeAt(i);
-      hash |= 0;
-    }
-    return Math.abs(hash % 1000) / 1000;
   };
 
   const selectionExistsInside = (container) => {
@@ -75,26 +63,6 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     router.push(href);
   };
 
-  const cardVariants = {
-    hidden: (custom) => ({
-      opacity: "1",
-      y: custom?.y ?? 18,
-      scale: custom?.scale ?? 0.98,
-    }),
-    visible: (custom) => ({
-      opacity: "1",
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 520,
-        damping: 38,
-        mass: 0.6,
-        delay: custom?.delay ?? 0,
-      },
-    }),
-  };
-
   const normalizeCategory = (value) =>
     String(value || "")
       .trim()
@@ -115,6 +83,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
 
   const setCategorySelection = (category) => {
     setActiveCategories(getCategoryPairSelection(category));
+    scrollToTopOnMobile();
   };
 
   const clearCategorySelection = (category) => {
@@ -155,34 +124,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
   }, [activeCategories, activeLanguage]);
 
   const categoryBadgeClassName =
-    "inline-flex items-center justify-center px-[0.48rem] py-[0.14rem] text-[0.62rem] font-semibold uppercase tracking-[0.035em] leading-none rounded-full border border-[rgba(155,0,189,0.12)] bg-[rgba(255,255,255,0.8)] text-[#3b1750] shadow-[0_1px_4px_rgba(2,6,23,0.08)] backdrop-blur-[3px] cursor-pointer hover:bg-[rgba(255,255,255,0.9)] hover:border-[rgba(155,0,189,0.18)]";
-
-  const cardCustomBySlug = useMemo(() => {
-    const map = new Map();
-    filteredItems.forEach((item) => {
-      const unit = hashToUnit(`${animationSeed}:${item.slug}`);
-      map.set(item.slug, {
-        delay: 0.02 + unit * 0.32,
-        y: 12 + unit * 28,
-        scale: 0.965 + unit * 0.03,
-      });
-    });
-    return map;
-  }, [filteredItems, animationSeed]);
-
-  useEffect(() => {
-    // Avoid hydration mismatches: seed must be deterministic for SSR + first client render.
-    // After mount, we can safely randomize to keep the animation feeling organic.
-    const nextSeed = globalThis.crypto?.randomUUID
-      ? globalThis.crypto.randomUUID()
-      : Math.random().toString(36).slice(2);
-
-    const raf = window.requestAnimationFrame(() => {
-      setAnimationSeed(nextSeed);
-    });
-
-    return () => window.cancelAnimationFrame(raf);
-  }, []);
+    "inline-flex items-center justify-center px-[0.6rem] py-[0.26rem] text-[0.66rem] font-semibold uppercase tracking-[0.035em] leading-none rounded-full border border-[rgba(155,0,189,0.12)] bg-[rgba(255,255,255,0.8)] text-[#3b1750] shadow-[0_1px_4px_rgba(2,6,23,0.08)] backdrop-blur-[3px] cursor-pointer hover:bg-[rgba(255,255,255,0.9)] hover:border-[rgba(155,0,189,0.18)] md:px-[0.48rem] md:py-[0.14rem] md:text-[0.62rem]";
 
   const normalizeCardText = (value) => (value || "").replace(/\s+/g, " ").trim();
 
@@ -282,15 +224,14 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
       <AbstractBackdrop variant="list" />
       <main ref={listRef} className="relative mx-auto w-full max-w-6xl flex-1 px-2 py-8 sm:px-3 lg:px-4 min-[1100px]:px-6">
         {(activeCategories.length > 0 || activeLanguage) && (
-          <div className="mb-5 flex items-center gap-2">
+          <div className="mb-5 flex flex-wrap items-center justify-center gap-2 md:justify-start">
             {activeCategories.map((category) => (
               <button
                 key={category}
                 type="button"
-                className={`${categoryBadgeClassName} group gap-[0.4rem] px-[0.7rem] py-[0.28rem] !text-[0.7rem]`}
+                className={`${categoryBadgeClassName} group`}
                 onClick={() => {
                   clearCategorySelection(category);
-                  rerollAnimationSeed();
                 }}
                 aria-label={`Clear filter: ${category}`}
               >
@@ -303,10 +244,9 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
             {activeLanguage && (
               <button
                 type="button"
-                className={`${categoryBadgeClassName} group gap-[0.4rem] px-[0.7rem] py-[0.28rem] !text-[0.7rem]`}
+                className={`${categoryBadgeClassName} group`}
                 onClick={() => {
                   setActiveLanguage(null);
-                  rerollAnimationSeed();
                 }}
                 aria-label={`Clear filter: ${activeLanguage}`}
               >
@@ -318,9 +258,9 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
             )}
           </div>
         )}
-        <motion.section layout className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))] [&>*]:w-full [&>*]:max-w-[384px] [&>*]:justify-self-center min-[1100px]:gap-5 min-[1100px]:[grid-template-columns:repeat(auto-fit,minmax(276px,1fr))]">
-          <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => {
+        <h2 className="sr-only">{siteContent.nav.portfolio}</h2>
+        <section className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))] [&>*]:w-full [&>*]:max-w-[384px] [&>*]:justify-self-center min-[1100px]:gap-5 min-[1100px]:[grid-template-columns:repeat(auto-fit,minmax(276px,1fr))]">
+          {filteredItems.map((item, index) => {
               const data = item.i18n[locale] || item.i18n.en;
               const href = `${basePath}/${item.slug}`;
               const stack = item.stack || data.stack || "";
@@ -337,7 +277,6 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
               const iframeAllowed = liveLink
                 ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
                 : false;
-              const custom = cardCustomBySlug.get(item.slug);
               // Prioritize first 6 images (typical above-the-fold on most screens)
               const isPriority = index < 6;
               const typography = getCardTypographyByLength({
@@ -346,13 +285,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
               });
 
               return (
-                <motion.article
+                <article
                   key={item.slug}
-                  layout
-                  custom={custom}
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate="visible"
                   className="card group relative flex cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-[0px_0px_5px_1px_#dfdfeb] transition-[box-shadow] duration-500 ease-out hover:shadow-[0px_0px_8px_4px_#dedefc] aspect-square"
                   role="link"
                   tabIndex={0}
@@ -369,7 +303,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                           e.preventDefault();
                           e.stopPropagation();
                           setActiveLanguage(mainLanguage);
-                          rerollAnimationSeed();
+                          scrollToTopOnMobile();
                         }}
                         aria-label={`Filter by language: ${mainLanguage}`}
                       >
@@ -384,7 +318,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                             e.preventDefault();
                             e.stopPropagation();
                             setActiveLanguage(secondaryLanguage);
-                            rerollAnimationSeed();
+                            scrollToTopOnMobile();
                           }}
                           aria-label={`Filter by language: ${secondaryLanguage}`}
                         >
@@ -398,7 +332,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                       {liveLink && (
                         <div className="absolute right-3 top-3 z-10">
                           {iframeAllowed ? (
-                            <LivePreviewModal
+                            <OnDemandLivePreviewModal
                               url={liveLink.href}
                               title={data.title}
                               openLabel={siteContent.ui.livePreview}
@@ -459,7 +393,6 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                                 e.preventDefault();
                                 e.stopPropagation();
                                 setCategorySelection(category);
-                                rerollAnimationSeed();
                               }}
                               aria-label={`Filter by category: ${category}`}
                             >
@@ -497,11 +430,10 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                       </div>
                     </div>
                   </div>
-                </motion.article>
+                </article>
               );
             })}
-          </AnimatePresence>
-        </motion.section>
+        </section>
       </main>
     </div>
   );

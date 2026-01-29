@@ -1,25 +1,30 @@
-import { normalizeLanguageName } from "@/lib/tech";
+import { getLanguageSimpleIcon } from "@/lib/simpleIcons";
 
-const DEVICON_CLASS_BY_LANGUAGE = {
-  JavaScript: "devicon-javascript-plain",
-  TypeScript: "devicon-typescript-plain",
-  Python: "devicon-python-plain",
-  Java: "devicon-java-plain",
-  "C++": "devicon-cplusplus-plain",
-  "C#": "devicon-csharp-plain",
-};
+export default function LanguageIcon({
+  name,
+  title,
+  className = "",
+  size = 18,
+  style,
+}) {
+  const icon = getLanguageSimpleIcon(name);
+  if (!icon) return null;
 
-export default function LanguageIcon({ name, title, className = "", size = 18, style }) {
-  const normalized = normalizeLanguageName(name);
-  const deviconClass = normalized ? DEVICON_CLASS_BY_LANGUAGE[normalized] : null;
-  if (!deviconClass) return null;
+  const accessibleName = title || icon.title || name;
 
   return (
-    <i
-      aria-label={title || normalized}
+    <svg
       role="img"
-      className={`${deviconClass} ${className}`}
-      style={{ fontSize: size, lineHeight: 1, ...style }}
-    />
+      aria-label={accessibleName}
+      className={className}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={{ display: "block", ...style }}
+      focusable="false"
+    >
+      <title>{accessibleName}</title>
+      <path d={icon.path} fill="currentColor" />
+    </svg>
   );
 }

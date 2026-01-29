@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import LivePreviewModal from "@/app/_components/LivePreviewModal";
+import OnDemandLivePreviewModal from "@/app/_components/OnDemandLivePreviewModal";
 import GlassesIcon from "@/components/GlassesIcon";
 import {
   isIframeLivePreviewAllowed,
@@ -194,7 +194,7 @@ export default function AtAGlanceLinks({
 
               if (allowInlinePreview || allowReportPreview) {
                 return (
-                  <LivePreviewModal
+                  <OnDemandLivePreviewModal
                     key={`aside-preview-${link.label}`}
                     url={link.href}
                     title={allowInlinePreview ? projectTitle : `${projectTitle} — ${link.label}`}

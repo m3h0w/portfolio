@@ -65,8 +65,9 @@ export default function LivePreviewModal({
   buttonClassName,
   showPreviewIcon = false,
   cursorVariant,
+  defaultOpen = false,
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   const dialogTitleId = useId();
 
   useEffect(() => {

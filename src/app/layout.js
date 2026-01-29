@@ -76,10 +76,6 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={locale}>
       <head>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
-        />
         <script
           type="application/ld+json"
           // JSON-LD must be injected as a raw string.

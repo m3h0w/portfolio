@@ -496,6 +496,7 @@ export default function SidebarNav() {
             className="fixed inset-0 z-50 md:hidden"
             role="dialog"
             aria-modal="true"
+            aria-label={language === "pl" ? "Nawigacja" : "Navigation"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
