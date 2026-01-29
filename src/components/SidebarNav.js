@@ -159,7 +159,7 @@ function SidebarContent({
   const nav = (
     <nav className="px-5 pb-3 md:pb-4">
       <div
-        className={`mx-auto flex w-fit items-center gap-1 rounded-full bg-white/85 py-0.5 pl-0.5 pr-2 shadow-xl ring-1 ring-slate-200/70 backdrop-blur ${
+        className={`mx-auto flex w-fit items-center gap-1 rounded-full bg-white/85 py-0.5 px-0.5 shadow-xl ring-1 ring-slate-200/70 backdrop-blur ${
           navOnTop ? "mt-1" : "mt-6 md:mt-8"
         }`}
       >
