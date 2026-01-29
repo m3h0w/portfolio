@@ -73,10 +73,9 @@ function LanguageToggle({ language, onChange }) {
       onClick={(event) => {
         if (event.target?.closest?.("button")) return;
 
-        const rect = event.currentTarget.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const next = x < rect.width / 2 ? "en" : "pl";
-        onChange(next);
+        // Avoid forced layout reads (PSI forced reflow). If the user clicks the
+        // track instead of a button, just toggle.
+        onChange(language === "pl" ? "en" : "pl");
       }}
     >
       <motion.div
@@ -95,7 +94,7 @@ function LanguageToggle({ language, onChange }) {
             aria-checked={isActive}
             aria-label={`Switch language to ${entry.label}`}
             onClick={() => onChange(entry.code)}
-            className={`relative z-10 grid h-8 w-full min-w-12 cursor-pointer select-none place-items-center rounded-full px-3 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/30 \
+            className={`relative z-10 grid h-11 w-full min-w-12 cursor-pointer select-none place-items-center rounded-full px-3 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/30 md:h-8 \
               ${
                 isActive
                   ? "text-[var(--accent)]"
@@ -529,7 +528,7 @@ export default function SidebarNav() {
                 <button
                   type="button"
                   onClick={closeMobile}
-                  className="grid h-8 w-8 place-items-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+                  className="grid h-11 w-11 place-items-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
                   aria-label="Close navigation"
                 >
                   <svg

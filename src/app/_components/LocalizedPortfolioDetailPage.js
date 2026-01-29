@@ -421,7 +421,7 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
     }),
   ];
 
-  const heroImage = data.thumbnail || data.heroImage;
+  const heroImage = data.heroImage || data.thumbnail;
   const heroBlurDataURL = getBlurDataURL(heroImage);
 
   const currentIndex = portfolioItems.findIndex((entry) => entry.slug === slug);

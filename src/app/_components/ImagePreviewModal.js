@@ -198,10 +198,10 @@ export default function ImagePreviewModal({
                       <div className="absolute inset-0 grid place-items-center">
                         <div className="w-full max-w-[760px] px-6">
                           <div className="h-10 w-10 animate-spin rounded-full border-2 border-slate-300 border-t-slate-700" />
-                          <div className="mt-6 h-3 w-2/3 rounded bg-slate-200" />
-                          <div className="mt-3 h-3 w-5/6 rounded bg-slate-200" />
-                          <div className="mt-3 h-3 w-1/2 rounded bg-slate-200" />
-                          <div className="mt-8 h-[220px] w-full animate-pulse rounded-2xl bg-slate-200" />
+                          <div className="mt-6 h-3 w-2/3 rounded shimmer" />
+                          <div className="mt-3 h-3 w-5/6 rounded shimmer" />
+                          <div className="mt-3 h-3 w-1/2 rounded shimmer" />
+                          <div className="mt-8 h-[220px] w-full rounded-2xl shimmer" />
                         </div>
                       </div>
                     ) : null}

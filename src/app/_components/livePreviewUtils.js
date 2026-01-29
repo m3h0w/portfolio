@@ -55,7 +55,9 @@ export const getEmbedPreviewUrl = (href) => {
       // - /document/d/<id>/edit?...
       // - /spreadsheets/d/<id>/edit?...
       // - /presentation/d/<id>/edit?...
-      const match = url.pathname.match(/^\/(document|spreadsheets|presentation)\/d\/([^/]+)/);
+      const match = url.pathname.match(
+        /^\/(document|spreadsheets|presentation)\/d\/([^/]+)/,
+      );
       if (match) {
         const type = match[1];
         const id = match[2];
@@ -73,7 +75,10 @@ export const getEmbedPreviewUrl = (href) => {
 const IFRAME_ALLOWLIST = {
   talkling: new Set(["talkling.app"]),
   soilsense: new Set(["app.soilsense.io"]),
-  "instytut-relacyjny": new Set(["www.instytutrelacyjny.pl", "instytutrelacyjny.pl"]),
+  "instytut-relacyjny": new Set([
+    "www.instytutrelacyjny.pl",
+    "instytutrelacyjny.pl",
+  ]),
   covid19pink: new Set(["covid19.pink", "www.covid19.pink"]),
 };
 

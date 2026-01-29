@@ -19,6 +19,13 @@ export default function OnDemandLivePreviewModal({
 
   if (!url) return null;
 
+  const cursorStyle =
+    cursorVariant === "white"
+      ? { cursor: "url('/cursor-glasses-white.png') 16 16, pointer" }
+      : cursorVariant === "black"
+        ? { cursor: "url('/cursor-glasses.png') 16 16, pointer" }
+        : undefined;
+
   if (LivePreviewModal) {
     return (
       <LivePreviewModal
@@ -43,6 +50,7 @@ export default function OnDemandLivePreviewModal({
       aria-label={
         openAriaLabel || (typeof openLabel === "string" ? openLabel : undefined)
       }
+      style={cursorStyle}
       onClick={async (event) => {
         event.stopPropagation();
 

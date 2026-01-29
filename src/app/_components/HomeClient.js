@@ -7,6 +7,7 @@ import portfolioItems from "@/data/portfolio";
 import AbstractBackdrop from "@/components/AbstractBackdrop";
 import { getSiteContent } from "@/data/siteContent";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import OnDemandLivePreviewModal from "@/app/_components/OnDemandLivePreviewModal";
 import GlassesBadge from "@/components/GlassesBadge";
 import LanguageIcon from "@/components/LanguageIcon";
@@ -29,6 +30,41 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     if (window.matchMedia?.("(max-width: 767px)")?.matches) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
+  };
+
+  const animationSeed = useMemo(() => {
+    const categories = activeCategories.join("|");
+    const language = activeLanguage ?? "";
+    return `${locale}:${categories}:${language}`;
+  }, [activeCategories, activeLanguage, locale]);
+
+  const hashToUnit = (value) => {
+    let hash = 0;
+    for (let i = 0; i < value.length; i += 1) {
+      hash = (hash << 5) - hash + value.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash % 1000) / 1000;
+  };
+
+  const cardVariants = {
+    hidden: (custom) => ({
+      opacity: "1",
+      y: custom?.y ?? 18,
+      scale: custom?.scale ?? 0.98,
+    }),
+    visible: (custom) => ({
+      opacity: "1",
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 520,
+        damping: 38,
+        mass: 0.6,
+        delay: custom?.delay ?? 0,
+      },
+    }),
   };
 
   const selectionExistsInside = (container) => {
@@ -122,6 +158,19 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     }
     return items;
   }, [activeCategories, activeLanguage]);
+
+  const cardCustomBySlug = useMemo(() => {
+    const map = new Map();
+    filteredItems.forEach((item) => {
+      const unit = hashToUnit(`${animationSeed}:${item.slug}`);
+      map.set(item.slug, {
+        delay: 0.02 + unit * 0.32,
+        y: 12 + unit * 28,
+        scale: 0.965 + unit * 0.03,
+      });
+    });
+    return map;
+  }, [filteredItems, animationSeed]);
 
   const categoryBadgeClassName =
     "inline-flex items-center justify-center px-[0.6rem] py-[0.26rem] text-[0.66rem] font-semibold uppercase tracking-[0.035em] leading-none rounded-full border border-[rgba(155,0,189,0.12)] bg-[rgba(255,255,255,0.8)] text-[#3b1750] shadow-[0_1px_4px_rgba(2,6,23,0.08)] backdrop-blur-[3px] cursor-pointer hover:bg-[rgba(255,255,255,0.9)] hover:border-[rgba(155,0,189,0.18)] md:px-[0.48rem] md:py-[0.14rem] md:text-[0.62rem]";
@@ -219,6 +268,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
   }, [filteredItems, locale]);
 
 
+
   return (
     <div className="relative min-h-screen flex-1">
       <AbstractBackdrop variant="list" />
@@ -259,8 +309,9 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
           </div>
         )}
         <h2 className="sr-only">{siteContent.nav.portfolio}</h2>
-        <section className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))] [&>*]:w-full [&>*]:max-w-[384px] [&>*]:justify-self-center min-[1100px]:gap-5 min-[1100px]:[grid-template-columns:repeat(auto-fit,minmax(276px,1fr))]">
-          {filteredItems.map((item, index) => {
+        <motion.section layout className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))] [&>*]:w-full [&>*]:max-w-[384px] [&>*]:justify-self-center min-[1100px]:gap-5 min-[1100px]:[grid-template-columns:repeat(auto-fit,minmax(276px,1fr))]">
+          <AnimatePresence mode="popLayout">
+            {filteredItems.map((item, index) => {
               const data = item.i18n[locale] || item.i18n.en;
               const href = `${basePath}/${item.slug}`;
               const stack = item.stack || data.stack || "";
@@ -277,6 +328,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
               const iframeAllowed = liveLink
                 ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
                 : false;
+              const custom = cardCustomBySlug.get(item.slug);
               // Prioritize first 6 images (typical above-the-fold on most screens)
               const isPriority = index < 6;
               const typography = getCardTypographyByLength({
@@ -285,8 +337,13 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
               });
 
               return (
-                <article
+                <motion.article
                   key={item.slug}
+                  layout
+                  custom={custom}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
                   className="card group relative flex cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-[0px_0px_5px_1px_#dfdfeb] transition-[box-shadow] duration-500 ease-out hover:shadow-[0px_0px_8px_4px_#dedefc] aspect-square"
                   role="link"
                   tabIndex={0}
@@ -365,7 +422,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                                 event.stopPropagation();
                                 window.open(liveLink.href, "_blank", "noopener,noreferrer");
                               }}
-                              className="pointer-events-auto grid h-9 w-9 cursor-pointer place-items-center rounded-md border border-black/10 bg-white/90 text-slate-800 shadow-sm opacity-100 backdrop-blur transition duration-200 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30 md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100"
+                              className="pointer-events-auto grid h-11 w-11 cursor-pointer place-items-center rounded-md border border-black/10 bg-white/90 text-slate-800 shadow-sm opacity-100 backdrop-blur transition duration-200 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)/30 md:h-9 md:w-9 md:pointer-events-none md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:opacity-100"
                             >
                               <span aria-hidden className="text-base leading-none">
                                 ↗
@@ -383,7 +440,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                         className={`object-cover transition duration-300 group-hover:scale-105 ${item.cover ? "object-top" : ""}`}
                       />
                       {item.categories && item.categories.length > 0 && (
-                        <div className="card-categories absolute inset-x-0 bottom-0 z-[2] flex flex-wrap gap-[0.35rem] px-[0.65rem] py-[0.5rem] justify-start items-end bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.55)_100%)]">
+                        <div className="card-categories absolute inset-x-0 bottom-0 z-[2] flex flex-wrap gap-2 px-[0.65rem] py-[0.5rem] justify-start items-end bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.55)_100%)] md:gap-[0.35rem]">
                           {item.categories.map((category) => (
                             <button
                               key={category}
@@ -430,10 +487,11 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                       </div>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               );
             })}
-        </section>
+          </AnimatePresence>
+        </motion.section>
       </main>
     </div>
   );

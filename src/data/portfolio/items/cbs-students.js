@@ -13,6 +13,9 @@ const cbsStudents = {
       heroImage: "/images/cbs-students/screen-01.webp",
       description:
         "App-based social network connecting 100+ student organizations with 22,000 CBS students.",
+      links: [
+        { label: "Kvalifik", href: "https://www.kvalifik.dk/" },
+      ],
       content: [
         { type: "heading", text: "Project description" },
         {
@@ -73,6 +76,9 @@ const cbsStudents = {
       heroImage: "/images/cbs-students/screen-01.webp",
       description:
         "Sieć społecznościowa łącząca 100+ organizacji studenckich z 22 000 studentów CBS.",
+      links: [
+        { label: "Kvalifik", href: "https://www.kvalifik.dk/" },
+      ],
       content: [
         { type: "heading", text: "Opis projektu" },
         {

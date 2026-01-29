@@ -3,6 +3,7 @@ const experimentalBrews = {
   cover: true,
   categories: ["web app", "e-commerce"],
   stack: "Next.js, NestJS, BigCommerce, Stripe",
+  mainLanguage: "TypeScript",
   work: { kind: "company", entity: "Kvalifik (for Carlsberg)" },
   country: "Denmark",
   i18n: {
