@@ -331,7 +331,9 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
               const custom = cardCustomBySlug.get(item.slug);
               // Mobile LCP is typically the first visible thumbnail. Keep priority tight to
               // avoid competing preloads on slow connections.
-              const isPriority = index === 0;
+              // Depending on viewport, the LCP thumbnail can be 1st/2nd/3rd card in the grid.
+              // Prioritize a small set to ensure LCP isn't lazy-loaded.
+              const isPriority = index < 3;
               const typography = getCardTypographyByLength({
                 title: data.title,
                 description: data.description,
