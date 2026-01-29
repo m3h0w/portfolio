@@ -12,6 +12,20 @@
   --color-foreground: var(--foreground);
 }
 
+@layer base {
+  h1 {
+    @apply text-3xl font-semibold tracking-tight text-slate-900;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold tracking-tight text-slate-900;
+  }
+
+  h3 {
+    @apply text-xl font-semibold tracking-tight text-slate-900;
+  }
+}
+
 .navbar-wrapper a {
   text-decoration: none;
 }
