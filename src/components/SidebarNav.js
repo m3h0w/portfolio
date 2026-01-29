@@ -407,43 +407,24 @@ function SidebarContent({
 }
 
 export default function SidebarNav() {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  const isAutoOpenPath =
+    pathname === "/" ||
+    pathname === "/pl" ||
+    pathname === "/projects" ||
+    pathname === "/pl/projects";
+
+  const [mobileOpen, setMobileOpen] = useState(() => isAutoOpenPath);
+  const [allowMobileAnimate, setAllowMobileAnimate] = useState(false);
   const isPlRoute = pathname === "/pl" || pathname?.startsWith("/pl/");
   const language = isPlRoute ? "pl" : "en";
   const closeMobile = () => setMobileOpen(false);
   const siteContent = getSiteContent(language);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    const currentPathname = window.location.pathname;
-    const isHome =
-      currentPathname === "/" ||
-      currentPathname === "/pl" ||
-      currentPathname === "/projects" ||
-      currentPathname === "/pl/projects";
-    if (!isMobile || !isHome) return;
-
-    const storageKey = "portfolio.mobileNavAutoOpened";
-    if (window.sessionStorage.getItem(storageKey)) return;
-
-    const referrer = document.referrer;
-    const isExternalReferrer = (() => {
-      if (!referrer) return true;
-      try {
-        return new URL(referrer).origin !== window.location.origin;
-      } catch {
-        return true;
-      }
-    })();
-
-    if (!isExternalReferrer) return;
-
-    window.sessionStorage.setItem(storageKey, "1");
-    window.requestAnimationFrame(() => setMobileOpen(true));
+    setAllowMobileAnimate(true);
   }, []);
 
   useEffect(() => {
@@ -477,19 +458,33 @@ export default function SidebarNav() {
       {/* Mobile floating toggle */}
       <button
         type="button"
-        onClick={() => setMobileOpen(true)}
+        onClick={() => setMobileOpen((open) => !open)}
         className="fixed left-0 top-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-r-lg rounded-l-none border border-l-0 border-slate-200/70 bg-white/90 text-slate-700 shadow-lg backdrop-blur-xl transition hover:bg-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 md:hidden"
-        aria-label="Open navigation"
+        aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          className="h-6 w-6"
-        >
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+        {mobileOpen ? (
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="h-6 w-6"
+            aria-hidden
+          >
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        ) : (
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="h-6 w-6"
+            aria-hidden
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        )}
       </button>
 
       {/* Mobile drawer */}
@@ -500,7 +495,7 @@ export default function SidebarNav() {
             role="dialog"
             aria-modal="true"
             aria-label={language === "pl" ? "Nawigacja" : "Navigation"}
-            initial={{ opacity: 0 }}
+            initial={allowMobileAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
@@ -510,7 +505,7 @@ export default function SidebarNav() {
               className="absolute inset-0 bg-slate-900/20 backdrop-blur-sm"
               onClick={closeMobile}
               aria-label="Close navigation"
-              initial={{ opacity: 0 }}
+              initial={allowMobileAnimate ? { opacity: 0 } : false}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
@@ -518,7 +513,11 @@ export default function SidebarNav() {
             <motion.aside
               className="absolute left-0 top-0 h-full w-[85%] max-w-xs overflow-y-auto border-r border-slate-200/60 bg-white/95 shadow-2xl backdrop-blur-xl"
               style={{ transformOrigin: "left center" }}
-              initial={{ x: "-100%", rotate: -1.5, scale: 0.98 }}
+              initial={
+                allowMobileAnimate
+                  ? { x: "-100%", rotate: -1.5, scale: 0.98 }
+                  : false
+              }
               animate={{ x: 0, rotate: 0, scale: 1 }}
               exit={{ x: "-100%", rotate: -1.5, scale: 0.98 }}
               transition={{

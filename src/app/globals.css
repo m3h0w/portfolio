@@ -58,6 +58,15 @@
   animation: shimmer 1.6s ease-in-out infinite;
 }
 
+/*
+  Improve mobile render performance: cards below the fold don't need to be
+  painted/layouted immediately. Browsers that don't support this ignore it.
+*/
+.card {
+  content-visibility: auto;
+  contain-intrinsic-size: 384px 384px;
+}
+
 @media print {
   :root {
     --background: #ffffff;
