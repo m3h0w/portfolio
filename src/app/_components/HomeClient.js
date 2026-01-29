@@ -329,8 +329,9 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                 ? isIframeLivePreviewAllowed({ slug: item.slug, href: liveLink.href })
                 : false;
               const custom = cardCustomBySlug.get(item.slug);
-              // Prioritize first 6 images (typical above-the-fold on most screens)
-              const isPriority = index < 6;
+              // Mobile LCP is typically the first visible thumbnail. Keep priority tight to
+              // avoid competing preloads on slow connections.
+              const isPriority = index === 0;
               const typography = getCardTypographyByLength({
                 title: data.title,
                 description: data.description,
@@ -436,7 +437,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                         alt={data.title}
                         fill
                         priority={isPriority}
-                        fetchPriority={isPriority ? "high" : "low"}
+                        fetchPriority={isPriority ? "high" : undefined}
+                        sizes="(max-width: 639px) calc(100vw - 16px), 384px"
                         className={`object-cover transition duration-300 group-hover:scale-105 ${item.cover ? "object-top" : ""}`}
                       />
                       {item.categories && item.categories.length > 0 && (
