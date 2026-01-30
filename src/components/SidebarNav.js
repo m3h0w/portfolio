@@ -418,6 +418,7 @@ export default function SidebarNav() {
 
   const [mobileOpen, setMobileOpen] = useState(() => isAutoOpenPath);
   const [allowMobileAnimate, setAllowMobileAnimate] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
   const isPlRoute = pathname === "/pl" || pathname?.startsWith("/pl/");
   const language = isPlRoute ? "pl" : "en";
   const closeMobile = () => setMobileOpen(false);
@@ -428,7 +429,32 @@ export default function SidebarNav() {
   }, []);
 
   useEffect(() => {
-    if (!mobileOpen) return;
+    if (typeof window === "undefined") return;
+
+    const media = window.matchMedia("(max-width: 767px)");
+    const updateViewport = () => {
+      setIsMobileViewport(media.matches);
+      if (!media.matches) setMobileOpen(false);
+    };
+
+    updateViewport();
+
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", updateViewport);
+      return () => media.removeEventListener("change", updateViewport);
+    }
+
+    media.addListener(updateViewport);
+    return () => media.removeListener(updateViewport);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobileViewport || !isAutoOpenPath) return;
+    setMobileOpen(true);
+  }, [isMobileViewport, isAutoOpenPath]);
+
+  useEffect(() => {
+    if (!mobileOpen || !isMobileViewport) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
