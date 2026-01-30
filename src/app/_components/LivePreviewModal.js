@@ -66,10 +66,16 @@ export default function LivePreviewModal({
   showPreviewIcon = false,
   cursorVariant,
   defaultOpen = false,
+  previewType,
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const [portalRoot, setPortalRoot] = useState(null);
+  const [soilEmbedReady, setSoilEmbedReady] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [iframeError, setIframeError] = useState(false);
   const dialogTitleId = useId();
+
+  const isSoilMoistureEmbed = previewType === "soilMoistureEmbed";
 
   useEffect(() => {
     setPortalRoot(document.body);
@@ -92,9 +98,47 @@ export default function LivePreviewModal({
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!isSoilMoistureEmbed) return;
+
+    if (typeof window === "undefined") return;
+    if (customElements.get("soil-moisture-embed")) {
+      setSoilEmbedReady(true);
+      return;
+    }
+
+    const existing = document.querySelector(
+      "script[data-soil-moisture-embed]",
+    );
+    if (existing) {
+      existing.addEventListener("load", () => setSoilEmbedReady(true), {
+        once: true,
+      });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src =
+      "https://soil-moisture-embed.vercel.app/assets/embed-element.js";
+    script.dataset.soilMoistureEmbed = "true";
+    script.addEventListener("load", () => setSoilEmbedReady(true), {
+      once: true,
+    });
+    document.head.appendChild(script);
+  }, [isSoilMoistureEmbed]);
+
   if (!url) return null;
 
   const iframeUrl = getEmbedPreviewUrl(url);
+
+  useEffect(() => {
+    if (!open) return;
+    if (isSoilMoistureEmbed) return;
+
+    setIframeLoaded(false);
+    setIframeError(false);
+  }, [open, iframeUrl, isSoilMoistureEmbed]);
 
   const cursorStyle =
     cursorVariant === "white"
@@ -211,14 +255,60 @@ export default function LivePreviewModal({
                   </div>
 
                   <div className="flex-1 min-h-0 bg-slate-50">
-                    <iframe
-                      src={iframeUrl}
-                      title={title}
-                      className="h-full w-full"
-                      referrerPolicy="no-referrer"
-                      sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-                      allow="clipboard-read; clipboard-write; fullscreen"
-                    />
+                    {isSoilMoistureEmbed ? (
+                      <div className="h-full w-full overflow-x-hidden">
+                        {soilEmbedReady ? (
+                          <soil-moisture-embed
+                            mode="demo-onboarding"
+                            style={{ display: "block", width: "100%" }}
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center text-sm text-slate-500">
+                            Loading demo…
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="relative h-full w-full">
+                        {!iframeLoaded && !iframeError ? (
+                          <div className="absolute inset-0 z-10 grid place-items-center bg-slate-50">
+                            <div className="flex flex-col items-center gap-3 px-6 text-center">
+                              <div className="h-10 w-10 rounded-full border-2 border-slate-300/80 border-t-(--accent) animate-spin" />
+                              <div className="text-sm font-medium text-slate-600">
+                                Loading preview…
+                              </div>
+                              <div className="text-xs text-slate-500">
+                                This can take a moment.
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {iframeError ? (
+                          <div className="absolute inset-0 z-10 grid place-items-center bg-slate-50">
+                            <div className="max-w-md px-6 text-center">
+                              <div className="text-sm font-semibold text-slate-700">
+                                Preview failed to load.
+                              </div>
+                              <div className="mt-1 text-xs text-slate-500">
+                                Try opening it in a new tab.
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        <iframe
+                          src={iframeUrl}
+                          title={title}
+                          className="h-full w-full"
+                          referrerPolicy="no-referrer"
+                          sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                          allow="clipboard-read; clipboard-write; fullscreen"
+                          onLoad={() => setIframeLoaded(true)}
+                          onError={() => setIframeError(true)}
+                        />
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               </motion.div>

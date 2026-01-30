@@ -1,14 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import AbstractBackdrop from "@/components/AbstractBackdrop";
 import portfolioItems from "@/data/portfolio";
 import { getSiteContent } from "@/data/siteContent";
 import styles from "@/app/projects/[slug]/page.module.css";
-import LivePreviewModal from "@/app/_components/LivePreviewModal";
-import AtAGlanceLinks, { LinkIcon } from "@/app/_components/AtAGlanceLinks";
+import ProjectActions from "@/app/_components/ProjectActions";
 import AtAGlanceBackToPortfolio from "@/app/_components/AtAGlanceBackToPortfolio";
-import GlassesIcon from "@/components/GlassesIcon";
 import LanguageIcon from "@/components/LanguageIcon";
 import IMAGE_LQIP_MAP from "@/data/imageLqipMap";
 import LqipImage from "@/app/_components/LqipImage";
@@ -18,8 +17,6 @@ import ImagePreviewModal from "@/app/_components/ImagePreviewModal";
 import {
   getLivePreviewLink,
   isIframeLivePreviewAllowed,
-  isLivePreviewLink,
-  isReportPreviewLink,
 } from "@/app/_components/livePreviewUtils";
 import { inferMainLanguage, parseStackString, splitTechIntoLanguagesAndOther } from "@/lib/tech";
 import { breadcrumbJsonLd, projectJsonLd } from "@/lib/seo";
@@ -337,6 +334,20 @@ const renderContentBlock = (block, siteContent) => {
           ) : null}
         </div>
       );
+    case "soilMoistureEmbed":
+      return (
+        <div className="mt-6 w-full max-w-full overflow-x-hidden rounded-2xl border border-black/10 bg-white/70 p-4 shadow-sm">
+          <Script
+            type="module"
+            src="https://soil-moisture-embed.vercel.app/assets/embed-element.js"
+            strategy="afterInteractive"
+          />
+          <soil-moisture-embed
+            mode="demo-onboarding"
+            style={{ display: "block", width: "100%", maxWidth: "100%" }}
+          />
+        </div>
+      );
     default:
       return null;
   }
@@ -449,20 +460,6 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
   const primaryPreviewButtonClassName = `group ${primaryButtonClassName}`;
   const secondaryPreviewButtonClassName = `group ${secondaryButtonClassName}`;
 
-  const actionLinks = (data.links || []).filter((link) => {
-    if (link?.preview) return false;
-
-    // If we can show the live preview modal, it already contains an "Open in new tab"
-    // action — so we hide any duplicate external link for the same URL.
-    if (liveLink && iframeAllowed && link?.href === liveLink.href) return false;
-
-    // Avoid duplicating the exact liveLink entry.
-    if (liveLink && link?.href === liveLink.href && link?.label === liveLink.label) {
-      return false;
-    }
-
-    return true;
-  });
   const topActionsId = "portfolio-detail-top-actions";
 
   const stack = item.stack || data.stack || "";
@@ -497,130 +494,118 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
             {siteContent.ui.backToPortfolio}
           </Link>
 
-          <div
-            id={topActionsId}
-            className="flex flex-wrap items-center justify-center gap-2 sm:justify-end"
-          >
-            {liveLink && iframeAllowed && (
-              <>
-                <LivePreviewModal
-                  url={liveLink.href}
-                  title={data.title}
-                  openLabel={siteContent.ui.livePreview}
-                  openInNewTabLabel={siteContent.ui.openInNewTab}
-                  closeLabel={siteContent.ui.close}
-                  showPreviewIcon
-                  trigger={
-                    <span className="flex items-center gap-2">
-                      <LinkIcon
-                        href={liveLink.href}
-                        label={siteContent.ui.livePreview}
-                        className="h-4 w-4 text-white"
-                      />
-                      <span>{siteContent.ui.livePreview}</span>
-                      <GlassesIcon
-                        size={16}
-                        className="shrink-0 opacity-90 brightness-0 invert transition-opacity group-hover:opacity-100"
-                      />
-                    </span>
-                  }
-                  buttonClassName={primaryPreviewButtonClassName}
-                  cursorVariant="white"
-                />
-
-                <a
-                  href={liveLink.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={secondaryButtonClassName}
-                >
-                  <LinkIcon href={liveLink.href} label={siteContent.ui.openLiveSite} />
-                  {siteContent.ui.openLiveSite}
-                  <span aria-hidden>↗</span>
-                </a>
-              </>
-            )}
-
-            {liveLink && !iframeAllowed && (
-              <a
-                href={liveLink.href}
-                target="_blank"
-                rel="noreferrer"
-                className={primaryButtonClassName}
-              >
-                <LinkIcon
-                  href={liveLink.href}
-                  label={siteContent.ui.livePreview}
-                  className="h-4 w-4 text-white"
-                />
-                {siteContent.ui.livePreview}
-                <span aria-hidden>↗</span>
-              </a>
-            )}
-
-            {actionLinks && actionLinks.length > 0 && (
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                {actionLinks.map((link) => {
-                  const allowInlinePreview =
-                    isLivePreviewLink(link) &&
-                    isIframeLivePreviewAllowed({ slug: item.slug, href: link.href });
-
-                  const allowReportPreview = isReportPreviewLink(link);
-
-                  if (allowInlinePreview || allowReportPreview) {
-                    return (
-                      <LivePreviewModal
-                        key={`preview-${link.label}`}
-                        url={link.href}
-                        title={allowInlinePreview ? data.title : `${data.title} — ${link.label}`}
-                        openLabel={link.label}
-                        openInNewTabLabel={siteContent.ui.openInNewTab}
-                        closeLabel={siteContent.ui.close}
-                        showPreviewIcon
-                        trigger={
-                          <span className="flex items-center gap-2">
-                            <LinkIcon href={link.href} label={link.label} />
-                            <span>{link.label}</span>
-                            <GlassesIcon
-                              size={16}
-                              className="shrink-0 opacity-70 transition-[opacity,filter] group-hover:opacity-95 group-hover:brightness-0"
-                            />
-                          </span>
-                        }
-                        buttonClassName={secondaryPreviewButtonClassName}
-                        cursorVariant="black"
-                      />
-                    );
-                  }
-
-                  return (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={secondaryButtonClassName}
-                    >
-                      <LinkIcon href={link.href} label={link.label} />
-                      {link.label}
-                      <span aria-hidden>↗</span>
-                    </a>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <ProjectActions
+            containerId={topActionsId}
+            liveLink={liveLink}
+            iframeAllowed={iframeAllowed}
+            links={data.links}
+            projectTitle={data.title}
+            projectSlug={item.slug}
+            labels={{
+              livePreview: siteContent.ui.livePreview,
+              openLiveSite: siteContent.ui.openLiveSite,
+              openInNewTab: siteContent.ui.openInNewTab,
+              close: siteContent.ui.close,
+            }}
+            primaryButtonClassName={primaryPreviewButtonClassName}
+            secondaryButtonClassName={secondaryPreviewButtonClassName}
+            className="justify-center sm:justify-end"
+          />
         </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-          <article className={`${styles.surface} ${styles.enterMain} p-5 sm:p-7`}>
+        <div
+          className={`mt-6 grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start ${styles.detailGrid}`}
+        >
+          <aside className={`order-1 xl:order-2 xl:sticky xl:top-8 ${styles.detailAside}`}>
+            <div className="space-y-3">
+              <AtAGlanceBackToPortfolio
+                observeId={topActionsId}
+                href={`${basePath}/`}
+                label={siteContent.ui.backToPortfolio}
+                enabled={Boolean(data.links && data.links.length > 0)}
+              />
+
+              <div className={`${styles.surface} ${styles.enterAside} p-5 sm:p-6`}>
+                <div className="space-y-3 text-sm text-slate-700">
+                  {item?.work?.kind && (
+                    <div>
+                      <div className="text-xs uppercase tracking-wide text-slate-500">
+                        {siteContent.ui.type}
+                      </div>
+                      <div className="mt-1 inline-flex items-center gap-2">
+                        <WorkKindIcon
+                          kind={item.work.kind}
+                          size={16}
+                          className="opacity-70"
+                        />
+                        <span>
+                          {siteContent.ui.workKindDescriptions?.[item.work.kind] ||
+                            siteContent.ui.workKinds?.[item.work.kind] ||
+                            data.subtitle}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {item?.work?.entity &&
+                  (item?.work?.kind === "company" || item?.work?.kind === "school") && (
+                    <div>
+                      <div className="text-xs uppercase tracking-wide text-slate-500">
+                        {siteContent.ui.madeAt}
+                      </div>
+                      <div className="mt-1 inline-flex items-center gap-2">
+                        {item?.country && (
+                          <CountryFlag country={item.country} className="h-5 w-5 shrink-0" />
+                        )}
+                        <span>{item.work.entity}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {stack && (
+                    <div>
+                      <div className="text-xs uppercase tracking-wide text-slate-500">
+                        {siteContent.ui.stack}
+                      </div>
+                      <div className={`mt-1 ${styles.kbd}`}>{stack}</div>
+                    </div>
+                  )}
+
+                  <ProjectActions
+                    observeId={topActionsId}
+                    liveLink={liveLink}
+                    iframeAllowed={iframeAllowed}
+                    links={data.links}
+                    projectTitle={data.title}
+                    projectSlug={item.slug}
+                    labels={{
+                      livePreview: siteContent.ui.livePreview,
+                      openLiveSite: siteContent.ui.openLiveSite,
+                      openInNewTab: siteContent.ui.openInNewTab,
+                      close: siteContent.ui.close,
+                    }}
+                    primaryButtonClassName={primaryPreviewButtonClassName}
+                    secondaryButtonClassName={secondaryPreviewButtonClassName}
+                    stacked
+                    requiresSticky
+                    stickyQuery="(min-width: 1280px)"
+                  />
+                </div>
+              </div>
+
+            </div>
+          </aside>
+
+          <article
+            className={`${styles.surface} ${styles.enterMain} ${styles.detailMain} order-2 xl:order-1 p-5 sm:p-7`}
+          >
             <div className={styles.hero}>
               <LqipImage
                 src={heroImage}
                 alt={data.title}
                 width={1600}
                 height={1000}
-                sizes="(min-width: 1024px) 720px, (min-width: 640px) calc(100vw - 104px), calc(100vw - 72px)"
+                sizes="(min-width: 1280px) 720px, (min-width: 640px) calc(100vw - 104px), calc(100vw - 72px)"
                 placeholder="blur"
                 blurDataURL={heroBlurDataURL}
                 className={styles.heroImage}
@@ -685,75 +670,6 @@ export default function LocalizedPortfolioDetailPage({ slug, locale }) {
               ))}
             </section>
           </article>
-
-          <aside className="lg:sticky lg:top-8">
-            <div className="space-y-3">
-              <div className={`${styles.surface} ${styles.enterAside} p-5 sm:p-6`}>
-                <div className="space-y-3 text-sm text-slate-700">
-                  {item?.work?.kind && (
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-slate-500">
-                        {siteContent.ui.type}
-                      </div>
-                      <div className="mt-1 inline-flex items-center gap-2">
-                        <WorkKindIcon
-                          kind={item.work.kind}
-                          size={16}
-                          className="opacity-70"
-                        />
-                        <span>
-                          {siteContent.ui.workKindDescriptions?.[item.work.kind] ||
-                            siteContent.ui.workKinds?.[item.work.kind] ||
-                            data.subtitle}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {item?.work?.entity &&
-                  (item?.work?.kind === "company" || item?.work?.kind === "school") && (
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-slate-500">
-                        {siteContent.ui.madeAt}
-                      </div>
-                      <div className="mt-1 inline-flex items-center gap-2">
-                        {item?.country && (
-                          <CountryFlag country={item.country} className="h-5 w-5 shrink-0" />
-                        )}
-                        <span>{item.work.entity}</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {stack && (
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-slate-500">
-                        {siteContent.ui.stack}
-                      </div>
-                      <div className={`mt-1 ${styles.kbd}`}>{stack}</div>
-                    </div>
-                  )}
-
-                  <AtAGlanceLinks
-                    observeId={topActionsId}
-                    links={data.links}
-                    projectTitle={data.title}
-                    projectSlug={item.slug}
-                    headingLabel={siteContent.ui.links}
-                    openInNewTabLabel={siteContent.ui.openInNewTab}
-                    closeLabel={siteContent.ui.close}
-                  />
-                </div>
-              </div>
-
-              <AtAGlanceBackToPortfolio
-                observeId={topActionsId}
-                href={`${basePath}/`}
-                label={siteContent.ui.backToPortfolio}
-                enabled={Boolean(data.links && data.links.length > 0)}
-              />
-            </div>
-          </aside>
         </div>
 
         {(prevItem || nextItem) && (

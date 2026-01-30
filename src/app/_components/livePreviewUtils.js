@@ -74,7 +74,7 @@ export const getEmbedPreviewUrl = (href) => {
 
 const IFRAME_ALLOWLIST = {
   talkling: new Set(["talkling.app"]),
-  soilsense: new Set(["app.soilsense.io"]),
+  soilsense: new Set(["app.soilsense.io", "staging.soilsense.io"]),
   "instytut-relacyjny": new Set([
     "www.instytutrelacyjny.pl",
     "instytutrelacyjny.pl",

@@ -4,6 +4,25 @@
 
 .shell {
   position: relative;
+  overflow-x: clip;
+}
+
+.detailGrid {
+  min-width: 0;
+}
+
+.detailGrid > * {
+  min-width: 0;
+}
+
+.detailMain {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.detailAside {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .surface {

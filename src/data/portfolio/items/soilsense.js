@@ -18,7 +18,7 @@ const soilsense = {
       links: [
         {
           label: "Live Demo",
-          href: "https://staging.soilsense.io/demo/charts?farmName=Demo+Farm",
+          href: "https://staging.soilsense.io/demo/overview?farmName=Demo+Farm",
           preview: true,
         },
         { label: "Live", href: "https://app.soilsense.io/", preview: false },
@@ -29,6 +29,8 @@ const soilsense = {
           type: "paragraph",
           html: "<a href='https://soilsense.io/' target='_blank' rel='noreferrer'>SoilSense</a> is a sensor system and an online dashboard helping farmers make smarter irrigation decisions.",
         },
+        { type: "heading", text: "How does SoilSense work?" },
+        { type: "soilMoistureEmbed" },
         { type: "heading", text: "Overview" },
         {
           type: "paragraph",
@@ -76,10 +78,10 @@ const soilsense = {
       links: [
         {
           label: "Online Demo",
-          href: "https://staging.soilsense.io/demo/charts?farmName=Demo+Farm",
+          href: "https://staging.soilsense.io/demo/overview?farmName=Demo+Farm",
           preview: true,
         },
-        { label: "Strona", href: "https://app.soilsense.io/", preview: false },
+        { label: "Live", href: "https://app.soilsense.io/", preview: false },
       ],
       content: [
         { type: "heading", text: "Opis projektu" },
@@ -87,6 +89,8 @@ const soilsense = {
           type: "paragraph",
           html: "<a href='https://soilsense.io/' target='_blank' rel='noreferrer'>SoilSense</a> to system sensorów i internetowy dashboard pomagający rolnikom podejmować lepsze decyzje dotyczące nawadniania.",
         },
+        { type: "heading", text: "Jak działa SoilSense?" },
+        { type: "soilMoistureEmbed" },
         { type: "heading", text: "Przegląd" },
         {
           type: "paragraph",

@@ -13,6 +13,7 @@ export default function OnDemandLivePreviewModal({
   buttonClassName,
   showPreviewIcon,
   cursorVariant,
+  previewType,
 }) {
   const [LivePreviewModal, setLivePreviewModal] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +40,7 @@ export default function OnDemandLivePreviewModal({
         buttonClassName={buttonClassName}
         showPreviewIcon={showPreviewIcon}
         cursorVariant={cursorVariant}
+        previewType={previewType}
         defaultOpen
       />
     );

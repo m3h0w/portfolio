@@ -631,6 +631,7 @@ export default function LocalizedCvPage({ locale, variant = "default" }) {
                       openAriaLabel={previewProjectLabel}
                       openInNewTabLabel={openProjectLabel}
                       closeLabel={closeLabel}
+                      previewType={item.previewType}
                       buttonClassName="group relative w-full cursor-pointer text-left rounded-2xl bg-white/60 p-5 pb-12 ring-1 ring-slate-900/10 hover:ring-(--accent)/30 flex flex-col items-start justify-start"
                       trigger={
                         <>

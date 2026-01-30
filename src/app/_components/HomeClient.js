@@ -26,6 +26,7 @@ import {
 export default function HomeClient({ locale = "en", basePath = "" }) {
   const [activeCategories, setActiveCategories] = useState([]);
   const [activeLanguage, setActiveLanguage] = useState(null);
+  const [isDesktop, setIsDesktop] = useState(false);
   const router = useRouter();
   const listRef = useRef(null);
   const siteContent = getSiteContent(locale);
@@ -42,6 +43,21 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
     const language = activeLanguage ?? "";
     return `${locale}:${categories}:${language}`;
   }, [activeCategories, activeLanguage, locale]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const media = window.matchMedia("(min-width: 1100px)");
+    const sync = () => setIsDesktop(media.matches);
+    sync();
+
+    if (media.addEventListener) {
+      media.addEventListener("change", sync);
+      return () => media.removeEventListener("change", sync);
+    }
+
+    media.addListener(sync);
+    return () => media.removeListener(sync);
+  }, []);
 
   const hashToUnit = (value) => {
     let hash = 0;
@@ -365,7 +381,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
               // avoid competing preloads on slow connections.
               // Depending on viewport, the LCP thumbnail can be 1st/2nd/3rd card in the grid.
               // Prioritize a small set to ensure LCP isn't lazy-loaded.
-              const isPriority = index < 2;
+              const priorityCount = isDesktop ? 6 : 2;
+              const isPriority = index < priorityCount;
               const typography = getCardTypographyByLength({
                 title: data.title,
                 description: data.description,
@@ -435,8 +452,8 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                             <OnDemandLivePreviewModal
                               url={liveLink.href}
                               title={data.title}
-                              openLabel={siteContent.ui.livePreview}
-                              openAriaLabel={siteContent.ui.livePreview}
+                              openLabel={liveLink.label || siteContent.ui.livePreview}
+                              openAriaLabel={liveLink.label || siteContent.ui.livePreview}
                               openInNewTabLabel={siteContent.ui.openInNewTab}
                               closeLabel={siteContent.ui.close}
                               showPreviewIcon
@@ -445,7 +462,7 @@ export default function HomeClient({ locale = "en", basePath = "" }) {
                               trigger={
                                 <>
                                   <span className="sr-only">
-                                    {siteContent.ui.livePreview}
+                                    {liveLink.label || siteContent.ui.livePreview}
                                   </span>
                                   <GlassesBadge
                                     size={40}
