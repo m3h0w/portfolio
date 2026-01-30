@@ -11,14 +11,14 @@ const soilsense = {
     en: {
       title: "SoilSense Irrigation Dashboard",
       subtitle: "Data-driven web application and AI service",
-      thumbnail: "/images/soilsense/field-overlay.webp",
+      thumbnail: "/images/thumbnails/soilsense__field-overlay.webp",
       heroImage: "/images/soilsense/field-overlay.webp",
       description:
         "PWA dashboard that turns farm sensor data into irrigation insights.",
       links: [
         {
-          label: "Live preview",
-          href: "https://app.soilsense.io/",
+          label: "Live Demo",
+          href: "https://staging.soilsense.io/demo/charts?farmName=Demo+Farm",
           preview: true,
         },
         { label: "Live", href: "https://app.soilsense.io/", preview: false },
@@ -69,14 +69,14 @@ const soilsense = {
     pl: {
       title: "SoilSense – dashboard nawadniania",
       subtitle: "Aplikacja webowa oparta na danych + warstwa AI",
-      thumbnail: "/images/soilsense/field-overlay.webp",
+      thumbnail: "/images/thumbnails/soilsense__field-overlay.webp",
       heroImage: "/images/soilsense/field-overlay.webp",
       description:
         "Dashboard PWA zamieniający dane z sensorów na insighty do nawadniania.",
       links: [
         {
-          label: "Podgląd na żywo",
-          href: "https://app.soilsense.io/",
+          label: "Online Demo",
+          href: "https://staging.soilsense.io/demo/charts?farmName=Demo+Farm",
           preview: true,
         },
         { label: "Strona", href: "https://app.soilsense.io/", preview: false },

@@ -8,7 +8,7 @@ const soilsenseLandingPage = {
     en: {
       title: "SoilSense – Landing page",
       subtitle: "SEO-focused landing page and content structure",
-      thumbnail: "/images/soilsense/soilsense-landing-hero.png",
+      thumbnail: "/images/thumbnails/soilsense__soilsense-landing-hero.webp",
       heroImage: "/images/soilsense/soilsense-landing-hero.png",
       description:
         "Landing page work focused on SEO, performance, and clear product storytelling.",
@@ -63,7 +63,7 @@ const soilsenseLandingPage = {
     pl: {
       title: "SoilSense – Landing page",
       subtitle: "Landing SEO i struktura treści",
-      thumbnail: "/images/soilsense/soilsense-landing-hero.png",
+      thumbnail: "/images/thumbnails/soilsense__soilsense-landing-hero.webp",
       heroImage: "/images/soilsense/soilsense-landing-hero.png",
       description:
         "Prace nad landingiem z naciskiem na SEO, performance i jasny przekaz produktu.",

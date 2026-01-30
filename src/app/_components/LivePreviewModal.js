@@ -68,7 +68,12 @@ export default function LivePreviewModal({
   defaultOpen = false,
 }) {
   const [open, setOpen] = useState(defaultOpen);
+  const [portalRoot, setPortalRoot] = useState(null);
   const dialogTitleId = useId();
+
+  useEffect(() => {
+    setPortalRoot(document.body);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -97,8 +102,6 @@ export default function LivePreviewModal({
       : cursorVariant === "black"
         ? { cursor: "url('/cursor-glasses.png') 16 16, pointer" }
         : undefined;
-
-  const portalRoot = typeof document !== "undefined" ? document.body : null;
 
   return (
     <>

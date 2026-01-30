@@ -298,9 +298,9 @@ function SidebarContent({
                       className="shrink-0 scale-[0.9] md:scale-100"
                     />
                     <div className="leading-tight">
-                      <h1 className="text-lg font-bold tracking-tight text-slate-900 uppercase -mt-0.5 md:text-xl">
+                      <p className="text-lg font-bold tracking-tight text-slate-900 uppercase -mt-0.5 md:text-xl">
                         {siteContent.name}
-                      </h1>
+                      </p>
                       <p className="-mt-1 text-sm font-medium text-[var(--accent)] md:text-[0.97rem]">
                         {siteContent.title}
                       </p>
@@ -325,9 +325,9 @@ function SidebarContent({
                       className="shrink-0 scale-[0.9] md:scale-100"
                     />
                     <div className="leading-tight">
-                      <h1 className="text-lg font-bold tracking-tight text-slate-900 uppercase md:text-xl">
+                      <p className="text-lg font-bold tracking-tight text-slate-900 uppercase md:text-xl">
                         {siteContent.name}
-                      </h1>
+                      </p>
                       <p className="-mt-1 text-sm font-medium text-[var(--accent)] md:text-[0.92rem]">
                         {siteContent.title}
                       </p>

@@ -64,7 +64,12 @@ export default function ImagePreviewModal({
 }) {
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [portalRoot, setPortalRoot] = useState(null);
   const dialogTitleId = useId();
+
+  useEffect(() => {
+    setPortalRoot(document.body);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -85,7 +90,6 @@ export default function ImagePreviewModal({
 
   if (!src) return null;
 
-  const portalRoot = typeof document !== "undefined" ? document.body : null;
   const cursorStyle =
     cursorVariant === "white"
       ? { cursor: "url('/cursor-glasses-white.png') 16 16, pointer" }
