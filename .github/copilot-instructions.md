@@ -116,5 +116,6 @@ TASK COMPLETION RULES:
 Before starting a new task in the above plan, update progress in the plan.
 -->
 - Work through each checklist item systematically.
+- Any script longer than 30 lines must be saved to its own file and not run directly in the terminal.
 - Keep communication concise and focused.
 - Follow development best practices.

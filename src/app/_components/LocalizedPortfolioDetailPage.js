@@ -320,10 +320,13 @@ const renderContentBlock = (block, siteContent) => {
 
           <ImagePreviewModal
             src={block.src}
+            sources={block.sources}
             title={block.title || ""}
             openLabel={block.openLabel}
             openAriaLabel={block.openAriaLabel}
-            openInNewTabLabel={siteContent?.ui?.openInNewTab}
+            openInNewTabLabel={
+              block.hideOpenInNewTab ? undefined : siteContent?.ui?.openInNewTab
+            }
             closeLabel={siteContent?.ui?.close}
             buttonClassName={block.buttonClassName}
             cursorVariant={block.cursorVariant}

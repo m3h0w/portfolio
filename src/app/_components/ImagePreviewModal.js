@@ -54,6 +54,7 @@ const panelVariants = {
 
 export default function ImagePreviewModal({
   src,
+  sources,
   title,
   openLabel,
   openAriaLabel,
@@ -88,7 +89,9 @@ export default function ImagePreviewModal({
     };
   }, [open]);
 
-  if (!src) return null;
+  if (!src && (!sources || sources.length === 0)) return null;
+
+  const fallbackSrc = src || (sources && sources[0] ? sources[0].srcSet : "");
 
   const cursorStyle =
     cursorVariant === "white"
@@ -166,13 +169,15 @@ export default function ImagePreviewModal({
                       >
                         {resolvedTitle}
                       </div>
-                      <div className="truncate text-xs text-slate-500">{src}</div>
+                      <div className="truncate text-xs text-slate-500">
+                        {fallbackSrc}
+                      </div>
                     </div>
 
                     <div className="flex shrink-0 items-center gap-2">
                       {openInNewTabLabel ? (
                         <a
-                          href={src}
+                          href={fallbackSrc}
                           target="_blank"
                           rel="noreferrer"
                           onClick={(event) => event.stopPropagation()}
@@ -211,14 +216,34 @@ export default function ImagePreviewModal({
                     ) : null}
 
                     {/* Render only when open -> prevents any network/decoding before click */}
-                    <img
-                      src={src}
-                      alt={resolvedTitle}
-                      className="block h-auto w-full"
-                      decoding="async"
-                      onLoad={() => setLoaded(true)}
-                      style={{ opacity: loaded ? 1 : 0 }}
-                    />
+                    {sources && sources.length > 0 ? (
+                      <picture>
+                        {sources.map((source) => (
+                          <source
+                            key={source.type || source.srcSet}
+                            type={source.type}
+                            srcSet={source.srcSet}
+                          />
+                        ))}
+                        <img
+                          src={fallbackSrc}
+                          alt={resolvedTitle}
+                          className="block h-auto w-full"
+                          decoding="async"
+                          onLoad={() => setLoaded(true)}
+                          style={{ opacity: loaded ? 1 : 0 }}
+                        />
+                      </picture>
+                    ) : (
+                      <img
+                        src={fallbackSrc}
+                        alt={resolvedTitle}
+                        className="block h-auto w-full"
+                        decoding="async"
+                        onLoad={() => setLoaded(true)}
+                        style={{ opacity: loaded ? 1 : 0 }}
+                      />
+                    )}
                   </div>
                 </motion.div>
               </motion.div>

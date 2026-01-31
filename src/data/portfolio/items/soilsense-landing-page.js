@@ -23,7 +23,20 @@ const soilsenseLandingPage = {
         {
           type: "imageModal",
           html: "Open a full-page screenshot to see the complete landing layout.",
-          src: "/images/soilsense/soilsense-long-screenshot.png",
+          src: "/images/soilsense/soilsense-long-screenshot.w1000.opaque.webp-q80.webp",
+          sources: [
+            {
+              type: "image/avif",
+              srcSet:
+                "/images/soilsense/soilsense-long-screenshot.w1000.opaque.avif-q50.avif",
+            },
+            {
+              type: "image/webp",
+              srcSet:
+                "/images/soilsense/soilsense-long-screenshot.w1000.opaque.webp-q80.webp",
+            },
+          ],
+          hideOpenInNewTab: true,
           title: "SoilSense landing page",
           openLabel: "Open full-page screenshot",
           openAriaLabel: "Open full-page screenshot of the SoilSense landing page",
@@ -78,7 +91,20 @@ const soilsenseLandingPage = {
         {
           type: "imageModal",
           html: "Otwórz pełny zrzut ekranu, żeby zobaczyć cały układ landingu.",
-          src: "/images/soilsense/soilsense-long-screenshot.png",
+          src: "/images/soilsense/soilsense-long-screenshot.w1000.opaque.webp-q80.webp",
+          sources: [
+            {
+              type: "image/avif",
+              srcSet:
+                "/images/soilsense/soilsense-long-screenshot.w1000.opaque.avif-q50.avif",
+            },
+            {
+              type: "image/webp",
+              srcSet:
+                "/images/soilsense/soilsense-long-screenshot.w1000.opaque.webp-q80.webp",
+            },
+          ],
+          hideOpenInNewTab: true,
           title: "SoilSense landing page",
           openLabel: "Otwórz pełny zrzut ekranu",
           openAriaLabel: "Otwórz pełny zrzut ekranu landingu SoilSense",
